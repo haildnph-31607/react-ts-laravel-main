@@ -12,7 +12,7 @@ class IndexController extends Controller
      */
     public function index()
     {
-        //
+        return view('client.home');
     }
 
     /**
@@ -36,7 +36,7 @@ class IndexController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('client.detail-product');
     }
 
     /**
