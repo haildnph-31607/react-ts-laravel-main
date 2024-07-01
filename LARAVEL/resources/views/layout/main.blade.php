@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('logo/image.png')}}">
 
     <link rel="stylesheet" href="{{ asset('css/preloader.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
@@ -204,7 +204,7 @@
                                                             <div class="cart__inner d-flex">
                                                                 <div class="cart__thumb">
                                                                     <a href="product-details.html">
-                                                                        <img src="assets/img/cart/20.jpg"
+                                                                        <img src="{{asset('logo/image.png')}}"
                                                                             alt="">
                                                                     </a>
                                                                 </div>
@@ -321,7 +321,7 @@
             <div class="offcanvas__content">
                 <div class="offcanvas__logo mb-40">
                     <a href="{{route('index')}}">
-                        <img src="a{{asset('logo/logo-white.png')}}" alt="logo">
+                        <img src="{{asset('logo/logo-white.png')}}" alt="logo">
                     </a>
                 </div>
                 <div class="offcanvas__search mb-25">
