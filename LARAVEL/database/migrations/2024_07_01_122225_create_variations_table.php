@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('variation', function (Blueprint $table) {
+        Schema::create('variations', function (Blueprint $table) {
             $table->id();  // Tạo cột id với auto_increment
             $table->unsignedBigInteger('id_product');  // Tạo cột id_product mà không có auto_increment
             $table->unsignedBigInteger('id_color');  // Tạo cột id_color mà không có auto_increment
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('variation');
+        Schema::dropIfExists('variations');
     }
 };

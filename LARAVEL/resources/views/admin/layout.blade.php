@@ -10,64 +10,38 @@
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Lamarena" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
     <link rel="shortcut icon" href="assets/images/favicon.html">
-
-
     <link rel="stylesheet" href="{{ asset('dashboard/morris/morris.css') }}">
-
 
     <link href="{{ asset('dashboard/css/owl.carousel.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('dashboard/css/owl.theme.default.min.css') }}" rel="stylesheet" />
-
-
+    <link rel="stylesheet" href="//cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
     <link href="{{ asset('dashboard/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('dashboard/css/metismenu.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('dashboard/css/style.css') }}" rel="stylesheet" type="text/css" />
-
     <script src="{{ asset('dashboard/js/modernizr.min.js') }}"></script>
 
 </head>
 
-
 <body>
-
-
     <div id="wrapper">
         <div class="container-fluid">
-
-
             <div class="layout-wrapper">
-
-
-
                 <div class="left side-menu">
-
                     <div class="gggf" id="refgfg">
-
-
                         <div class="top-header-left">
-                            <a href="{{route('admin')}}" class="logo">
+                            <a href="{{ route('admin') }}" class="logo">
                                 <span>
-                                    <img src="{{asset('logo/image.png')}}" alt="" style="border: 3px solid lightgreen; border-radius: 50%;" height="50">
+                                    <img src="{{ asset('logo/image.png') }}" alt=""
+                                        style="border: 3px solid lightgreen; border-radius: 50%;" height="50">
                                 </span>
-
-
                             </a>
                         </div>
-
-
-
-
                         <div id="sidebar-menu">
-
                             <ul class="metismenu" id="side-menu">
-
-
                                 <li class="menu-title">General</li>
-
                                 <li>
-                                    <a href="{{route('admin')}}">
+                                    <a href="{{ route('admin') }}">
                                         <ion-icon name="home-outline"></ion-icon><span
                                             class="badge badge-danger badge-pill pull-right">7</span> <span> Dashboard
                                         </span>
@@ -75,29 +49,52 @@
                                 </li>
                                 <li class="menu-title">Framework</li>
                                 <li>
-                                    <a href="javascript: void(0);"><span> Layout </span> <span
-                                            class="menu-arrow"></span></a>
+                                    <a href="javascript: void(0);"><span> Products </span><ion-icon
+                                            name="aperture-outline"></ion-icon></a>
                                     <ul class="nav-second-level" aria-expanded="false">
-                                        <li><a href="layouts-menucollapsed.html">Menu Collapsed</a></li>
-                                        <li><a href="layouts-small-menu.html">Small Menu</a></li>
-                                        <li><a href="layouts-center-logo.html">Center Header</a></li>
-                                        <li><a href="layouts-boxed.html">Boxed</a></li>
+                                        <li><a href="{{ route('product.index') }}">Product List</a><span> <ion-icon
+                                                    name="receipt-outline"></ion-icon></span></li>
+                                        <li><a href="{{ route('product.create') }}">Product Add</a> <span><ion-icon
+                                                    name="add-circle-outline"></ion-icon></span></li>
+
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="javascript: void(0);"> <span> UI Kit </span>
-                                        <span class="menu-arrow"></span></a>
+                                    <a href="javascript: void(0);"> <span> Category <ion-icon
+                                                name="layers-outline"></ion-icon></a>
                                     <ul class="nav-second-level" aria-expanded="false">
-                                        <li><a href="ui-typography.html">Typography</a></li>
-                                        <li><a href="ui-cards.html">cards</a></li>
+                                        <li><a href="{{ route('category.index') }}">Category List</a></li>
+                                        <li><a href="{{ route('category.create') }}">Category Add</a></li>
 
                                     </ul>
                                 </li>
 
                                 <li>
-                                    <a href="widgets.html">
-                                       <span> Widgets </span>
-                                    </a>
+                                    <a href="javascript: void(0);"> <span> Variation <ion-icon
+                                                name="git-network-outline"></ion-icon></a>
+                                    <ul class="nav-second-level" aria-expanded="false">
+                                        <li><a href="{{ route('variation.index') }}">Variation List</a></li>
+                                        <li><a href="{{ route('variation.create') }}">Variation Add</a></li>
+
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="javascript: void(0);"> <span> Size <ion-icon
+                                                name="layers-outline"></ion-icon></a>
+                                    <ul class="nav-second-level" aria-expanded="false">
+                                        <li><a href="{{ route('size.index') }}">Size List</a></li>
+                                        <li><a href="{{ route('size.create') }}">Size Add</a></li>
+
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="javascript: void(0);"> <span> Color <ion-icon
+                                                name="layers-outline"></ion-icon></a>
+                                    <ul class="nav-second-level" aria-expanded="false">
+                                        <li><a href="{{ route('color.index') }}">Color List</a></li>
+                                        <li><a href="{{ route('color.create') }}">Color Add</a></li>
+
+                                    </ul>
                                 </li>
 
                                 <li>
@@ -186,8 +183,7 @@
                                 <li class="menu-title">More</li>
 
                                 <li>
-                                    <a href="javascript: void(0);"> Maps </span> <span
-                                            class="menu-arrow"></span></a>
+                                    <a href="javascript: void(0);"> Maps </span> <span class="menu-arrow"></span></a>
                                     <ul class="nav-second-level" aria-expanded="false">
                                         <li><a href="maps-google.html">Google Maps</a></li>
 
@@ -237,7 +233,7 @@
                                         <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown"
                                             href="#" role="button" aria-haspopup="false"
                                             aria-expanded="false">English
-                                            <img src="{{asset('logo/image.png')}}" class="ml-2" height="16"
+                                            <img src="{{ asset('logo/image.png') }}" class="ml-2" height="16"
                                                 alt="">
 
                                         </a>
@@ -249,7 +245,7 @@
                                                 <a href="javascript:void(0);"
                                                     class="dropdown-item notify-item d-flex flex-row justify-content-between">
                                                     <div class="text-left">German</div>
-                                                    <img src="{{asset('logo/image.png')}}" class="ml-2"
+                                                    <img src="{{ asset('logo/image.png') }}" class="ml-2"
                                                         height="16" alt="">
                                                 </a>
 
@@ -257,7 +253,7 @@
                                                 <a href="javascript:void(0);"
                                                     class="dropdown-item notify-item d-flex flex-row justify-content-between">
                                                     <div class="text-left">Italy</div>
-                                                    <img src="{{asset('logo/image.png')}}" class="ml-2"
+                                                    <img src="{{ asset('logo/image.png') }}" class="ml-2"
                                                         height="16" alt="">
                                                 </a>
 
@@ -265,7 +261,7 @@
                                                 <a href="javascript:void(0);"
                                                     class="ddropdown-item notify-item d-flex flex-row justify-content-between">
                                                     <div class="text-left">France</div>
-                                                    <img src="{{asset('logo/image.png')}}" class="ml-2"
+                                                    <img src="{{ asset('logo/image.png') }}" class="ml-2"
                                                         height="16" alt="">
                                                 </a>
 
@@ -273,7 +269,7 @@
                                                 <a href="javascript:void(0);"
                                                     class="dropdown-item notify-item d-flex flex-row justify-content-between">
                                                     <div class="text-left">Spain</div>
-                                                    <img src="{{asset('logo/image.png')}}" class="ml-2"
+                                                    <img src="{{ asset('logo/image.png') }}" class="ml-2"
                                                         height="16" alt="">
                                                 </a>
 
@@ -385,8 +381,7 @@
                                             <div class="slimscroll" style="max-height: 230px;">
 
                                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                                    <div class="notify-icon"><img
-                                                            src="{{asset('logo/image.png')}}"
+                                                    <div class="notify-icon"><img src="{{ asset('logo/image.png') }}"
                                                             class="img-fluid rounded-circle" alt="" /> </div>
                                                     <p class="notify-details">Jasna Jakimova</p>
                                                     <p class="text-muted font-13 mb-0 user-msg">Hey, how are you? I
@@ -395,8 +390,7 @@
 
 
                                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                                    <div class="notify-icon"><img
-                                                            src="{{asset('logo/image.png')}}"
+                                                    <div class="notify-icon"><img src="{{ asset('logo/image.png') }}"
                                                             class="img-fluid rounded-circle" alt="" /> </div>
                                                     <p class="notify-details">Gereth Smith</p>
                                                     <p class="text-muted font-13 mb-0 user-msg">This looks awesome,
@@ -405,8 +399,7 @@
 
 
                                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                                    <div class="notify-icon"><img
-                                                            src="{{asset('logo/image.png')}}"
+                                                    <div class="notify-icon"><img src="{{ asset('logo/image.png') }}"
                                                             class="img-fluid rounded-circle" alt="" /> </div>
                                                     <p class="notify-details">Jeneth Swonson</p>
                                                     <p class="text-muted font-13 mb-0 user-msg">What are you doing next
@@ -415,8 +408,7 @@
 
 
                                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                                    <div class="notify-icon"><img
-                                                            src="{{asset('logo/image.png')}}"
+                                                    <div class="notify-icon"><img src="{{ asset('logo/image.png') }}"
                                                             class="img-fluid rounded-circle" alt="" /> </div>
                                                     <p class="notify-details">Sensi Sodran</p>
                                                     <p class="text-muted font-13 mb-0 user-msg">This looks greaaatt :
@@ -425,8 +417,7 @@
 
 
                                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                                    <div class="notify-icon"><img
-                                                            src="{{asset('logo/image.png')}}"
+                                                    <div class="notify-icon"><img src="{{ asset('logo/image.png') }}"
                                                             class="img-fluid rounded-circle" alt="" /> </div>
                                                     <p class="notify-details">MIlinto JAkonson</p>
                                                     <p class="text-muted font-13 mb-0 user-msg">Yeah everything is fine
@@ -447,7 +438,7 @@
                                         <a class="nav-link dropdown-toggle nav-user" data-toggle="dropdown"
                                             href="#" role="button" aria-haspopup="false"
                                             aria-expanded="false">
-                                            <img src="{{asset('logo/image.png')}}" alt="user"
+                                            <img src="{{ asset('logo/image.png') }}" alt="user"
                                                 class="rounded-circle">
                                         </a>
                                         <div
@@ -469,7 +460,7 @@
 
 
                                             <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                            Support</span>
+                                                Support</span>
                                             </a>
 
 
@@ -490,75 +481,57 @@
                                 <ul class="list-inline menu-left float-left mb-0">
                                     <li class="float-left toggle-icon">
                                         <button class="button-menu-mobile open-left">
-                                            i>
+                                            <ion-icon name="menu-outline"></ion-icon>
                                         </button>
                                     </li>
                                     <li class="nav-item hidden-sm-down search-box float-left"> <a
-                                            class="nav-link hidden-sm-down text-muted  " href="javascript:void(0)"></a>
+                                            class="nav-link hidden-sm-down text-muted  "
+                                            href="javascript:void(0)"></a>
                                         <form class="app-search">
                                             <input type="text" class="form-control" placeholder="Search here"> <a
-                                                class="srh-btn">
+                                                class="srh-btn"><ion-icon name="search-outline"></ion-icon></a>
                                         </form>
                                     </li>
 
                                 </ul>
                             </div>
                         </nav>
-
                     </div>
-
-
-
-
-
                     <div class="content">
-
-
-
                         @yield('main')
-
-
-
-
                     </div>
-
                     <footer class="footer text-right">
                         2020 © Le Duc Ngoc Hai
                     </footer>
-
                 </div>
-
-
             </div>
         </div>
     </div>
-
-
-
-
     <script src="{{ asset('dashboard/js/jquery.min.js') }}"></script>
     <script src="{{ asset('dashboard/js/popper.min.js') }}"></script>
     <script src="{{ asset('dashboard/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('dashboard/js/metisMenu.min.js') }}"></script>
     <script src="{{ asset('dashboard/js/waves.js') }}"></script>
     <script src="{{ asset('dashboard/js/jquery.slimscroll.js') }}"></script>
-
     <script src="{{ asset('dashboard/morris/morris.min.js') }}"></script>
     <script src="{{ asset('dashboard/raphael/raphael-min.js') }}"></script>
     <script src="{{ asset('dashboard/pages/dashboard.js') }}"></script>
-
     <script src="{{ asset('dashboard/jquery-sparkline/jquery.sparkline.min.js') }}"></script>
-
     <script src="{{ asset('dashboard/js/jquery.core.js') }}"></script>
     <script src="{{ asset('dashboard/js/jquery.app.js') }}"></script>
-
     <script src="{{ asset('dashboard/owl-carousel/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('dashboard/owl-carousel/owl.carousel-init.js') }}"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="//cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var table = $('#datatable-buttons').DataTable({
+                lengthChange: false,
+                buttons: ['copy', 'excel', 'pdf', 'print']
+            });
 
+        });
+    </script>
 </body>
-
-
-
 </html>
