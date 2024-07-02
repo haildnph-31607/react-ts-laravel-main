@@ -120,56 +120,63 @@
                 <div class="product-bs-slider">
                     <div class="product-slider swiper-container">
                         <div class="swiper-wrapper">
-                            <div class="product__item swiper-slide">
-                                <div class="product__thumb fix">
-                                    <div class="product-image w-img">
-                                        <a href="{{route('detail-product',1)}}">
-                                            <img src="{{asset('product/tp-1.jpg')}}" alt="product">
-                                        </a>
-                                    </div>
-                                    <div class="product__offer">
-                                    <span class="discount">-15%</span>
-                                    </div>
-                                    <div class="product-action">
-                                        <a href="#" class="icon-box icon-box-1" data-bs-toggle="modal" data-bs-target="#productModalId">
-                                            <ion-icon style="font-size: 18px; margin-top:10px" name="eye-outline"></ion-icon>
-                                        </a>
-                                        <a href="#" class="icon-box icon-box-1">
-                                            <ion-icon  style="font-size: 18px; margin-top:10px" name="heart-outline"></ion-icon>
-                                        </a>
-                                        <a href="#" class="icon-box icon-box-1">
-                                            <ion-icon  style="font-size: 18px; margin-top:10px" name="layers-outline"></ion-icon>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="product__content">
-                                    <h6><a href="{{route('detail-product',1)}}">Epple iPad Pro 10.5-inch Cellular 64G</a></h6>
-                                    <div class="rating mb-5">
-                                        <ul>
-                                            <ion-icon  style="font-size: 16px; color: orange" name="star-outline"></ion-icon>
-                                            <ion-icon style="font-size: 16px;  color: orange" name="star-outline"></ion-icon>
-                                            <ion-icon style="font-size: 16px;  color: orange" name="star-outline"></ion-icon>
-                                            <ion-icon style="font-size: 16px;  color: orange" name="star-outline"></ion-icon>
-                                            <ion-icon style="font-size: 16px;  color: orange" name="star-outline"></ion-icon>
-                                        </ul>
-                                        <span>(01 review)</span>
-                                    </div>
-                                    <div class="price mb-10">
-                                        <span>$105-$110</span>
-                                    </div>
-                                    <div class="progress mb-5">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 10%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <div class="progress-rate">
-                                        <span>Sold:312/1225</span>
-                                    </div>
-                                </div>
-                                <div class="product__add-cart text-center">
-                                    <button type="button" class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100">
-                                    Add to Cart
-                                    </button>
-                                </div>
-                            </div>
+
+                   @foreach($product as $item)
+
+                   <div class="product__item swiper-slide">
+                    <div class="product__thumb fix">
+                        <div class="product-image w-img">
+                            <a href="{{route('detail-product',1)}}">
+                                <img src="{{asset('/uploads/product/'.$item->image)}}" height="210px" alt="product">
+                            </a>
+                        </div>
+                        <div class="product__offer">
+                        <span class="discount">-15%</span>
+                        </div>
+                        <div class="product-action">
+                            <a href="#" class="icon-box icon-box-1" data-bs-toggle="modal" data-bs-target="#productModalId">
+                                <ion-icon style="font-size: 18px; margin-top:10px" name="eye-outline"></ion-icon>
+                            </a>
+                            <a href="#" class="icon-box icon-box-1">
+                                <ion-icon  style="font-size: 18px; margin-top:10px" name="heart-outline"></ion-icon>
+                            </a>
+                            <a href="#" class="icon-box icon-box-1">
+                                <ion-icon  style="font-size: 18px; margin-top:10px" name="layers-outline"></ion-icon>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product__content">
+                        <h6><a href="{{route('detail-product',$item->id)}}">{{$item->name}}</a></h6>
+                        <div class="rating mb-5">
+                            <ul>
+                                <ion-icon  style="font-size: 16px; color: orange" name="star-outline"></ion-icon>
+                                <ion-icon style="font-size: 16px;  color: orange" name="star-outline"></ion-icon>
+                                <ion-icon style="font-size: 16px;  color: orange" name="star-outline"></ion-icon>
+                                <ion-icon style="font-size: 16px;  color: orange" name="star-outline"></ion-icon>
+                                <ion-icon style="font-size: 16px;  color: orange" name="star-outline"></ion-icon>
+                            </ul>
+                            <span>(01 review)</span>
+                        </div>
+                        <div class="price mb-10">
+                            <span> {{ number_format($item->price, 0, ',', '.')  }} VNĐ</span>
+                        </div>
+                        <div class="progress mb-5">
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: 10%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="progress-rate">
+                            <span>Sold:312/1225</span>
+                        </div>
+                    </div>
+                    <div class="product__add-cart text-center">
+                        <button type="button" class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100">
+                        <a href="{{route('detail-product',$item->id)}}"> View To Product</a>
+                        </button>
+                    </div>
+                </div>
+
+
+                   @endforeach
+
 
                         </div>
                     </div>
@@ -232,51 +239,54 @@
                             <div class="product-bs-slider-2">
                                 <div class="product-slider-2 swiper-container">
                                     <div class="swiper-wrapper">
-                                        <div class="product__item swiper-slide">
-                                            <div class="product__thumb fix">
-                                                <div class="product-image w-img">
-                                                    <a href="{{route('detail-product',1)}}">
-                                                        <img src="{{asset('product/tp-1.jpg')}}" alt="product">
-                                                    </a>
-                                                </div>
-                                                <div class="product__offer">
-                                                <span class="discount">-15%</span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="#" class="icon-box icon-box-1" data-bs-toggle="modal" data-bs-target="#productModalId">
-                                                       <ion-icon style="font-size: 18px; margin-top:10px" name="eye-outline"></ion-icon>
 
-                                                    </a>
-                                                    <a href="#" class="icon-box icon-box-1">
-                                                        <ion-icon  style="font-size: 18px; margin-top:10px" name="heart-outline"></ion-icon>
-                                                    </a>
-                                                    <a href="#" class="icon-box icon-box-1">
-                                                        <ion-icon  style="font-size: 18px; margin-top:10px" name="layers-outline"></ion-icon>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="product__content">
-                                                <h6><a href="{{route('detail-product',1)}}">Epple iPad Pro 10.5-inch Cellular 64G</a></h6>
-                                                <div class="rating mb-5">
-                                                    <ul>
-                                                       <ion-icon  style="font-size: 16px; color: orange" name="star-outline"></ion-icon>
-                                                       <ion-icon style="font-size: 16px;  color: orange" name="star-outline"></ion-icon>
-                                                       <ion-icon style="font-size: 16px;  color: orange" name="star-outline"></ion-icon>
-                                                       <ion-icon style="font-size: 16px;  color: orange" name="star-outline"></ion-icon>
-                                                       <ion-icon style="font-size: 16px;  color: orange" name="star-outline"></ion-icon>
-                                                    </ul>
-                                                    <span>(01 review)</span>
-                                                </div>
-                                                <div class="price">
-                                                    <span>$105-$110</span>
-                                                </div>
-                                            </div>
-                                            <div class="product__add-cart text-center">
-                                                <button type="button" class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100">
-                                                Add to Cart
-                                                </button>
-                                            </div>
+                                   @foreach ($product as $item)
+                                   <div class="product__item swiper-slide">
+                                    <div class="product__thumb fix">
+                                        <div class="product-image w-img">
+                                            <a href="{{route('detail-product',$item->id)}}">
+                                                <img src="{{asset('uploads/product/'.$item->image)}}" height="210px"  alt="product">
+                                            </a>
                                         </div>
+                                        <div class="product__offer">
+                                        <span class="discount">-15%</span>
+                                        </div>
+                                        <div class="product-action">
+                                            <a href="#" class="icon-box icon-box-1" data-bs-toggle="modal" data-bs-target="#productModalId">
+                                               <ion-icon style="font-size: 18px; margin-top:10px" name="eye-outline"></ion-icon>
+
+                                            </a>
+                                            <a href="#" class="icon-box icon-box-1">
+                                                <ion-icon  style="font-size: 18px; margin-top:10px" name="heart-outline"></ion-icon>
+                                            </a>
+                                            <a href="#" class="icon-box icon-box-1">
+                                                <ion-icon  style="font-size: 18px; margin-top:10px" name="layers-outline"></ion-icon>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="product__content">
+                                        <h6><a href="{{route('detail-product',$item->id)}}">{{$item->name}}</a></h6>
+                                        <div class="rating mb-5">
+                                            <ul>
+                                               <ion-icon  style="font-size: 16px; color: orange" name="star-outline"></ion-icon>
+                                               <ion-icon style="font-size: 16px;  color: orange" name="star-outline"></ion-icon>
+                                               <ion-icon style="font-size: 16px;  color: orange" name="star-outline"></ion-icon>
+                                               <ion-icon style="font-size: 16px;  color: orange" name="star-outline"></ion-icon>
+                                               <ion-icon style="font-size: 16px;  color: orange" name="star-outline"></ion-icon>
+                                            </ul>
+                                            <span>(01 review)</span>
+                                        </div>
+                                        <div class="price">
+                                            <span> {{ number_format($item->price, 0, ',', '.')  }} VNĐ</span>
+                                        </div>
+                                    </div>
+                                    <div class="product__add-cart text-center">
+                                        <button type="button" class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100">
+                                      <a href="{{route('detail-product',$item->id)}}">View To Product</a>
+                                        </button>
+                                    </div>
+                                </div>
+                                   @endforeach
 
                                     </div>
                                 </div>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -12,7 +14,9 @@ class IndexController extends Controller
      */
     public function index()
     {
-        return view('client.home');
+        $category = Category::all();
+        $product = Product::where('status', 0)->get();
+        return view('client.home',compact('category','product'));
     }
 
     /**
@@ -36,7 +40,10 @@ class IndexController extends Controller
      */
     public function show(string $id)
     {
-        return view('client.detail-product');
+        $detail = Product::with('variation')->where('id',$id)->first();
+        $category = Category::all();
+        // return response()->json($detail);
+        return view('client.detail-product',compact('category'));
     }
 
     /**
@@ -44,7 +51,7 @@ class IndexController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
     }
 
     /**

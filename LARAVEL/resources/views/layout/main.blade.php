@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('logo/image.png')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('logo/image.png') }}">
 
     <link rel="stylesheet" href="{{ asset('css/preloader.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
@@ -140,8 +140,8 @@
                             <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
                                 <div class="header__info">
                                     <div class="logo">
-                                        <a href="{{route('index')}}" class="logo-image"><img src="{{asset('logo/logo1.svg')}}"
-                                                alt="logo"></a>
+                                        <a href="{{ route('index') }}" class="logo-image"><img
+                                                src="{{ asset('logo/logo1.svg') }}" alt="logo"></a>
                                     </div>
                                 </div>
                             </div>
@@ -151,11 +151,15 @@
                                         <div class="header__search-box">
                                             <input class="search-input" type="text"
                                                 placeholder="I'm shopping for...">
-                                            <button class="button" type="submit"><ion-icon style="margin-top: 10px" name="search-outline"></ion-icon></button>
+                                            <button class="button" type="submit"><ion-icon style="margin-top: 10px"
+                                                    name="search-outline"></ion-icon></button>
                                         </div>
                                         <div class="header__search-cat">
                                             <select>
-                                                <option>All Categories</option>
+                                                <option value="" selected>Chọn Danh Mục</option>
+                                                @foreach ($category as $item)
+                                                    <option><a href="">{{ $item->name }}</a></option>
+                                                @endforeach
 
                                             </select>
                                         </div>
@@ -204,7 +208,7 @@
                                                             <div class="cart__inner d-flex">
                                                                 <div class="cart__thumb">
                                                                     <a href="product-details.html">
-                                                                        <img src="{{asset('logo/image.png')}}"
+                                                                        <img src="{{ asset('logo/image.png') }}"
                                                                             alt="">
                                                                     </a>
                                                                 </div>
@@ -248,24 +252,17 @@
                         <div class="col-lg-3">
                             <div class="cat__menu-wrapper side-border d-none d-lg-block">
                                 <div class="cat-toggle">
-                                    <button type="button" class="cat-toggle-btn cat-toggle-btn-1"><ion-icon name="apps-outline"></ion-icon> Shop by department</button>
+                                    <button type="button" class="cat-toggle-btn cat-toggle-btn-1"><ion-icon
+                                            name="apps-outline"></ion-icon> Shop by department</button>
                                     <div class="cat__menu">
                                         <nav id="mobile-menu" style="display: block;">
                                             <ul>
-                                                <li>
-                                                    <a href="shop.html">All Categories <i
-                                                            class="far fa-angle-down"></i></a>
 
-                                                </li>
-
-
-                                                <li><a href="shop.html">TV &amp; Audio</a></li>
-                                                <li><a href="shop.html">Electronics &amp; Digital</a></li>
-                                                <li class="d-laptop-none"><a href="shop.html">Fashion &amp;
-                                                        Clothings</a></li>
-                                                <li class="d-laptop-none"><a href="shop.html">Jewelry &amp;
-                                                        Watches</a></li>
-                                                <li><a href="shop.html">Health &amp; Beauty</a></li>
+                                                @foreach ($category as $items)
+                                                    <li>
+                                                        <a href="">{{ $items->name }} </a>
+                                                    </li>
+                                                @endforeach
                                             </ul>
                                         </nav>
                                     </div>
@@ -282,20 +279,20 @@
                                     <nav>
                                         <ul>
                                             <li>
-                                                <a href="{{route('index')}}" class="active"><ion-icon style="margin-top: 20px" name="home-outline"></ion-icon> Home </a>
+                                                <a href="{{ route('index') }}" class="active"><ion-icon
+                                                        style="margin-top: 20px" name="home-outline"></ion-icon> Home
+                                                </a>
 
                                             </li>
-                                            <li><a href="about.html"> <ion-icon style="margin-top: 20px" name="cube-outline"></ion-icon> Product</a></li>
-                                            {{-- <li class="has-mega"><a href="shop.html"> Product </a> --}}
+                                            <li><a href=""> <ion-icon style="margin-top: 20px"
+                                                        name="cube-outline"></ion-icon> Product</a></li>
 
                                             </li>
-                                            <li><a href="blog.html"> <ion-icon style="margin-top: 20px" name="newspaper-outline"></ion-icon> Blog </a>
+                                            <li><a href=""> <ion-icon style="margin-top: 20px"
+                                                        name="newspaper-outline"></ion-icon> Blog </a>
 
                                             </li>
-                                            {{-- <li>
-                                                <a href="about.html">Pages </a>
 
-                                            </li> --}}
                                         </ul>
                                     </nav>
                                 </div>
@@ -320,8 +317,8 @@
             </div>
             <div class="offcanvas__content">
                 <div class="offcanvas__logo mb-40">
-                    <a href="{{route('index')}}">
-                        <img src="{{asset('logo/logo-white.png')}}" alt="logo">
+                    <a href="{{ route('index') }}">
+                        <img src="{{ asset('logo/logo-white.png') }}" alt="logo">
                     </a>
                 </div>
                 <div class="offcanvas__search mb-25">
@@ -456,8 +453,7 @@
                                                 <div class="footer__info">
                                                     <ul>
                                                         <li>
-                                                            <span>Add: <a target="_blank"
-                                                                    href="">Walls
+                                                            <span>Add: <a target="_blank" href="">Walls
                                                                     Street 68, Mahattan, New York, USA</a></span>
                                                         </li>
                                                     </ul>
