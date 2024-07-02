@@ -78,15 +78,7 @@
 
                                     </ul>
                                 </li>
-                                <li>
-                                    <a href="javascript: void(0);"> <span> Size <ion-icon
-                                                name="layers-outline"></ion-icon></a>
-                                    <ul class="nav-second-level" aria-expanded="false">
-                                        <li><a href="{{ route('size.index') }}">Size List</a></li>
-                                        <li><a href="{{ route('size.create') }}">Size Add</a></li>
 
-                                    </ul>
-                                </li>
                                 <li>
                                     <a href="javascript: void(0);"> <span> Color <ion-icon
                                                 name="layers-outline"></ion-icon></a>

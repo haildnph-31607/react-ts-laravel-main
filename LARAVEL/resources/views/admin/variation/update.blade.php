@@ -2,18 +2,19 @@
 @section('main')
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
-            <h4 class="header-title">ADD VARIATION</h4>
-            <form class="forms-sample" action="{{ route('variation.store') }}" method="POST" enctype="multipart/form-data">
+            <h4 class="header-title">UPDATE VARIATION</h4>
+            <form class="forms-sample" action="{{ route('variation.update',$data->id) }}" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Product</label>
                     <select class="form-control form-control-lg" name="product" id="exampleFormControlSelect1">
                         <option value="" selected>Chose Product</option>
                         @foreach ($product as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            <option value="{{ $item->id }}" {{($item->id === $data->id_product) ? 'selected' : ''}}>{{ $item->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 @csrf
+                @method('PATCH')
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Status</label>
                     <select class="form-control form-control-lg" name="status" id="exampleFormControlSelect1">
@@ -26,26 +27,27 @@
                     <select class="form-control form-control-lg" name="color" id="exampleFormControlSelect1">
                         <option value="" selected>Chose Color</option>
                         @foreach ($color as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            <option value="{{ $item->id }}" {{($item->id === $data->id_color) ? 'selected' : ''}}>{{ $item->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail3">Price</label>
                     <input type="number" class="form-control" id="exampleInputEmail3" name="price"
-                        placeholder="Price Product">
+                        placeholder="Price Product" value="{{$data->price}}">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail3">Quantity</label>
                     <input type="number" class="form-control" id="exampleInputEmail3" name="quantity"
-                        placeholder="Quantity Product">
+                        placeholder="Quantity Product"  value="{{$data->quantity}}">
                 </div>
+                <input type="hidden" name="file"  value="{{$data->image}}">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <h4 class="header-title m-t-0">Dropzone File Upload Image</h4>
                             <p class="text-muted font-14 m-b-10">
-                                Your awesome image goes here.
+                                <img src="{{asset('uploads/variation/'.$data->image)}}" width="100px" alt="">
                             </p>
                             <button type="button" class="btn btn-custom btn-file">
                                 <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select file</span>
