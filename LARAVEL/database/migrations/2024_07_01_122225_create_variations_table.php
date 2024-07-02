@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('status');  // Tạo cột status với kiểu dữ liệu phù hợp
             $table->unsignedBigInteger('price');
             $table->unsignedBigInteger('quantity');
+            $table->string('colorText', 20);
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });

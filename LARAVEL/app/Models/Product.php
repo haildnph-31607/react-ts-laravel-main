@@ -15,4 +15,7 @@ class Product extends Model
     public function variation(){
      return $this->hasMany(Variation::class,'id_product');
     }
+    public function color(){
+        return $this->belongsTo(Variation::class,'id_color');
+    }
 }

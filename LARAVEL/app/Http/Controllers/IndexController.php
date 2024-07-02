@@ -24,7 +24,7 @@ class IndexController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -32,7 +32,7 @@ class IndexController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -40,10 +40,12 @@ class IndexController extends Controller
      */
     public function show(string $id)
     {
-        $detail = Product::with('variation')->where('id',$id)->first();
+        $detail = Product::with('variation','category','color')->where('id',$id)->first();
         $category = Category::all();
         // return response()->json($detail);
-        return view('client.detail-product',compact('category'));
+        $associated  = Product::where('id_category' ,$detail->id_category)->whereNot('id',$detail->id)->get();
+
+        return view('client.detail-product',compact('category','detail','associated'));
     }
 
     /**
@@ -59,7 +61,7 @@ class IndexController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
     }
 
     /**

@@ -126,7 +126,7 @@
                    <div class="product__item swiper-slide">
                     <div class="product__thumb fix">
                         <div class="product-image w-img">
-                            <a href="{{route('detail-product',1)}}">
+                            <a href="{{route('detail-product',$item->id)}}">
                                 <img src="{{asset('/uploads/product/'.$item->image)}}" height="210px" alt="product">
                             </a>
                         </div>

@@ -40,6 +40,7 @@ class VariationController extends Controller
         $variation->id_color = $data['color'];
         $variation->status = $data['status'];
         $variation->price = $data['price'];
+        $variation->colorText = $data['colorText'];
         $variation->quantity = $data['quantity'];
         $file = $request->file('file');
         $path = 'uploads/variation/';
@@ -83,6 +84,8 @@ class VariationController extends Controller
         $variation->id_color = $data['color'];
         $variation->status = $data['status'];
         $variation->price = $data['price'];
+        $variation->colorText = $data['colorText'];
+
         $variation->quantity = $data['quantity'];
         $image_real = $data['file'];
         $file = $request->file('file');

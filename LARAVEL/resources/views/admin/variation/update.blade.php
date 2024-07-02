@@ -23,11 +23,11 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlSelect1">Color</label>
-                    <select class="form-control form-control-lg" name="color" id="exampleFormControlSelect1">
+                    <label for="">Color</label>
+                    <select class="form-control form-control-lg" onchange="DataInput()" name="color" id="exampleFormControlSelect">
                         <option value="" selected>Chose Color</option>
                         @foreach ($color as $item)
-                            <option value="{{ $item->id }}" {{($item->id === $data->id_color) ? 'selected' : ''}}>{{ $item->name }}</option>
+                            <option data-text="{{$item->name}}" value="{{ $item->id }}" {{($item->id === $data->id_color) ? 'selected' : ''}}>{{ $item->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -57,12 +57,24 @@
                         </div>
                     </div>
                 </div>
-
+                <input type="hidden" id="colorInput" name="colorText" value="{{$data->colorText}}">
 
                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
                 <a href="{{ route('variation.index') }}" class="btn btn-light">Back List Variation</a>
             </form>
 
         </div>
+        <script type="text/javascript">
+            function DataInput() {
+                let colorInput = document.getElementById('colorInput');
+                const selectElement = document.getElementById('exampleFormControlSelect');
+                const selectedOption = selectElement.options[selectElement.selectedIndex];
+                const dataText = selectedOption.getAttribute('data-text');
+
+                colorInput.value = dataText;
+
+
+            }
+        </script>
     </div>
 @endsection
