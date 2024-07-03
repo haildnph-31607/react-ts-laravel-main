@@ -49,6 +49,43 @@
         .color-option input[type="radio"]:checked + label {
             border: 2px solid red;
         }
+        .variant-button {
+    width: 100px;
+    height: 50px;
+    background-color: #f0f0f0;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    position: relative; /* Để đặt dấu tick */
+    transition: all 0.3s ease;
+}
+
+.variant-button.selected {
+    border-color: red;
+}
+
+.variant-button.selected::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 20px 20px 0;
+    border-color: transparent red transparent transparent;
+}
+
+.variant-button.selected::after {
+    content: "✔"; /* Ký hiệu tick */
+    color: white;
+    font-size: 12px;
+    position: absolute;
+    top: 10%; /* Đưa tick vào giữa */
+    right: 4px; /* Cách lề phải */
+    transform: translate(50%, -50%); /* Đặt tick vào giữa và thẳng đứng lên */
+}
 
 </style>
 <section class="breadcrumb__area box-plr-75">
@@ -125,7 +162,7 @@
                        @foreach ($detail->variation as  $item)
                        <div class="color-option">
                         <input type="radio" id="color-{{$item->id}}" name="datacolors" value="{{{$item->colorText}}}">
-                        <label for="color-{{$item->id}}" ><img style="margin-top: -10px; margin-left: -10px;" src="{{asset('/uploads/variation/'.$item->image)}}" width="28px" alt="">{{$item->colorText}}</label>
+                        <label for="color-{{$item->id}}" class="variant-button"><img style="margin-top: -10px; margin-left: -10px;" src="{{asset('/uploads/variation/'.$item->image)}}" width="28px" alt="">{{$item->colorText}}</label>
                     </div>
                        @endforeach
 
@@ -249,6 +286,20 @@
         </div>
     </div>
     <script type="text/javascript">
+       var buttons = document.querySelectorAll('.variant-button');
+
+buttons.forEach(function(button) {
+    button.addEventListener('click', function() {
+        // Xóa class 'selected' từ tất cả các button
+        buttons.forEach(function(btn) {
+            btn.classList.remove('selected');
+        });
+
+        // Thêm class 'selected' vào button được click
+        this.classList.add('selected');
+    });
+});
+
         document.addEventListener('DOMContentLoaded', function () {
             const radioButtons = document.querySelectorAll('input[name="datacolors"]');
 
