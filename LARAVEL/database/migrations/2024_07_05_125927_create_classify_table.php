@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('colors', function (Blueprint $table) {
+        Schema::create('classify', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->bigInteger('id_product')->unsigned();
+            $table->string('classify');
+            $table->float('price', 8, 2);
+            $table->integer('quantity');
+            $table->foreign('id_product')->references('id')->on('products')->onDelete('cascade');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });
@@ -24,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('colors');
+        Schema::dropIfExists('classify');
     }
 };
