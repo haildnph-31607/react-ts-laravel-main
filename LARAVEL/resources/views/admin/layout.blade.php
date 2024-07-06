@@ -20,6 +20,7 @@
     <link href="{{ asset('dashboard/css/metismenu.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('dashboard/css/style.css') }}" rel="stylesheet" type="text/css" />
     <script src="{{ asset('dashboard/js/modernizr.min.js') }}"></script>
+    <script src="https:////cdn.ckeditor.com/4.8.0/full-all/ckeditor.js"></script>
 
 </head>
 

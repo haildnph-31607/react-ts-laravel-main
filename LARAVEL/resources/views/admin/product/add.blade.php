@@ -87,13 +87,12 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail3">Price</label>
-                    <input type="number" class="form-control" id="exampleInputEmail3" name="price"
+                    <input type="number" min="0" class="form-control" id="exampleInputEmail3" name="price"
                         placeholder="Price Product">
                 </div>
                 <div class="form-group">
                     <label for="exampleTextarea1">Description</label>
-                    <textarea class="form-control" id="exampleTextarea1" name="description" rows="4"
-                        placeholder="Description Product"></textarea>
+                    <textarea class="form-control" name="editor" id="editor" rows="4" placeholder="Description Product"></textarea>
                 </div>
                 <div class="row">
                     <div class="col-12">
@@ -114,9 +113,11 @@
                     <div class="col-12">
                         <div class="card bg-info">
                             <h4 class="header-title m-t-0">Add Classify</h4>
-                            <div class="row" id="cloneRowClassify">
-                                <input type="text" placeholder="Classify.." name="classify[]" class="classify"> <input
-                                    type="text" placeholder="Quantity..." class="classify" name="quantity[]">
+                            <div class="row mb-3" id="originalRowClassify">
+                                <input type="text" placeholder="Classify.." name="classify_variant[0][classify]"
+                                    class="classify">
+                                <input type="text" placeholder="Quantity..." class="classify"
+                                    name="classify_variant[0][quantity]">
                             </div>
                         </div>
                     </div>
@@ -127,16 +128,12 @@
                             <h4 class="header-title m-t-0 text-white">Add Variant</h4>
                             <div class="row" id="cloneVariant">
                                 <div class="upload-container">
-                                    <input type="file" id="imageUpload" accept="image/*" hidden>
-                                    <label for="imageUpload" class="upload-label">
-                                        <img id="previewImage"
-                                            src="https://png.pngtree.com/png-clipart/20230401/original/pngtree-cloud-uploading-line-icon-png-image_9016073.png"
-                                            alt="Upload Image">
+                                    <input type="file" name="product_variant[0][image]" accept="image/*">
 
-                                    </label>
                                 </div>
-                                <input type="text" placeholder="Variant..." name="variant[]" class="variant">
-                            </div>
+                                <input type="text" placeholder="Variant..." name="product_variant[0][variant]"
+                                    class="variant">
+                            </div> <br>
                         </div>
                     </div>
                 </div>
@@ -148,7 +145,7 @@
 
             </form>
 
-        </div>
+            {{-- </div>
         <script>
             let btnPreview = document.querySelectorAll('#imageUpload');
             for (const btn of btnPreview) {
@@ -172,31 +169,69 @@
 
                 })
             }
-        </script>
-        <script type="text/javascript">
-            document.getElementById('variant').addEventListener('click', function() {
-                var appendVariant = document.querySelector('.appendVariant');
-                var cloneVariant = document.getElementById('cloneVariant').cloneNode(true);
+        </script> --}}
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var classifyButton = document.getElementById('classify');
+                    var originalRow = document.getElementById('originalRowClassify');
+                    var rowIndex = 1;
+                    classifyButton.addEventListener('click', function() {
+                        var clonedRow = originalRow.cloneNode(true);
+                        var inputs = clonedRow.getElementsByTagName('input');
+                        inputs[0].name = 'classify_variant[' + rowIndex + '][classify]';
+                        inputs[1].name = 'classify_variant[' + rowIndex + '][quantity]';
 
-                // Reset the values of cloned input fields
-                cloneVariant.querySelector('#imageUpload').value = '';
-                cloneVariant.querySelector('#previewImage').src =
-                    'https://png.pngtree.com/png-clipart/20230401/original/pngtree-cloud-uploading-line-icon-png-image_9016073.png';
-                cloneVariant.querySelector('.variant').value = '';
+                        rowIndex++;
 
-                // Add delete button to the cloned row
-                var deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Xoá';
-                deleteButton.classList.add('btn', 'btn-sm', 'btn-danger', 'delete-row');
-                deleteButton.addEventListener('click', function() {
-                    // Remove the entire row when delete button is clicked
-                    cloneVariant.remove();
+                        for (var i = 0; i < inputs.length; i++) {
+                            inputs[i].value = '';
+
+                        }
+
+                        clonedRow.removeAttribute('id'); // Remove the ID to avoid duplicates
+                        originalRow.parentNode.appendChild(
+                            clonedRow); // Append the cloned row to the parent element
+                    });
                 });
-                cloneVariant.appendChild(deleteButton);
+            </script>
+            <script>
+                CKEDITOR.replace('editor');
+            </script>
+            <script type="text/javascript">
+                document.addEventListener('DOMContentLoaded', function() {
+                    var variantButton = document.getElementById('variant');
+                    var appendVariant = document.querySelector('.appendVariant');
+                    var cloneVariant = document.getElementById('cloneVariant');
 
-                // Append cloned row to the appendVariant card
-                appendVariant.appendChild(cloneVariant);
-            });
-        </script>
-    </div>
-@endsection
+                    variantButton.addEventListener('click', function() {
+                        var clonedRow = cloneVariant.cloneNode(true); // Clone the original row
+                        var inputs = clonedRow.getElementsByTagName(
+                        'input');
+
+
+                        var newIndex = appendVariant.getElementsByClassName('row').length; // Calculate new index
+                        inputs[0].name = 'product_variant[' + newIndex + '][image]';
+                        inputs[1].name = 'product_variant[' + newIndex + '][variant]';
+                        inputs[0].id = `imageUpload${newIndex}`;
+
+                        inputs[0].value = '';
+                        inputs[1].value = '';
+
+
+
+                        var deleteButton = document.createElement('button');
+                        deleteButton.textContent = 'Xoá';
+                        deleteButton.classList.add('btn', 'btn-sm', 'btn-danger', 'delete-row');
+                        deleteButton.addEventListener('click', function() {
+
+                            clonedRow.remove();
+                        });
+                        clonedRow.appendChild(deleteButton);
+
+
+                        appendVariant.appendChild(clonedRow);
+                    });
+                });
+            </script>
+        </div>
+    @endsection
