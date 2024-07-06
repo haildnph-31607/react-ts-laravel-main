@@ -40,7 +40,7 @@ class IndexController extends Controller
      */
     public function show(string $id)
     {
-        $detail = Product::with('variation','category','color')->where('id',$id)->first();
+        $detail = Product::with('variant','category','classify')->where('id',$id)->first();
         $category = Category::all();
         // return response()->json($detail);
         $associated  = Product::where('id_category' ,$detail->id_category)->whereNot('id',$detail->id)->get();

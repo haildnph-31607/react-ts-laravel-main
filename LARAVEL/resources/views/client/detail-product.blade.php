@@ -2,91 +2,156 @@
 @section('main')
 <style>
     .quantity {
-        display: flex;
-        align-items: center;
-    }
+            display: flex;
+            align-items: center;
+        }
     .quantity div {
-        cursor: pointer;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #ffff;
-        border: 1px solid #ccc;
-        user-select: none;
-    }
-    .quantity input[type="text"] {
-        width: 50px;
-        height: 40px;
-        text-align: center;
-        border: 1px solid #ccc;
-        margin: 0 5px;
-    }
-    .data-color{
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    }
-    .color-option {
-            display: inline-block;
-            margin: 10px;
-        }
-        .color-option input[type="radio"] {
-            display: none;
-        }
-        .color-option label {
-            display: inline-block;
-            width: 80px;
-            height: 40px;
-            border: 2px solid black;
             cursor: pointer;
-
-            transition: border-color 0.3s;
-            padding-top: 7px;
-            padding-left: 10px;
-            color: black;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffff;
+            border: 1px solid #ccc;
+            user-select: none;
         }
-        .color-option input[type="radio"]:checked + label {
-            border: 2px solid red;
+    .quantity input[type="text"] {
+            width: 50px;
+            height: 40px;
+            text-align: center;
+            border: 1px solid #ccc;
+            margin: 0 5px;
         }
-        .variant-button {
-    width: 100px;
-    height: 50px;
-    background-color: #f0f0f0;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    position: relative; /* Để đặt dấu tick */
-    transition: all 0.3s ease;
-}
+    .data-color{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        }
+    .color-option {
+                display: inline-block;
+                margin: 10px;
+            }
+    .color-option input[type="radio"] {
+            display: none;
+            }
+    .color-option label {
+                display: inline-block;
+                width: 80px;
+                height: 40px;
+                border: 2px solid black;
+                cursor: pointer;
 
-.variant-button.selected {
-    border-color: red;
-}
+                transition: border-color 0.3s;
+                padding-top: 7px;
+                padding-left: 10px;
+                color: black;
+            }
+    .color-option input[type="radio"]:checked + label {
+                border: 2px solid red;
+            }
+    .variant-button {
+        width: 100px;
+        height: 50px;
+        background-color: #f0f0f0;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        position: relative; /* Để đặt dấu tick */
+        transition: all 0.3s ease;
+    }
 
-.variant-button.selected::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0 20px 20px 0;
-    border-color: transparent red transparent transparent;
-}
+    .variant-button.selected {
+        border-color: red;
+    }
 
-.variant-button.selected::after {
-    content: "✔"; /* Ký hiệu tick */
-    color: white;
-    font-size: 12px;
-    position: absolute;
-    top: 10%; /* Đưa tick vào giữa */
-    right: 4px; /* Cách lề phải */
-    transform: translate(50%, -50%); /* Đặt tick vào giữa và thẳng đứng lên */
-}
+    .variant-button.selected::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 20px 20px 0;
+        border-color: transparent red transparent transparent;
+    }
 
+    .variant-button.selected::after {
+        content: "✔"; /* Ký hiệu tick */
+        color: white;
+        font-size: 12px;
+        position: absolute;
+        top: 10%; /* Đưa tick vào giữa */
+        right: 4px; /* Cách lề phải */
+        transform: translate(50%, -50%); /* Đặt tick vào giữa và thẳng đứng lên */
+    }
+    /*
+    classify
+    */
+    .data-class{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        }
+        .class-option {
+                display: inline-block;
+                margin: 10px;
+            }
+        .class-option input[type="radio"] {
+                display: none;
+            }
+        .class-option label {
+                display: inline-block;
+                width: 80px;
+                height: 40px;
+                border: 2px solid black;
+                cursor: pointer;
+
+                transition: border-color 0.3s;
+                padding-top: 7px;
+                padding-left: 10px;
+                color: black;
+            }
+        .class-option input[type="radio"]:checked + label {
+                border: 2px solid red;
+            }
+    .class-button {
+        width: 100px;
+        height: 50px;
+        background-color: #f0f0f0;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        position: relative; /* Để đặt dấu tick */
+        transition: all 0.3s ease;
+    }
+
+    .class-button .selecte {
+        border-color: red;
+    }
+
+    .class-button .selecte::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 20px 20px 0;
+        border-color: transparent red transparent transparent;
+    }
+
+    .class-button .selecte::after {
+        content: "✔"; /* Ký hiệu tick */
+        color: white;
+        font-size: 100px;
+        position: absolute;
+        top: 20px; /* Đưa tick vào giữa */
+        right: 4px; /* Cách lề phải */
+        transform: translate(50%, -50%); /* Đặt tick vào giữa và thẳng đứng lên */
+    }
 </style>
 <section class="breadcrumb__area box-plr-75">
     <div class="container">
@@ -111,7 +176,7 @@
             <div class="col-xl-6">
                 <div class="product__details-nav d-sm-flex align-items-start">
                     <ul class="nav nav-tabs flex-sm-column justify-content-between" id="productThumbTab" role="tablist">
-                         @foreach ($detail->variation as $item)
+                         @foreach ($detail->variant as $item)
                               <li class="nav-item" role="presentation">
                           <button class="nav-link" id="thumb{{$item->id}}-tab" data-bs-toggle="tab" data-bs-target="#thumb{{$item->id}}" type="button" role="tab" aria-controls="thumbTwo" aria-selected="false">
                             <img src="{{asset('uploads/variation/'.$item->image)}}" alt="" width="100px">
@@ -123,15 +188,13 @@
                     </ul>
                     <div class="product__details-thumb">
                         <div class="tab-content" id="productThumbContent">
-
-                           @foreach ($detail->variation as $key=> $item)
+                           @foreach ($detail->variant as $key => $item)
                            <div class="tab-pane fade show {{'keys'.$key}}" id="thumb{{$item->id}}" role="tabpanel" aria-labelledby="thumb{{$item->id}}-tab">
                             <div class="product__details-nav-thumb w-img">
                                 <img src="{{asset('uploads/variation/'.$item->image)}}" alt="">
                             </div>
                         </div>
                            @endforeach
-
                           </div>
                     </div>
                 </div>
@@ -151,7 +214,7 @@
                         <span><a href="#">Add your review</a></span>
                     </div>
                     <div class="price mb-10">
-                        <span>{{ number_format($detail->price, 0, ',', '.')  }} VNĐ</span>
+                        <span id="price">{{ number_format($detail->price, 0, ',', '.')  }} VNĐ</span>
                     </div>
                     <div class="features-des mb-20 mt-10">
                         <ul>
@@ -159,16 +222,28 @@
                         </ul>
                     </div>
                     <div class="data-color">
-                       @foreach ($detail->variation as  $item)
+                       @foreach ($detail->variant as  $item)
                        <div class="color-option">
-                        <input type="radio" id="color-{{$item->id}}" name="datacolors" value="{{{$item->colorText}}}">
-                        <label for="color-{{$item->id}}" class="variant-button"><img style="margin-top: -10px; margin-left: -10px;" src="{{asset('/uploads/variation/'.$item->image)}}" width="28px" alt="">{{$item->colorText}}</label>
+                        <input type="radio" id="color-{{$item->id}}" name="datacolors" value="{{{$item->variant}}}">
+                        <label for="color-{{$item->id}}" class="variant-button"><img style="margin-top: -10px; margin-left: -10px;" src="{{asset('/uploads/variation/'.$item->image)}}" width="28px" alt="">{{$item->variant}}</label>
                     </div>
                        @endforeach
 
                     </div>
+                    <div class="data-class">
+                        @foreach ($detail->classify as  $item)
+                        <div class="class-option">
+                         <input type="radio" id="classify-{{$item->id}}" data-quantity = "{{{$item->quantity}}}"  data-price = "{{{$item->price}}}" name="dataclassify" value="{{{$item->classify}}}">
+
+
+
+                         <label for="classify-{{$item->id}}" class="class-button">{{$item->classify}}</label>
+                     </div>
+                        @endforeach
+
+                     </div>
                     <div class="product-stock mb-20">
-                        {{-- <h5>Availability: <span> 940 in stock</span></h5> --}}
+                        <h5 id="stock"></h5>
                     </div>
                     <div class="cart-option mb-15">
                         <div class="product-quantity mr-20">
@@ -261,7 +336,7 @@
                                         </ul>
                                         <span>(01 review)</span>
                                     </div>
-                                    <div class="price">
+                                    <div >
                                         <span> {{ number_format($item->price, 0, ',', '.')  }} VNĐ</span>
                                     </div>
                                 </div>
@@ -287,6 +362,8 @@
     </div>
     <script type="text/javascript">
        var buttons = document.querySelectorAll('.variant-button');
+       var btns = document.querySelectorAll('.class-button');
+
 
 buttons.forEach(function(button) {
     button.addEventListener('click', function() {
@@ -295,8 +372,17 @@ buttons.forEach(function(button) {
             btn.classList.remove('selected');
         });
 
-        // Thêm class 'selected' vào button được click
+
         this.classList.add('selected');
+    });
+});
+btns.forEach(function(click) {
+    click.addEventListener('click', function() {
+
+        btns.forEach(function(btnClass) {
+            btnClass.classList.remove('selecte');
+        });
+        this.classList.add('selecte');
     });
 });
 
@@ -307,15 +393,39 @@ buttons.forEach(function(button) {
                 radio.addEventListener('change', function () {
                     if (this.checked) {
                         const selectedColor = this.value;
-                        console.log('Selected color:', selectedColor);
+
+
 
                     }
                 });
             });
         });
-    </script>
-    <script type="text/javascript">
-      document.addEventListener('DOMContentLoaded', function () {
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const radioButtons = document.querySelectorAll('input[name="dataclassify"]');
+              let max = 0;
+            radioButtons.forEach(radio => {
+                radio.addEventListener('change', function () {
+                    if (this.checked) {
+                        const selectedColor = this.value;
+                        let quantity =   radio.dataset.quantity;
+                        let price = radio.dataset.price;
+                        max = quantity;
+                        document.getElementById('stock').innerHTML = `Availability: <span> ${quantity}  in stock</span>`;
+                        const formatter = new Intl.NumberFormat('vi-VN', {
+                                style: 'currency',
+                                currency: 'VND',
+                                minimumFractionDigits: 0,
+                                });
+                        const priceFormat =formatter.format(price);
+                        let element = document.getElementById('price');
+                         element.textContent = priceFormat;
+
+
+                    }
+                });
+            });
+
             const minusBtn = document.querySelector('.quantity div:first-child');
             const plusBtn = document.querySelector('.quantity div:last-child');
             const input = document.querySelector('.quantity input');
@@ -330,10 +440,25 @@ buttons.forEach(function(button) {
             plusBtn.addEventListener('click', function () {
                 let value = parseInt(input.value);
                 input.value = value + 1;
+                if (max == 0){
+                    alert('Vui lòng chọn các tuỳ chọn !');
+                    input.value = 1;
+                    return false;
+
+                }else if(value ==  max){
+                    alert(`Quầy hàng chỉ còn ${max} sản phẩm !`);
+                    input.value = max;
+                    return false;
+                } else{
+                    input.value = value + 1;
+                }
             });
-        });
+
    document.querySelector('.keys0').classList.add('active')
+
+        });
     </script>
+
 </div>
 
 @endsection

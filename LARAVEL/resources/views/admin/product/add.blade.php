@@ -1,6 +1,12 @@
 @extends('admin.layout')
 @section('main')
     <style>
+        .InputFile {
+
+            width: 500px;
+            opacity: 0
+        }
+
         .upload-container {
             position: relative;
             width: 100px;
@@ -42,6 +48,14 @@
             margin-left: 10px;
         }
 
+        .classifys {
+            width: 150px;
+            height: 50px;
+            border-radius: 5px;
+            border: 1px solid gainsboro;
+            margin-left: 10px;
+        }
+
         .delete-row {
             margin-left: 10px;
             padding: 5px 10px;
@@ -49,6 +63,15 @@
             width: 100px;
             height: 50px;
             margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .delete-rows {
+            margin-left: 10px;
+            font-size: 12px;
+            width: 100px;
+            height: 50px;
+            border-radius: 5px;
         }
     </style>
     <div class="col-12 grid-margin stretch-card">
@@ -116,8 +139,11 @@
                             <div class="row mb-3" id="originalRowClassify">
                                 <input type="text" placeholder="Classify.." name="classify_variant[0][classify]"
                                     class="classify">
+                                <input type="text" class="classifys" placeholder="Price..."
+                                    name="classify_variant[0][price]">
                                 <input type="text" placeholder="Quantity..." class="classify"
                                     name="classify_variant[0][quantity]">
+
                             </div>
                         </div>
                     </div>
@@ -126,14 +152,18 @@
                     <div class="col-12">
                         <div class="card bg-secondary appendVariant">
                             <h4 class="header-title m-t-0 text-white">Add Variant</h4>
-                            <div class="row" id="cloneVariant">
+                            <div class="row mb-3" id="cloneVariant">
                                 <div class="upload-container">
-                                    <input type="file" name="product_variant[0][image]" accept="image/*">
-
+                                    <input type="file" name="product_variant[0][image]" accept="image/*"
+                                        class="InputFile" style="z-index: 10">
+                                    <label for="">
+                                        <img src="" style="z-index: 5" alt="" class="attachmentPreview"
+                                            width="100px" style="border-radius:5px; ">
+                                    </label>
                                 </div>
                                 <input type="text" placeholder="Variant..." name="product_variant[0][variant]"
                                     class="variant">
-                            </div> <br>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -145,93 +175,92 @@
 
             </form>
 
-            {{-- </div>
-        <script>
-            let btnPreview = document.querySelectorAll('#imageUpload');
-            for (const btn of btnPreview) {
-                btn.addEventListener('change', function(event) {
-                    var files = event.target.files;
-                    var preview = document.querySelectorAll('#previewImage');
-                    for (const targert of preview) {
-                        if (files.length > 0) {
-                            var file = files[0];
-                            var reader = new FileReader();
-
-                            reader.onload = function(e) {
-                                targert.src = e.target.result;
-                            }
-                            reader.readAsDataURL(file);
-                        } else {
-                            targert.src =
-                                'https://png.pngtree.com/png-clipart/20230401/original/pngtree-cloud-uploading-line-icon-png-image_9016073.png';
-                        }
-                    }
-
-                })
-            }
-        </script> --}}
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    var classifyButton = document.getElementById('classify');
-                    var originalRow = document.getElementById('originalRowClassify');
-                    var rowIndex = 1;
-                    classifyButton.addEventListener('click', function() {
-                        var clonedRow = originalRow.cloneNode(true);
-                        var inputs = clonedRow.getElementsByTagName('input');
-                        inputs[0].name = 'classify_variant[' + rowIndex + '][classify]';
-                        inputs[1].name = 'classify_variant[' + rowIndex + '][quantity]';
-
-                        rowIndex++;
-
-                        for (var i = 0; i < inputs.length; i++) {
-                            inputs[i].value = '';
-
-                        }
-
-                        clonedRow.removeAttribute('id'); // Remove the ID to avoid duplicates
-                        originalRow.parentNode.appendChild(
-                            clonedRow); // Append the cloned row to the parent element
-                    });
-                });
-            </script>
-            <script>
-                CKEDITOR.replace('editor');
-            </script>
-            <script type="text/javascript">
-                document.addEventListener('DOMContentLoaded', function() {
-                    var variantButton = document.getElementById('variant');
-                    var appendVariant = document.querySelector('.appendVariant');
-                    var cloneVariant = document.getElementById('cloneVariant');
-
-                    variantButton.addEventListener('click', function() {
-                        var clonedRow = cloneVariant.cloneNode(true); // Clone the original row
-                        var inputs = clonedRow.getElementsByTagName(
-                        'input');
-
-
-                        var newIndex = appendVariant.getElementsByClassName('row').length; // Calculate new index
-                        inputs[0].name = 'product_variant[' + newIndex + '][image]';
-                        inputs[1].name = 'product_variant[' + newIndex + '][variant]';
-                        inputs[0].id = `imageUpload${newIndex}`;
-
-                        inputs[0].value = '';
-                        inputs[1].value = '';
-
-
-
-                        var deleteButton = document.createElement('button');
-                        deleteButton.textContent = 'Xoá';
-                        deleteButton.classList.add('btn', 'btn-sm', 'btn-danger', 'delete-row');
-                        deleteButton.addEventListener('click', function() {
-
-                            clonedRow.remove();
-                        });
-                        clonedRow.appendChild(deleteButton);
-
-
-                        appendVariant.appendChild(clonedRow);
-                    });
-                });
-            </script>
         </div>
-    @endsection
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var classifyButton = document.getElementById('classify');
+                var originalRow = document.getElementById('originalRowClassify');
+                var rowIndex = 1;
+                classifyButton.addEventListener('click', function() {
+                    var clonedRow = originalRow.cloneNode(true);
+                    var inputs = clonedRow.getElementsByTagName('input');
+                    inputs[0].name = 'classify_variant[' + rowIndex + '][classify]';
+                    inputs[1].name = 'classify_variant[' + rowIndex + '][price]';
+                    inputs[2].name = 'classify_variant[' + rowIndex + '][quantity]';
+
+
+                    rowIndex++;
+
+                    for (var i = 0; i < inputs.length; i++) {
+                        inputs[i].value = '';
+
+                    }
+                    let btnDelete = document.createElement('button');
+                    btnDelete.classList.add('btn', 'btn-danger', 'delete-rows');
+
+                    btnDelete.textContent = 'Xoá';
+                    btnDelete.addEventListener('click', function() {
+                        clonedRow.remove()
+                    })
+                    clonedRow.appendChild(btnDelete);
+                    clonedRow.removeAttribute('id');
+                    originalRow.parentNode.appendChild(clonedRow);
+                });
+            });
+        </script>
+        <script>
+            CKEDITOR.replace('editor');
+        </script>
+        <script type="text/javascript">
+            function changePreview(newInputFile) {
+                const parentElement = newInputFile.parentElement;
+                const attachPreview = parentElement.querySelector('.attachmentPreview')
+                console.log(parentElement);
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    attachPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(newInputFile.files[0]);
+            }
+            document.addEventListener('DOMContentLoaded', function() {
+                var variantButton = document.getElementById('variant');
+                var appendVariant = document.querySelector('.appendVariant');
+                var cloneVariant = document.getElementById('cloneVariant');
+
+                variantButton.addEventListener('click', function() {
+                    var clonedRow = cloneVariant.cloneNode(true);
+                    var inputs = clonedRow.getElementsByTagName('input');
+                    var img = clonedRow.querySelector('img');
+                    var newIndex = appendVariant.getElementsByClassName('row').length;
+                    inputs[0].name = 'product_variant[' + newIndex + '][image]';
+                    inputs[1].name = 'product_variant[' + newIndex + '][variant]';
+                    inputs[0].id = `imageUpload${newIndex}`;
+                    //
+                    inputs[0].value = '';
+                    inputs[1].value = '';
+                    img.src = '';
+                    var deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Xoá';
+                    deleteButton.classList.add('btn', 'btn-sm', 'btn-danger', 'delete-row');
+                    deleteButton.addEventListener('click', function() {
+
+                        clonedRow.remove();
+                    });
+                    clonedRow.appendChild(deleteButton);
+                    appendVariant.appendChild(clonedRow);
+                    checkInput();
+                });
+            });
+
+            function checkInput() {
+                const inputFiles = document.querySelectorAll('.InputFile');
+                inputFiles.forEach(inputFile => {
+
+                    inputFile.addEventListener('change', () => changePreview(inputFile));
+                });
+            }
+            checkInput()
+        </script>
+    </div>
+@endsection
