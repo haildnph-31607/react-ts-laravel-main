@@ -155,27 +155,43 @@
                                                     name="search-outline"></ion-icon></button>
                                         </div>
                                         <div class="header__search-cat">
-                                            <select>
+                                            {{-- <select>
                                                 <option value="" selected>Chọn Danh Mục</option>
                                                 @foreach ($category as $item)
                                                     <option><a href="">{{ $item->name }}</a></option>
                                                 @endforeach
 
-                                            </select>
+                                            </select> --}}
                                         </div>
                                     </form>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-5 col-md-8 col-sm-8">
                                 <div class="header-action">
-                                    <div class="block-userlink">
-                                        <a class="icon-link" href="my-account.html">
-                                            <ion-icon name="person-outline"></ion-icon>
-                                            <span class="text">
-                                                <span class="sub">Login </span>
-                                                My Account </span>
-                                        </a>
-                                    </div>
+                                   @if(Auth::user())
+
+                                    <a  href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+
+
+                                   @else
+
+                                   <div class="block-userlink">
+                                    <a class="icon-link" href="{{route('login')}}">
+                                        <ion-icon name="person-outline"></ion-icon>
+                                        <span class="text">
+                                            <span class="sub">Login </span>
+                                            My Account </span>
+                                    </a>
+                                </div>
+                                @endif
                                     <div class="block-wishlist action">
                                         <a class="icon-link" href="wishlist.html">
                                             <ion-icon name="heart-outline"></ion-icon>
@@ -256,14 +272,14 @@
                                             name="apps-outline"></ion-icon> Shop by department</button>
                                     <div class="cat__menu">
                                         <nav id="mobile-menu" style="display: block;">
-                                            <ul>
+                                            {{-- <ul>
 
                                                 @foreach ($category as $items)
                                                     <li>
                                                         <a href="">{{ $items->name }} </a>
                                                     </li>
                                                 @endforeach
-                                            </ul>
+                                            </ul> --}}
                                         </nav>
                                     </div>
                                 </div>

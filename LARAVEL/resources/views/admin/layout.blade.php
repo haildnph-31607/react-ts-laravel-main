@@ -70,7 +70,7 @@
                                     </ul>
                                 </li>
 
-                                <li>
+                                {{-- <li>
                                     <a href="javascript: void(0);"> <span> Variation <ion-icon
                                                 name="git-network-outline"></ion-icon></a>
                                     <ul class="nav-second-level" aria-expanded="false">
@@ -88,7 +88,7 @@
                                         <li><a href="{{ route('color.create') }}">Color Add</a></li>
 
                                     </ul>
-                                </li>
+                                </li> --}}
 
                                 <li>
                                     <a href="javascript: void(0);"><span> Charts </span>

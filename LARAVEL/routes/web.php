@@ -2,12 +2,11 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ColorController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\SizeController;
-use App\Http\Controllers\VariationController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +26,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin');
     Route::resource('product', ProductController::class);
     Route::resource('category', CategoryController::class);
-    Route::resource('color', ColorController::class);
-    Route::resource('variation', VariationController::class);
 });
+
+Auth::routes();
+
+Route::get('/home   ', [App\Http\Controllers\IndexController::class, 'index'])->name('home');
