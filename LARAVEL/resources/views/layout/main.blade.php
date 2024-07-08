@@ -155,13 +155,13 @@
                                                     name="search-outline"></ion-icon></button>
                                         </div>
                                         <div class="header__search-cat">
-                                            {{-- <select>
+                                            <select>
                                                 <option value="" selected>Chọn Danh Mục</option>
                                                 @foreach ($category as $item)
                                                     <option><a href="">{{ $item->name }}</a></option>
                                                 @endforeach
 
-                                            </select> --}}
+                                            </select>
                                         </div>
                                     </form>
                                 </div>
@@ -189,6 +189,14 @@
                                         <span class="text">
                                             <span class="sub">Login </span>
                                             My Account </span>
+                                    </a>
+                                </div>
+                                <div class="block-userlink">
+                                    <a class="icon-link" href="{{route('register')}}">
+                                        <ion-icon name="person-add-outline"></ion-icon>
+                                        <span class="text">
+                                            <span class="sub">Register </span>
+                                             Account </span>
                                     </a>
                                 </div>
                                 @endif
@@ -272,14 +280,14 @@
                                             name="apps-outline"></ion-icon> Shop by department</button>
                                     <div class="cat__menu">
                                         <nav id="mobile-menu" style="display: block;">
-                                            {{-- <ul>
+                                            <ul>
 
                                                 @foreach ($category as $items)
                                                     <li>
                                                         <a href="">{{ $items->name }} </a>
                                                     </li>
                                                 @endforeach
-                                            </ul> --}}
+                                            </ul>
                                         </nav>
                                     </div>
                                 </div>
@@ -506,8 +514,9 @@
     <script src="{{ asset('js/ajax-form.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/ui-slider-range.js') }}"></script>
+
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>

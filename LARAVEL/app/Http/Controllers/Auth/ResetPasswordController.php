@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
 
 class ResetPasswordController extends Controller
 {
@@ -26,4 +28,11 @@ class ResetPasswordController extends Controller
      * @var string
      */
     protected $redirectTo = '/home';
+    public function showResetForm(Request $request, $token = null)
+    {
+        $category = Category::all();
+        return view('auth.passwords.reset')->with(
+            ['token' => $token, 'email' => $request->email ,'category'=>$category]
+        );
+    }
 }
