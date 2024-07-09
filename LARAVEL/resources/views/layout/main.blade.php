@@ -169,17 +169,18 @@
                             <div class="col-xl-4 col-lg-5 col-md-8 col-sm-8">
                                 <div class="header-action">
                                    @if(Auth::user())
+                                   <span class="text-white">Hi , {{Auth::user()->name}} | </span>
 
-                                    <a  href="{{ route('logout') }}"
+
+                                    <a  class="text-white" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                                     document.getElementById('logout-form').submit();"><ion-icon name="log-out-outline"></ion-icon>
+
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
-
 
                                    @else
 
