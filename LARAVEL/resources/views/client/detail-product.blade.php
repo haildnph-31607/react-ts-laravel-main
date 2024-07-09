@@ -372,8 +372,10 @@
         <input type="hidden" id="dataPrice" >
         <input type="hidden" id="dataImage">
         <input type="hidden" id="dataColor">
-        <input type="hidden" id="dataQuantity">
-        {{-- <input type="text"> --}}
+        <input type="hidden" id="dataQuantity" value="1">
+       @if(Auth::user())
+       <input type="hidden" id="user" value="{{Auth::user()->id}}">
+       @endif
 
 
     </div>
@@ -498,13 +500,18 @@ btns.forEach(function(click) {
     <script type="module">
       $('#addToCart').click(function(){
         // let token = 'fbgnGA2XygDoSTUWUguGVwwVqkH3Rd38gJyKToez';
+
             let images = $('#dataImage').val();
             let price = $('#dataPrice').val();
             let name = "{{ $detail->name }}"
             let quantitys = $('#dataQuantity').val();
             let productID = "{{ $detail->id }}";
-            let user = "{{ Auth::user()->id }}";
-         $.ajax({
+            let user = $('#user').val();
+            console.log(user,quantitys);
+
+
+           if(images !== "" && price !== "" && name !== "" && quantitys !== "" ){
+            $.ajax({
             url:'{{ route('carts') }}',
             method:'GET',
             data:{
@@ -514,13 +521,14 @@ btns.forEach(function(click) {
               quantitys,
               productID,
               user,
-
-
             },
             success:function(){
                 alert('Thêm vào giỏ hàng thành công !')
             }
          })
+           }else{
+            alert('Bạn chưa chọn các tuỳ chọn !');
+           }
 
 
       })

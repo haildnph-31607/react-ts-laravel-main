@@ -29,7 +29,10 @@ Route::prefix('admin')->group(function () {
     Route::resource('product', ProductController::class);
     Route::resource('category', CategoryController::class);
 });
+//CART
 Route::get('/add-to-cart',[CartController::class,'addToCart'])->name('carts');
+Route::get('/cart/{id}',[CartController::class,'Cart'])->name('cart');
+Route::delete('/delete-cart/{id}', [CartController::class, 'deleteCart'])->name('deleteCart');
 
 Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login']);

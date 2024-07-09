@@ -24,6 +24,12 @@
     <link rel="stylesheet" href="{{ asset('css/default.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/flaticon.css') }}">
+    <style>
+        .cart-minis{
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+    </style>
 </head>
 
 <body>
@@ -168,39 +174,39 @@
                             </div>
                             <div class="col-xl-4 col-lg-5 col-md-8 col-sm-8">
                                 <div class="header-action">
-                                   @if(Auth::user())
-                                   <span class="text-white">Hi , {{Auth::user()->name}} | </span>
+                                    @if (Auth::user())
+                                        <span class="text-white">Hi , {{ Auth::user()->name }} | </span>
 
 
-                                    <a  class="text-white" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();"><ion-icon name="log-out-outline"></ion-icon>
+                                        <a class="text-white" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"><ion-icon
+                                                name="log-out-outline"></ion-icon>
 
-                                    </a>
+                                        </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-
-                                   @else
-
-                                   <div class="block-userlink">
-                                    <a class="icon-link" href="{{route('login')}}">
-                                        <ion-icon name="person-outline"></ion-icon>
-                                        <span class="text">
-                                            <span class="sub">Login </span>
-                                            My Account </span>
-                                    </a>
-                                </div>
-                                <div class="block-userlink">
-                                    <a class="icon-link" href="{{route('register')}}">
-                                        <ion-icon name="person-add-outline"></ion-icon>
-                                        <span class="text">
-                                            <span class="sub">Register </span>
-                                             Account </span>
-                                    </a>
-                                </div>
-                                @endif
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            class="d-none">
+                                            @csrf
+                                        </form>
+                                    @else
+                                        <div class="block-userlink">
+                                            <a class="icon-link" href="{{ route('login') }}">
+                                                <ion-icon name="person-outline"></ion-icon>
+                                                <span class="text">
+                                                    <span class="sub">Login </span>
+                                                    My Account </span>
+                                            </a>
+                                        </div>
+                                        <div class="block-userlink">
+                                            <a class="icon-link" href="{{ route('register') }}">
+                                                <ion-icon name="person-add-outline"></ion-icon>
+                                                <span class="text">
+                                                    <span class="sub">Register </span>
+                                                    Account </span>
+                                            </a>
+                                        </div>
+                                    @endif
                                     <div class="block-wishlist action">
                                         <a class="icon-link" href="wishlist.html">
                                             <ion-icon name="heart-outline"></ion-icon>
@@ -211,12 +217,19 @@
                                         </a>
                                     </div>
                                     <div class="block-cart action">
-                                        <a class="icon-link" href="cart.html">
-                                            <ion-icon name="cart-outline"></ion-icon>
-                                            <span class="count">1</span>
-                                            <span class="text">
-                                                <span class="sub">Your Cart:</span>
-                                                $00.00 </span>
+                                        @if (Auth::user())
+                                            <a class="icon-link" href="{{ route('cart', Auth::user()->id) }}">
+                                            @else
+                                                <a class="icon-link" href=""
+                                                    onclick="return confirm('Vui lòng đăng nhập để vào giỏ hàng !')">
+                                        @endif
+                                        <ion-icon name="cart-outline"></ion-icon>
+                                        @if (Auth::user())
+                                            <span class="count">{{ $totalQuantity }}</span>
+                                        @endif
+                                        <span class="text">
+                                            <span class="sub">Your Cart:</span>
+                                            $00.00 </span>
                                         </a>
                                         <div class="cart">
                                             <div class="cart__mini">
@@ -224,32 +237,43 @@
                                                     <li>
                                                         <div class="cart__title">
                                                             <h4>Your Cart</h4>
-                                                            <span>(1 Item in Cart)</span>
+                                                            @if (Auth::user())
+                                                                <span>
+
+                                                                    ({{ $totalQuantity }})
+
+                                                                </span>
+                                                            @endif
+
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div
                                                             class="cart__item d-flex justify-content-between align-items-center">
-                                                            <div class="cart__inner d-flex">
-                                                                <div class="cart__thumb">
-                                                                    <a href="product-details.html">
-                                                                        <img src="{{ asset('logo/image.png') }}"
-                                                                            alt="">
-                                                                    </a>
-                                                                </div>
-                                                                <div class="cart__details">
-                                                                    <h6><a href="product-details.html"> Samsung C49J89:
-                                                                            £875, Debenhams Plus </a></h6>
-                                                                    <div class="cart__price">
-                                                                        <span>$255.00</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="cart__del">
-                                                                <a href="#"><i class="fal fa-times"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </li>
+                                                            @if (Auth::user())
+                                                              <div class="cart-minis">
+
+                                                                @foreach ($carts as $item)
+
+                                                                        <div class="d-flex mb-3 ">
+                                                                            <div class="cart__thumb">
+                                                                                <a href="product-details.html">
+                                                                                    <img src="{{ asset('uploads/variation/' . $item->image) }}"
+                                                                                        alt="">
+                                                                                </a>
+                                                                            </div>
+                                                                            <div class="cart__details">
+                                                                                <h6><a href="product-details.html">
+                                                                                        {{ $item->name }} </a></h6>
+                                                                                <div class="cart__price">
+                                                                                    <span>{{ number_format($item->total) }}
+                                                                                        VNĐ</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                @endforeach
+                                                             </div>
                                                     <li>
                                                         <div
                                                             class="cart__sub d-flex justify-content-between align-items-center">
@@ -258,11 +282,23 @@
                                                         </div>
                                                     </li>
                                                     <li>
-                                                        <a href="cart.html" class="wc-cart mb-10">View cart</a>
+                                                        <a href="{{ route('cart', Auth::user()->id) }}"
+                                                            class="wc-cart mb-10">View cart</a>
                                                         <a href="checkout.html" class="wc-checkout">Checkout</a>
                                                     </li>
-                                                </ul>
+                                                @else
+                                                    <div class="cart__inner d-flex">
+                                                        <h1><ion-icon name="receipt-outline"></ion-icon></h1>
+                                                    </div>
+
+                                                    @endif
+                                                    <div class="cart__del">
+                                                        <a href="#"><i class="fal fa-times"></i></a>
+                                                    </div>
                                             </div>
+                                            </li>
+
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -271,66 +307,67 @@
                     </div>
                 </div>
             </div>
-            <div class="header__bottom">
-                <div class="container">
-                    <div class="row g-0 align-items-center">
-                        <div class="col-lg-3">
-                            <div class="cat__menu-wrapper side-border d-none d-lg-block">
-                                <div class="cat-toggle">
-                                    <button type="button" class="cat-toggle-btn cat-toggle-btn-1"><ion-icon
-                                            name="apps-outline"></ion-icon> Shop by department</button>
-                                    <div class="cat__menu">
-                                        <nav id="mobile-menu" style="display: block;">
-                                            <ul>
-
-                                                @foreach ($category as $items)
-                                                    <li>
-                                                        <a href="">{{ $items->name }} </a>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-3">
-                            <div class="header__bottom-left d-flex d-xl-block align-items-center">
-                                <div class="side-menu d-lg-none mr-20">
-                                    <button type="button" class="side-menu-btn offcanvas-toggle-btn"><i
-                                            class="fas fa-bars"></i></button>
-                                </div>
-                                <div class="main-menu d-none d-lg-block">
-                                    <nav>
+        </div>
+        <div class="header__bottom">
+            <div class="container">
+                <div class="row g-0 align-items-center">
+                    <div class="col-lg-3">
+                        <div class="cat__menu-wrapper side-border d-none d-lg-block">
+                            <div class="cat-toggle">
+                                <button type="button" class="cat-toggle-btn cat-toggle-btn-1"><ion-icon
+                                        name="apps-outline"></ion-icon> Shop by department</button>
+                                <div class="cat__menu">
+                                    <nav id="mobile-menu" style="display: block;">
                                         <ul>
-                                            <li>
-                                                <a href="{{ route('index') }}" class="active"><ion-icon
-                                                        style="margin-top: 20px" name="home-outline"></ion-icon> Home
-                                                </a>
 
-                                            </li>
-                                            <li><a href=""> <ion-icon style="margin-top: 20px"
-                                                        name="cube-outline"></ion-icon> Product</a></li>
-
-                                            </li>
-                                            <li><a href=""> <ion-icon style="margin-top: 20px"
-                                                        name="newspaper-outline"></ion-icon> Blog </a>
-
-                                            </li>
-
+                                            @foreach ($category as $items)
+                                                <li>
+                                                    <a href="">{{ $items->name }} </a>
+                                                </li>
+                                            @endforeach
                                         </ul>
                                     </nav>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-9">
-                            <div class="shopeing-text text-sm-end">
-                                <p>Shop haildn31607 đang tri ân deal sock!</p>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-3">
+                        <div class="header__bottom-left d-flex d-xl-block align-items-center">
+                            <div class="side-menu d-lg-none mr-20">
+                                <button type="button" class="side-menu-btn offcanvas-toggle-btn"><i
+                                        class="fas fa-bars"></i></button>
                             </div>
+                            <div class="main-menu d-none d-lg-block">
+                                <nav>
+                                    <ul>
+                                        <li>
+                                            <a href="{{ route('index') }}" class="active"><ion-icon
+                                                    style="margin-top: 20px" name="home-outline"></ion-icon> Home
+                                            </a>
+
+                                        </li>
+                                        <li><a href=""> <ion-icon style="margin-top: 20px"
+                                                    name="cube-outline"></ion-icon> Product</a></li>
+
+                                        </li>
+                                        <li><a href=""> <ion-icon style="margin-top: 20px"
+                                                    name="newspaper-outline"></ion-icon> Blog </a>
+
+                                        </li>
+
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-9">
+                        <div class="shopeing-text text-sm-end">
+                            <p>Shop haildn31607 đang tri ân deal sock!</p>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </header>
 
     <div class="offcanvas__area">
@@ -518,7 +555,7 @@
 
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>
