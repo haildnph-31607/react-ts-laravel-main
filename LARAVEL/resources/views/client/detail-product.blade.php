@@ -224,7 +224,7 @@
                     <div class="data-color">
                        @foreach ($detail->variant as  $item)
                        <div class="color-option">
-                        <input type="radio" id="color-{{$item->id}}" name="datacolors" value="{{{$item->variant}}}">
+                        <input type="radio" id="color-{{$item->id}}" name="datacolors" data-image="{{ $item->image }}" value="{{{$item->variant}}}">
                         <label for="color-{{$item->id}}" class="variant-button"><img style="margin-top: -10px; margin-left: -10px;" src="{{asset('/uploads/variation/'.$item->image)}}" width="28px" alt="">{{$item->variant}}</label>
                     </div>
                        @endforeach
@@ -254,7 +254,16 @@
                             </div>
 
                         </div>
-                        <a href="cart.html" class="cart-btn">Add to Cart</a>
+                       @if(Auth::user())
+
+                       <button id="addToCart" class="cart-btn">Add to Cart</button>
+
+                       @else
+                       <button onclick="login()"  class="cart-btn btn-secondary">Your A Login Account</button>
+
+                       @endif
+
+
                     </div>
                     <div class="details-meta">
                         <div class="d-meta-left">
@@ -359,6 +368,14 @@
                 </div>
             </div>
         </div>
+        {{-- Data carts --}}
+        <input type="hidden" id="dataPrice" >
+        <input type="hidden" id="dataImage">
+        <input type="hidden" id="dataColor">
+        <input type="hidden" id="dataQuantity">
+        {{-- <input type="text"> --}}
+
+
     </div>
     <script type="text/javascript">
        var buttons = document.querySelectorAll('.variant-button');
@@ -392,7 +409,12 @@ btns.forEach(function(click) {
             radioButtons.forEach(radio => {
                 radio.addEventListener('change', function () {
                     if (this.checked) {
+
                         const selectedColor = this.value;
+                        const dataImg = this.dataset.image ;
+                        // console.log(dataImg);
+                        document.getElementById('dataImage').value = dataImg;
+                        document.getElementById('dataColor').value =selectedColor;
 
 
 
@@ -410,6 +432,7 @@ btns.forEach(function(click) {
                         const selectedColor = this.value;
                         let quantity =   radio.dataset.quantity;
                         let price = radio.dataset.price;
+                        document.getElementById('dataPrice').value = price;
                         max = quantity;
                         document.getElementById('stock').innerHTML = `Availability: <span> ${quantity}  in stock</span>`;
                         const formatter = new Intl.NumberFormat('vi-VN', {
@@ -434,12 +457,16 @@ btns.forEach(function(click) {
                 let value = parseInt(input.value);
                 if (value > 1) {
                     input.value = value - 1;
+                    document.getElementById('dataQuantity').value = input.value;
+
                 }
             });
 
             plusBtn.addEventListener('click', function () {
                 let value = parseInt(input.value);
                 input.value = value + 1;
+                document.getElementById('dataQuantity').value = input.value;
+
                 if (max == 0){
                     alert('Vui lòng chọn các tuỳ chọn !');
                     input.value = 1;
@@ -448,15 +475,55 @@ btns.forEach(function(click) {
                 }else if(value ==  max){
                     alert(`Quầy hàng chỉ còn ${max} sản phẩm !`);
                     input.value = max;
+                    document.getElementById('dataQuantity').value = max;
                     return false;
                 } else{
                     input.value = value + 1;
+                    document.getElementById('dataQuantity').value = input.value;
+
                 }
             });
 
    document.querySelector('.keys0').classList.add('active')
 
         });
+    </script>
+    <script type="text/javascript">
+    function login(){
+        if(confirm('Bạn chua đăng nhập , bạn muốn đến trang đăng nhập chứ ?')){
+           return window.location.href = '{{ route('login') }}';
+        }
+    }
+    </script>
+    <script type="module">
+      $('#addToCart').click(function(){
+        // let token = 'fbgnGA2XygDoSTUWUguGVwwVqkH3Rd38gJyKToez';
+            let images = $('#dataImage').val();
+            let price = $('#dataPrice').val();
+            let name = "{{ $detail->name }}"
+            let quantitys = $('#dataQuantity').val();
+            let productID = "{{ $detail->id }}";
+            let user = "{{ Auth::user()->id }}";
+         $.ajax({
+            url:'{{ route('carts') }}',
+            method:'GET',
+            data:{
+              price,
+              images,
+              name,
+              quantitys,
+              productID,
+              user,
+
+
+            },
+            success:function(){
+                alert('Thêm vào giỏ hàng thành công !')
+            }
+         })
+
+
+      })
     </script>
 
 </div>

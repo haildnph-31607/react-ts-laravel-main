@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProductController;
@@ -28,6 +29,7 @@ Route::prefix('admin')->group(function () {
     Route::resource('product', ProductController::class);
     Route::resource('category', CategoryController::class);
 });
+Route::get('/add-to-cart',[CartController::class,'addToCart'])->name('carts');
 
 Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
