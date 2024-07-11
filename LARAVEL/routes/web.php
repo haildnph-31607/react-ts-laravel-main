@@ -4,6 +4,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
@@ -32,7 +34,13 @@ Route::prefix('admin')->group(function () {
 //CART
 Route::get('/add-to-cart',[CartController::class,'addToCart'])->name('carts');
 Route::get('/cart/{id}',[CartController::class,'Cart'])->name('cart');
-Route::delete('/delete-cart/{id}', [CartController::class, 'deleteCart'])->name('deleteCart');
+Route::get('/delete-cart', [CartController::class, 'deleteCart'])->name('deleteCarts');
+Route::get('/update-cart', [CartController::class, 'updateCart'])->name('updateCart');
+
+// Checkout
+Route::get('/checkout/{id}',[CheckoutController::class,'Checkout'])->name('checkout');
+//coupon
+Route::get('check-coupon',[CouponController::class,'CheckCoupon'])->name('CheckCoupon');
 
 Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login']);

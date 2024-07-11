@@ -21,7 +21,9 @@ class IndexController extends Controller
        if(Auth::user()){
         $totalQuantity = Cart::where('id_user', Auth::user()->id)->sum('quantity');
         $carts = Cart::where('id_user',Auth::user()->id)->get();
-        return view('client.home',compact('category','product','totalQuantity','carts'));
+        $total = Cart::where('id_user', Auth::user()->id)->sum('total');
+
+        return view('client.home',compact('category','product','totalQuantity','carts','total'));
 
        }
        return view('client.home',compact('category','product'));
@@ -57,7 +59,9 @@ class IndexController extends Controller
         if(Auth::user()){
             $totalQuantity = Cart::where('id_user', Auth::user()->id)->sum('quantity');
             $carts = Cart::where('id_user',Auth::user()->id)->get();
-            return view('client.detail-product',compact('category','detail','associated','totalQuantity','carts'));
+            $total = Cart::where('id_user', Auth::user()->id)->sum('total');
+
+            return view('client.detail-product',compact('category','detail','associated','totalQuantity','carts','total'));
 
 
            }

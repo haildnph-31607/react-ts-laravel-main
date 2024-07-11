@@ -26,13 +26,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-       if(Auth::user()){
-        $totalQuantity = Cart::where('id_user', Auth::user()->id)->sum('quantity');
-        $carts = Cart::where('id_user',Auth::user()->id)->get();
-        return view('home',compact('category','totalQuantity','carts'));
-       }
+        if (Auth::user()) {
+            $totalQuantity = Cart::where('id_user', Auth::user()->id)->sum('quantity');
+            $carts = Cart::where('id_user', Auth::user()->id)->get();
+            $total = Cart::where('id_user', Auth::user()->id)->sum('total');
+            return view('home', compact('category', 'totalQuantity', 'carts', 'total'));
+        }
 
         $category = Category::all();
-        return view('home',compact('category'));
+        return view('home', compact('category'));
     }
 }

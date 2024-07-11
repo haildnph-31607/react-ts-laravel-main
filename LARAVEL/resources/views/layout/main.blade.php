@@ -228,8 +228,8 @@
                                             <span class="count">{{ $totalQuantity }}</span>
                                         @endif
                                         <span class="text">
-                                            <span class="sub">Your Cart:</span>
-                                            $00.00 </span>
+                                            <span class="sub">Cart</span>
+                                           </span>
                                         </a>
                                         <div class="cart">
                                             <div class="cart__mini">
@@ -278,7 +278,7 @@
                                                         <div
                                                             class="cart__sub d-flex justify-content-between align-items-center">
                                                             <h6>Subtotal</h6>
-                                                            <span class="cart__sub-total">$255.00</span>
+                                                            <span class="cart__sub-total">{{number_format($total)}} VNĐ</span>
                                                         </div>
                                                     </li>
                                                     <li>

@@ -169,7 +169,9 @@
         </div>
     </div>
 </section>
-
+<div id="cart-icon">
+    <img src="cart-icon.png" alt="Cart">
+</div>
 <div class="product-details">
     <div class="container">
         <div class="row">
@@ -524,6 +526,7 @@ btns.forEach(function(click) {
             },
             success:function(){
                 alert('Thêm vào giỏ hàng thành công !')
+                window.location.reload()
             }
          })
            }else{
