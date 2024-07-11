@@ -169,9 +169,9 @@
         </div>
     </div>
 </section>
-<div id="cart-icon">
+{{-- <div id="cart-icon">
     <img src="cart-icon.png" alt="Cart">
-</div>
+</div> --}}
 <div class="product-details">
     <div class="container">
         <div class="row">

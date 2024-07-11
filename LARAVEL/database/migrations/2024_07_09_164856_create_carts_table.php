@@ -24,9 +24,6 @@ return new class extends Migration
             $table->timestamp('updated_at')->nullable();
             $table->foreign('id_product')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
-
-
-
         });
     }
 
