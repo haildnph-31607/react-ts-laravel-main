@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('postal_code')->nullable();
             $table->string('country')->nullable();
             $table->text('notes')->nullable();
+            $table->unsignedBigInteger('id_user');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });

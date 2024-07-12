@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class CheckoutController extends Controller
 {
     public function Checkout($id){
+
      $cart = Cart::where('id_user',$id)->get();
      $category = Category::all();
      $totalQuantity = Cart::where('id_user', Auth::user()->id)->sum('quantity');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Customer;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -91,5 +92,28 @@ class IndexController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function AddCustomer(Request $request){
+        $data = $request->all();
+        $customer = new Customer();
+        $customer->name = $data['name'];
+        $customer->address = $data['address'];
+        $customer->district = $data['district'];
+        $customer->conscious = $data['conscious'];
+        $customer->country = $data['country'];
+        $customer->postal_code = $data['code'];
+        $customer->email = $data['email'];
+        $customer->phone = $data['phone'];
+        $customer->id_user = $data['id'];
+        $customer->save();
+
+return $request->all();
+    }
+    public function getCustomer(Request $request){
+      $data = $request->all();
+      $customer = Customer::where('id_user',$data['id'])->first();
+      if($customer){
+        return $customer;
+      }
     }
 }

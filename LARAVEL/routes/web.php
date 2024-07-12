@@ -41,6 +41,10 @@ Route::get('/update-cart', [CartController::class, 'updateCart'])->name('updateC
 Route::get('/checkout/{id}',[CheckoutController::class,'Checkout'])->name('checkout');
 //coupon
 Route::get('check-coupon',[CouponController::class,'CheckCoupon'])->name('CheckCoupon');
+//customer
+Route::post('add-customer',[IndexController::class,'AddCustomer'])->name('AddCustomer');
+Route::post('get-customer',[IndexController::class,'getCustomer'])->name('getCustomer');
+
 
 Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login']);

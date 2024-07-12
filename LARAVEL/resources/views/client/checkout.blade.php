@@ -101,7 +101,7 @@
                                 <div class="col-md-12">
                                     <div class="checkout-form-list">
                                         <label>Full Name</label>
-                                        <input type="text" placeholder="Full Name" name="name">
+                                        <input type="text" placeholder="Full Name" id="name">
                                     </div>
                                 </div>
 
@@ -109,147 +109,54 @@
                                 <div class="col-md-12">
                                     <div class="checkout-form-list">
                                         <label>Address <span class="required">*</span></label>
-                                        <input type="text" placeholder="Street address" name="address">
+                                        <input type="text" placeholder="Street address" id="address">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="checkout-form-list">
                                         <label>District <span class="required">*</span></label>
-                                        <input type="text" placeholder="District" name="district">
+                                        <input type="text" placeholder="District" id="district">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="checkout-form-list">
                                         <label>Conscious <span class="required">*</span></label>
-                                        <input type="text" placeholder="Town / City" name="conscious">
+                                        <input type="text" placeholder="Town / City" id="conscious">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkout-form-list">
                                         <label>Country <span class="required">*</span></label>
-                                        <input type="text" placeholder="" name="country">
+                                        <input type="text" placeholder="" id="country">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkout-form-list">
                                         <label>Postcode / Zip <span class="required">*</span></label>
-                                        <input type="text" placeholder="Postcode / Zip" name="code">
+                                        <input type="text" placeholder="Postcode / Zip" id="code">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkout-form-list">
                                         <label>Email Address <span class="required">*</span></label>
-                                        <input type="email" placeholder="" name="email">
+                                        <input type="email" placeholder="" id="email">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkout-form-list">
                                         <label>Phone <span class="required">*</span></label>
-                                        <input type="text" placeholder="Phone Number" name="phone">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="checkout-form-list">
-                                        <label>Note <span class="required">*</span></label>
-                                        <textarea name="note" id="" cols="100" rows="10" class="form-control"></textarea>
+                                        <input type="text" placeholder="Phone Number" id="phone">
                                     </div>
                                 </div>
 
+                                <button type="submit" id="infomation" class="btn btn-success">Add Infomation</button>
+
+
                             </div>
-                            {{-- <div class="different-address">
-                                <div class="ship-different-title">
-                                    <h3>
-                                        <label>Ship to a different address?</label>
-                                        <input id="ship-box" type="checkbox">
-                                    </h3>
-                                </div>
-                                <div id="ship-box-info">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="country-select">
-                                                <label>Country <span class="required">*</span></label>
-                                                <select style="display: none;">
-                                                    <option value="volvo">bangladesh</option>
-                                                    <option value="saab">Algeria</option>
-                                                    <option value="mercedes">Afghanistan</option>
-                                                    <option value="audi">Ghana</option>
-                                                    <option value="audi2">Albania</option>
-                                                    <option value="audi3">Bahrain</option>
-                                                    <option value="audi4">Colombia</option>
-                                                    <option value="audi5">Dominican Republic</option>
-                                                </select><div class="nice-select" tabindex="0"><span class="current">bangladesh</span><ul class="list"><li data-value="volvo" class="option selected">bangladesh</li><li data-value="saab" class="option">Algeria</li><li data-value="mercedes" class="option">Afghanistan</li><li data-value="audi" class="option">Ghana</li><li data-value="audi2" class="option">Albania</li><li data-value="audi3" class="option">Bahrain</li><li data-value="audi4" class="option">Colombia</li><li data-value="audi5" class="option">Dominican Republic</li></ul></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="checkout-form-list">
-                                                <label>First Name <span class="required">*</span></label>
-                                                <input type="text" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="checkout-form-list">
-                                                <label>Last Name <span class="required">*</span></label>
-                                                <input type="text" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label>Company Name</label>
-                                                <input type="text" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label>Address <span class="required">*</span></label>
-                                                <input type="text" placeholder="Street address">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <input type="text" placeholder="Apartment, suite, unit etc. (optional)">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label>Town / City <span class="required">*</span></label>
-                                                <input type="text" placeholder="Town / City">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="checkout-form-list">
-                                                <label>State / County <span class="required">*</span></label>
-                                                <input type="text" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="checkout-form-list">
-                                                <label>Postcode / Zip <span class="required">*</span></label>
-                                                <input type="text" placeholder="Postcode / Zip">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="checkout-form-list">
-                                                <label>Email Address <span class="required">*</span></label>
-                                                <input type="email" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="checkout-form-list">
-                                                <label>Phone <span class="required">*</span></label>
-                                                <input type="text" placeholder="Postcode / Zip">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="order-notes">
-                                    <div class="checkout-form-list">
-                                        <label>Order Notes</label>
-                                        <textarea id="checkout-mess" cols="30" rows="10" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
-                                    </div>
-                                </div>
-                            </div> --}}
+
                         </div>
                     </div>
+                    {{--  --}}
                     <div class="col-lg-6">
                         <div class="your-order mb-30 ">
                             <h3>Your order</h3>
@@ -515,6 +422,86 @@
                     })
                 })
             }
+        </script>
+        <script type="module">
+            $('#infomation').click(function() {
+                let name = $('#name').val();
+                let address = $('#address').val();
+                let district = $('#district').val();
+                let conscious = $('#conscious').val();
+                let country = $('#country').val();
+                let code = $('#code').val();
+                let email = $('#email').val();
+                let phone = $('#phone').val();
+                let id = {{ Auth::user()->id }}
+                $.ajax({
+                    url: '{{ route('AddCustomer') }}',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+
+                    data: {
+                        name,
+                        address,
+                        district,
+                        conscious,
+                        country,
+                        code,
+                        email,
+                        phone,
+                        id
+                    },
+                    success: function() {
+                        alert('Thanh cong ?')
+                    }
+                })
+
+
+
+
+            })
+        </script>
+        <script type="module">
+            $('document').ready(function() {
+                let id = {{ Auth::user()->id }};
+                $.ajax({
+                    url: '{{ route('getCustomer') }}',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        id,
+                    },
+                    success: function(data) {
+                        if (data) {
+                            $('#name').prop('disabled', true);
+                            $('#address').prop('disabled', true);
+                            $('#district').prop('disabled', true);
+                            $('#conscious').prop('disabled', true);
+                            $('#country').prop('disabled', true);
+                            $('#code').prop('disabled', true);
+                            $('#phone').prop('disabled', true);
+                            $('#email').prop('disabled', true);
+                            //
+                            $('#name').val(data.name);
+                            $('#address').val(data.address);
+                            $('#district').val(data.district);
+                            $('#conscious').val(data.conscious);
+                            $('#country').val(data.country);
+                            $('#code').val(data.postal_code);
+                            $('#phone').val(data.phone);
+                            $('#email').val(data.email);
+                            $('#infomation').attr('id', 'updateInfomation');
+
+                            // Đổi nội dung của nút button
+                            $('#updateInfomation').text('Update Information');
+                        }
+                    }
+
+                })
+            })
         </script>
 
     </main>
