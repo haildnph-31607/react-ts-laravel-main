@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')->constrained();
+            // $table->foreignId('customer_id')->constrained();
+            $table->unsignedBigInteger('customer_id');
             $table->string('invoice_number')->unique();//mã háo đơn
             $table->date('invoice_date'); // ngày đặt
             $table->decimal('total_amount', 15, 2);// tổng số lượng

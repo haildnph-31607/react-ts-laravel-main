@@ -158,130 +158,139 @@
                     </div>
                     {{--  --}}
                     <div class="col-lg-6">
-                        <div class="your-order mb-30 ">
-                            <h3>Your order</h3>
-                            <div class="your-order-table table-responsive">
-                                @if (count($cart) > 0)
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th class="product-name">Name</th>
-                                                <th class="product-total">Image</th>
-                                                <th class="product-total">Quantity</th>
-                                                <th class="product-total">Price</th>
-                                                <th class="product-total">Option</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($cart as $item)
-                                                <tr class="cart_item">
-                                                    <td class="product-name">
-                                                        {{ $item->name }}
-                                                    </td>
-                                                    <td class="product-total">
-                                                        <img src="{{ asset('uploads/variation/' . $item->image) }}"
-                                                            width="100px" alt="">
-                                                    </td>
-                                                    <td>{{ $item->quantity }}</td>
-                                                    <td>
-                                                        {{ number_format($item->price) }} VNĐ
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn" onclick="return confirm('Bạn muốn xoá ?')"
-                                                            id="deleteCart" data-id="{{ $item->id }}"> <ion-icon
-                                                                name="trash-outline"></ion-icon></button>
-                                                    </td>
+                        <form action="{{ route('addInvoice') }}" method="POST">
+                             @csrf
+                            <div class="your-order mb-30 ">
+                                <h3>Your order</h3>
+                                <div class="your-order-table table-responsive">
+                                    @if (count($cart) > 0)
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th class="product-name">Name</th>
+                                                    <th class="product-total">Image</th>
+                                                    <th class="product-total">Quantity</th>
+                                                    <th class="product-total">Price</th>
+                                                    <th class="product-total">Option</th>
                                                 </tr>
-                                            @endforeach
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($cart as $item)
+                                                    <tr class="cart_item">
+                                                        <td class="product-name">
+                                                            {{ $item->name }}
+                                                        </td>
+                                                        <td class="product-total">
+                                                            <img src="{{ asset('uploads/variation/' . $item->image) }}"
+                                                                width="100px" alt="">
+                                                        </td>
+                                                        <td>{{ $item->quantity }}</td>
+                                                        <td>
+                                                            {{ number_format($item->price) }} VNĐ
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn"
+                                                                onclick="return confirm('Bạn muốn xoá ?')" id="deleteCart"
+                                                                data-id="{{ $item->id }}"> <ion-icon
+                                                                    name="trash-outline"></ion-icon></button>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
 
-                                        </tbody>
+                                            </tbody>
 
-                                    </table>
-                                @else
-                                    <h3><ion-icon name="receipt-outline"></ion-icon> Không có sản phẩm nào !</h3>
-                                @endif
-                                <table>
-
-                                    <tfoot>
-                                        <tr class="cart-subtotal">
-                                            <th>Cart Subtotal</th>
-                                            <td><span class="amount" id="amount">{{ number_format($total) }} VNĐ</span>
-                                            </td>
-                                        </tr>
-                                        <tr class="shipping">
-                                            <th>Shipping</th>
-                                            <td>
-                                                <ul>
-                                                    <li>
-                                                        @if ($total < 20000000)
-                                                            <input type="radio" name="shipping" checked>
-                                                            <label>
-                                                                Flat Rate: <span class="amount">50.000 VNĐ</span>
-                                                            </label>
-                                                        @else
-                                                            <input type="radio" name="shipping" disabled>
-                                                            <label>
-                                                                Flat Rate: <span class="amount">50.000 VNĐ</span>
-                                                            </label>
-                                                        @endif
-                                                    </li>
-                                                    <li>
-                                                        @if ($total > 20000000)
-                                                            <input type="radio" name="shipping" checked>
-                                                            <label>Free Shipping:</label>
-                                                        @else
-                                                            <input type="radio" name="shipping" disabled>
-                                                            <label>Free Shipping:</label>
-                                                        @endif
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                        <tr class="order-total">
-                                            <th>Order Total</th>
-                                            <td><strong><span class="amount" id="amounts">
-                                                        @if ($total < 20000000)
-                                                            {{ number_format($total + 50000) }}
-                                                        @else
-                                                            {{ number_format($total) }}
-                                                        @endif
-                                                        VNĐ
-                                                    </span></strong>
-                                            </td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                            <div class="mb-3">
-                                <label for="">Notes</label>
-                                <textarea name="" id="noteBook" cols="10" rows="3" class="form-control"></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label for="">Payment Method</label>
-                                <select class="form-control" id="payment">
-                                    <option value="0">COD</option>
-                                    <option value="1">VNPAY PAYMENT</option>
-                                </select>
-                            </div>
-                            <div>
-
-                                <input type="hidden" id="customer_id">
-
-                                <input type="hidden" id="grand">
-                                <input type="hidden" id="id_user" value="{{Auth::user()->id}}">
-                                <input type="hidden" id="paymentMethod" value="0">
-
-                                <input type="hidden" id="discounts" value="0">
-                                <input type="hidden" id="total_amount" value="{{ $totalQuantity }}">
-                                <div class="order-button-payment mt-20">
-                                    @if ($total == 0)
-                                        <button type="submit" class="btn btn-secondary mt-1">No Product In Cart</button>
+                                        </table>
                                     @else
-                                        <button type="submit" class="tp-btn-h1 mt-1" id="orders">Place order</button>
+                                        <h3><ion-icon name="receipt-outline"></ion-icon> Không có sản phẩm nào !</h3>
                                     @endif
+                                    <table>
+
+                                        <tfoot>
+                                            <tr class="cart-subtotal">
+                                                <th>Cart Subtotal</th>
+                                                <td><span class="amount" id="amount">{{ number_format($total) }}
+                                                        VNĐ</span>
+                                                </td>
+                                            </tr>
+                                            <tr class="shipping">
+                                                <th>Shipping</th>
+                                                <td>
+                                                    <ul>
+                                                        <li>
+                                                            @if ($total < 20000000)
+                                                                <input type="radio" name="shipping" checked>
+                                                                <label>
+                                                                    Flat Rate: <span class="amount">50.000 VNĐ</span>
+                                                                </label>
+                                                            @else
+                                                                <input type="radio" name="shipping" disabled>
+                                                                <label>
+                                                                    Flat Rate: <span class="amount">50.000 VNĐ</span>
+                                                                </label>
+                                                            @endif
+                                                        </li>
+                                                        <li>
+                                                            @if ($total > 20000000)
+                                                                <input type="radio" name="shipping" checked>
+                                                                <label>Free Shipping:</label>
+                                                            @else
+                                                                <input type="radio" name="shipping" disabled>
+                                                                <label>Free Shipping:</label>
+                                                            @endif
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                            <tr class="order-total">
+                                                <th>Order Total</th>
+                                                <td><strong><span class="amount" id="amounts">
+                                                            @if ($total < 20000000)
+                                                                {{ number_format($total + 50000) }}
+                                                            @else
+                                                                {{ number_format($total) }}
+                                                            @endif
+                                                            VNĐ
+                                                        </span></strong>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="">Notes</label>
+                                    <textarea name="notes" id="noteBook" cols="10" rows="3" class="form-control"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="">Payment Method</label>
+                                    <select class="form-control" id="payment">
+                                        <option value="0">COD</option>
+                                        <option value="1">VNPAY PAYMENT</option>
+                                    </select>
+                                </div>
+                                <div>
+
+                                    <input type="hidden" id="customer_id" name="customer_id">
+
+                                    <input type="hidden" id="grand" name="grand">
+                                    <input type="hidden" id="id_user" name="id_user" value="{{ Auth::user()->id }}">
+                                    <input type="hidden" id="paymentMethod" value="0" name="paymentMethod">
+
+                                    <input type="hidden" id="discounts" value="0" name="discounts">
+                                    <input type="hidden" id="total_amount" name="total_amount" value="{{ $totalQuantity }}">
+                                    <div class="order-button-payment mt-20">
+                                        @if ($total == 0)
+                                            <div  class="btn btn-secondary mt-1">No Product In
+                                                Cart</div>
+                                        @else
+                                            <button type="submit" class="tp-btn-h1 mt-1" id="orders">Place
+                                                order</button>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+
+
+                        </form>
                     </div>
                 </div>
 
@@ -535,7 +544,7 @@
                                         success: function() {
                                             alert(
                                                 'Cập nhật thông tin thành công !'
-                                                )
+                                            )
                                             window.location.reload()
                                         }
                                     })
