@@ -19,17 +19,14 @@ class IndexController extends Controller
     {
         $category = Category::all();
         $product = Product::where('status', 0)->get();
-       if(Auth::user()){
-        $totalQuantity = Cart::where('id_user', Auth::user()->id)->sum('quantity');
-        $carts = Cart::where('id_user',Auth::user()->id)->get();
-        $total = Cart::where('id_user', Auth::user()->id)->sum('total');
+        if (Auth::user()) {
+            $totalQuantity = Cart::where('id_user', Auth::user()->id)->sum('quantity');
+            $carts = Cart::where('id_user', Auth::user()->id)->get();
+            $total = Cart::where('id_user', Auth::user()->id)->sum('total');
 
-        return view('client.home',compact('category','product','totalQuantity','carts','total'));
-
-       }
-       return view('client.home',compact('category','product'));
-
-
+            return view('client.home', compact('category', 'product', 'totalQuantity', 'carts', 'total'));
+        }
+        return view('client.home', compact('category', 'product'));
     }
 
     /**
@@ -37,7 +34,6 @@ class IndexController extends Controller
      */
     public function create()
     {
-
     }
 
     /**
@@ -45,7 +41,6 @@ class IndexController extends Controller
      */
     public function store(Request $request)
     {
-
     }
 
     /**
@@ -53,21 +48,19 @@ class IndexController extends Controller
      */
     public function show(string $id)
     {
-        $detail = Product::with('variant','category','classify')->where('id',$id)->first();
+        $detail = Product::with('variant', 'category', 'classify')->where('id', $id)->first();
         $category = Category::all();
         // return response()->json($detail);
-        $associated  = Product::where('id_category' ,$detail->id_category)->whereNot('id',$detail->id)->get();
-        if(Auth::user()){
+        $associated  = Product::where('id_category', $detail->id_category)->whereNot('id', $detail->id)->get();
+        if (Auth::user()) {
             $totalQuantity = Cart::where('id_user', Auth::user()->id)->sum('quantity');
-            $carts = Cart::where('id_user',Auth::user()->id)->get();
+            $carts = Cart::where('id_user', Auth::user()->id)->get();
             $total = Cart::where('id_user', Auth::user()->id)->sum('total');
 
-            return view('client.detail-product',compact('category','detail','associated','totalQuantity','carts','total'));
+            return view('client.detail-product', compact('category', 'detail', 'associated', 'totalQuantity', 'carts', 'total'));
+        }
 
-
-           }
-
-        return view('client.detail-product',compact('category','detail','associated'));
+        return view('client.detail-product', compact('category', 'detail', 'associated'));
     }
 
     /**
@@ -75,7 +68,6 @@ class IndexController extends Controller
      */
     public function edit(string $id)
     {
-
     }
 
     /**
@@ -83,7 +75,6 @@ class IndexController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
     }
 
     /**
@@ -93,7 +84,8 @@ class IndexController extends Controller
     {
         //
     }
-    public function AddCustomer(Request $request){
+    public function AddCustomer(Request $request)
+    {
         $data = $request->all();
         $customer = new Customer();
         $customer->name = $data['name'];
@@ -107,13 +99,29 @@ class IndexController extends Controller
         $customer->id_user = $data['id'];
         $customer->save();
 
-return $request->all();
+        // return $request->all();
     }
-    public function getCustomer(Request $request){
-      $data = $request->all();
-      $customer = Customer::where('id_user',$data['id'])->first();
-      if($customer){
-        return $customer;
-      }
+    public function getCustomer(Request $request)
+    {
+        $data = $request->all();
+        $customer = Customer::where('id_user', $data['id'])->first();
+        if ($customer) {
+            return $customer;
+        }
+    }
+    public function UpdateCustomer(Request $request)
+    {
+        $data = $request->all();
+        $customer =Customer::find($data['id_cus']);
+        $customer->name = $data['name'];
+        $customer->address = $data['address'];
+        $customer->district = $data['district'];
+        $customer->conscious = $data['conscious'];
+        $customer->country = $data['country'];
+        $customer->postal_code = $data['code'];
+        $customer->email = $data['email'];
+        $customer->phone = $data['phone'];
+        $customer->id_user = $data['id'];
+        $customer->save();
     }
 }

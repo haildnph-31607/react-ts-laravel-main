@@ -2,7 +2,7 @@
 @section('main')
     <main>
         <!-- page-banner-area-start -->
-        <div class="page-banner-area page-banner-height-2" data-background="assets/img/banner/page-banner-4.jpg">
+        <div class="page-banner-area page-banner-height-2" data-background="">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
@@ -252,61 +252,32 @@
                                     </tfoot>
                                 </table>
                             </div>
+                            <div class="mb-3">
+                                <label for="">Notes</label>
+                                <textarea name="" id="noteBook" cols="10" rows="3" class="form-control"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="">Payment Method</label>
+                                <select class="form-control" id="payment">
+                                    <option value="0">COD</option>
+                                    <option value="1">VNPAY PAYMENT</option>
+                                </select>
+                            </div>
+                            <div>
 
-                            <div class="payment-method">
-                                <div class="accordion" id="checkoutAccordion">
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="checkoutOne">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                                data-bs-target="#bankOne" aria-expanded="true" aria-controls="bankOne">
-                                                Direct Bank Transfer
-                                            </button>
-                                        </h2>
-                                        <div id="bankOne" class="accordion-collapse collapse show"
-                                            aria-labelledby="checkoutOne" data-bs-parent="#checkoutAccordion">
-                                            <div class="accordion-body">
+                                <input type="hidden" id="customer_id">
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="paymentTwo">
-                                            <button class="accordion-button collapsed" type="button"
-                                                data-bs-toggle="collapse" data-bs-target="#payment" aria-expanded="false"
-                                                aria-controls="payment">
-                                                Cheque Payment
-                                            </button>
-                                        </h2>
-                                        <div id="payment" class="accordion-collapse collapse"
-                                            aria-labelledby="paymentTwo" data-bs-parent="#checkoutAccordion">
-                                            <div class="accordion-body">
-                                                <p>Please send your cheque to Store Name, Store Street, Store Town, Store
-                                                    State / County, Store Postcode.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="paypalThree">
-                                            <button class="accordion-button collapsed" type="button"
-                                                data-bs-toggle="collapse" data-bs-target="#paypal" aria-expanded="false"
-                                                aria-controls="paypal">
-                                                PayPal
-                                            </button>
-                                        </h2>
-                                        <div id="paypal" class="accordion-collapse collapse"
-                                            aria-labelledby="paypalThree" data-bs-parent="#checkoutAccordion">
-                                            <div class="accordion-body">
-                                                <p>Pay via PayPal; you can pay with your credit card if you don’t have a
-                                                    PayPal account.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <input type="hidden" id="grand">
+                                <input type="hidden" id="id_user" value="{{Auth::user()->id}}">
+                                <input type="hidden" id="paymentMethod" value="0">
+
+                                <input type="hidden" id="discounts" value="0">
+                                <input type="hidden" id="total_amount" value="{{ $totalQuantity }}">
                                 <div class="order-button-payment mt-20">
                                     @if ($total == 0)
-                                        <button type="submit" class="btn btn-secondary">Place order</button>
+                                        <button type="submit" class="btn btn-secondary mt-1">No Product In Cart</button>
                                     @else
-                                        <button type="submit" class="tp-btn-h1">Place order</button>
+                                        <button type="submit" class="tp-btn-h1 mt-1" id="orders">Place order</button>
                                     @endif
                                 </div>
                             </div>
@@ -354,8 +325,8 @@
                             <p>DukaMarket App is now available on App Store & Google Play. Get it now.</p>
                             <div class="cta-apps">
                                 <div class="apps-store">
-                                    <a href="#"><img src="assets/img/brand/app_ios.png" alt=""></a>
-                                    <a href="#"><img src="assets/img/brand/app_android.png" alt=""></a>
+                                    {{-- <a href="#"><img src="assets/img/brand/app_ios.png" alt=""></a>
+                                    <a href="#"><img src="assets/img/brand/app_android.png" alt=""></a> --}}
                                 </div>
                             </div>
                         </div>
@@ -364,7 +335,19 @@
             </div>
 
         </section>
+
         <script type="module">
+            $('#payment').change(function() {
+                let payment = $(this).find(':selected').val();
+                $('#paymentMethod').val(payment)
+            })
+        </script>
+        <script type="module">
+            if ({{ $total }} < 20000000) {
+                $('#grand').val({{ $total + 50000 }})
+            } else {
+                $('#grand').val({{ $total }})
+            }
             $('#btnCoupon').click(function() {
                 let value = $('#coupon').val();
                 if (value == '') {
@@ -377,14 +360,20 @@
                             value,
                         },
                         success: function(data) {
+
                             if (data) {
+                                $('#discounts').val(data.discount)
                                 let Amout = (data.discount / 100) * {{ $total }}
                                 let realPrice = {{ $total }} - Amout;
                                 let realPricee = {{ $total }} - Amout;
                                 if ({{ $total }} < 20000000) {
                                     realPrice += 50000
+                                    let pfs = realPrice += 50000;
+                                    $('#grand').val(pfs);
                                 } else {
                                     realPrice += 0
+                                    let pfs = realPrice += 0;
+                                    $('#grand').val(pfs);
                                 }
                                 const formattedNumber = realPrice.toLocaleString('vi-VN');
                                 const formattedNumbers = realPricee.toLocaleString('vi-VN');
@@ -453,7 +442,8 @@
                         id
                     },
                     success: function() {
-                        alert('Thanh cong ?')
+                        alert('Thêm thông tin thành công !')
+                        window.location.reload()
                     }
                 })
 
@@ -476,6 +466,7 @@
                     },
                     success: function(data) {
                         if (data) {
+                            $('#customer_id').val(data.id);
                             $('#name').prop('disabled', true);
                             $('#address').prop('disabled', true);
                             $('#district').prop('disabled', true);
@@ -496,13 +487,71 @@
                             $('#infomation').attr('id', 'updateInfomation');
 
                             // Đổi nội dung của nút button
-                            $('#updateInfomation').text('Update Information');
+                            $('#updateInfomation').text('Edit Information');
+                            $('#updateInfomation').click(function() {
+
+                                $('#updateInfomation').attr('id', 'update');
+                                $('#update').text('Update');
+                                $('#name').prop('disabled', false);
+                                $('#address').prop('disabled', false);
+                                $('#district').prop('disabled', false);
+                                $('#conscious').prop('disabled', false);
+                                $('#country').prop('disabled', false);
+                                $('#code').prop('disabled', false);
+                                $('#phone').prop('disabled', false);
+                                $('#email').prop('disabled', false);
+                                $('#update').click(function() {
+                                    let name = $('#name').val();
+                                    let address = $('#address').val();
+                                    let district = $('#district').val();
+                                    let conscious = $('#conscious').val();
+                                    let country = $('#country').val();
+                                    let code = $('#code').val();
+                                    let email = $('#email').val();
+                                    let phone = $('#phone').val();
+                                    let id = {{ Auth::user()->id }}
+                                    let id_cus = data.id;
+                                    $.ajax({
+                                        url: '{{ route('UpdateCustomer') }}',
+                                        method: 'POST',
+                                        headers: {
+                                            'X-CSRF-TOKEN': $(
+                                                'meta[name="csrf-token"]').attr(
+                                                'content')
+                                        },
+
+                                        data: {
+                                            name,
+                                            address,
+                                            district,
+                                            conscious,
+                                            country,
+                                            code,
+                                            email,
+                                            phone,
+                                            id,
+                                            id_cus
+                                        },
+                                        success: function() {
+                                            alert(
+                                                'Cập nhật thông tin thành công !'
+                                                )
+                                            window.location.reload()
+                                        }
+                                    })
+
+
+
+                                })
+
+                            })
                         }
                     }
 
                 })
             })
         </script>
+        <script type="module"></script>
 
     </main>
 @endsection

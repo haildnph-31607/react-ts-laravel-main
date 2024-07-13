@@ -14,14 +14,15 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_id')->constrained();
-            $table->string('invoice_number')->unique();
-            $table->date('invoice_date');
-            $table->decimal('total_amount', 15, 2);
-            $table->decimal('discount', 15, 2)->nullable();
-            $table->decimal('grand_total', 15, 2);
+            $table->string('invoice_number')->unique();//mã háo đơn
+            $table->date('invoice_date'); // ngày đặt
+            $table->decimal('total_amount', 15, 2);// tổng số lượng
+            $table->decimal('discount', 15, 2)->nullable(); // giảm giá
+            $table->decimal('grand_total', 15, 2); // tồng tiền
             $table->string('status')->default('Unpaid');
-            $table->string('payment_method')->nullable();
+            $table->string('payment_method')->nullable();// hình thức thanh toán
             $table->text('notes')->nullable();
+            $table->unsignedBigInteger('id_user');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });

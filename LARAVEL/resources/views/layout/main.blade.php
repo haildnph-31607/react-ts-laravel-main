@@ -162,7 +162,7 @@
                                                     name="search-outline"></ion-icon></button>
                                         </div>
                                         <div class="header__search-cat">
-                                            <select>
+                                            <select id="selects">
                                                 <option value="" selected>Chọn Danh Mục</option>
                                                 @foreach ($category as $item)
                                                     <option><a href="">{{ $item->name }}</a></option>

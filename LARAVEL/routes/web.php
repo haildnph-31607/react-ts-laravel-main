@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -43,7 +44,11 @@ Route::get('/checkout/{id}',[CheckoutController::class,'Checkout'])->name('check
 Route::get('check-coupon',[CouponController::class,'CheckCoupon'])->name('CheckCoupon');
 //customer
 Route::post('add-customer',[IndexController::class,'AddCustomer'])->name('AddCustomer');
+Route::post('update-customer',[IndexController::class,'UpdateCustomer'])->name('UpdateCustomer');
 Route::post('get-customer',[IndexController::class,'getCustomer'])->name('getCustomer');
+//invoice
+Route::post('add-invoice',[InvoiceController::class,'store'])->name('addInvoice');
+
 
 
 Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
