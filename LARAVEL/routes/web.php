@@ -52,7 +52,7 @@ Route::post('get-customer',[IndexController::class,'getCustomer'])->name('getCus
 Route::post('add-invoice',[InvoiceController::class,'store'])->name('addInvoice');
 //product
 Route::get('/shop-product',[IndexController::class,'ProductAll'])->name('productall');
-Route::get('/search-product',[IndexController::class,'seachFullText'])->name('search');
+Route::post('/search-product',[IndexController::class,'seachFullText'])->name('search-product');
 //thank
 Route::get('/thankyou',function(){
 return view('client.thank');

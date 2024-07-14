@@ -19,14 +19,16 @@ class IndexController extends Controller
     {
         $category = Category::all();
         $product = Product::where('status', 0)->get();
+        $title = 'Trang Chủ';
+
         if (Auth::user()) {
             $totalQuantity = Cart::where('id_user', Auth::user()->id)->sum('quantity');
             $carts = Cart::where('id_user', Auth::user()->id)->get();
             $total = Cart::where('id_user', Auth::user()->id)->sum('total');
 
-            return view('client.home', compact('category', 'product', 'totalQuantity', 'carts', 'total'));
+            return view('client.home', compact('category', 'product', 'totalQuantity', 'carts', 'total', 'title'));
         }
-        return view('client.home', compact('category', 'product'));
+        return view('client.home', compact('category', 'product', 'title'));
     }
 
     /**
@@ -50,6 +52,8 @@ class IndexController extends Controller
     {
         $detail = Product::with('variant', 'category', 'classify')->where('id', $id)->first();
         $category = Category::all();
+        $title = 'Chi Tiết Sản Phẩm';
+
         // return response()->json($detail);
         $associated  = Product::where('id_category', $detail->id_category)->whereNot('id', $detail->id)->get();
         if (Auth::user()) {
@@ -57,10 +61,10 @@ class IndexController extends Controller
             $carts = Cart::where('id_user', Auth::user()->id)->get();
             $total = Cart::where('id_user', Auth::user()->id)->sum('total');
 
-            return view('client.detail-product', compact('category', 'detail', 'associated', 'totalQuantity', 'carts', 'total'));
+            return view('client.detail-product', compact('category', 'detail', 'associated', 'totalQuantity', 'carts', 'total', 'title'));
         }
 
-        return view('client.detail-product', compact('category', 'detail', 'associated'));
+        return view('client.detail-product', compact('category', 'detail', 'associated', 'title'));
     }
 
     /**
@@ -126,6 +130,8 @@ class IndexController extends Controller
     }
     public function ProductAll()
     {
+        $title = 'Sản Phẩm';
+
         $category = Category::all();
         $product = Product::where('status', 0)->get();
 
@@ -134,8 +140,24 @@ class IndexController extends Controller
             $carts = Cart::where('id_user', Auth::user()->id)->get();
             $total = Cart::where('id_user', Auth::user()->id)->sum('total');
 
-            return view('client.product', compact('category', 'product', 'totalQuantity', 'carts', 'total'));
+            return view('client.product', compact('category', 'product', 'totalQuantity', 'carts', 'total', 'title'));
         }
-        return view('client.product', compact('category', 'product'));
+        return view('client.product', compact('category', 'product', 'title','search'));
+    }
+    public function seachFullText(Request $request){
+        $data = $request->all();
+        $search = $data['search-full-text'];
+        $title = 'Tìm Kiếm :'.$search;
+        $category = Category::all();
+        $product = Product::where('name','like',"%$search%")->get();
+        if (Auth::user()) {
+            $totalQuantity = Cart::where('id_user', Auth::user()->id)->sum('quantity');
+            $carts = Cart::where('id_user', Auth::user()->id)->get();
+            $total = Cart::where('id_user', Auth::user()->id)->sum('total');
+
+            return view('client.seach', compact('category', 'product', 'totalQuantity', 'carts', 'total', 'title','search'));
+        }
+        return view('client.seach',compact('product','data','title','category','search'));
+        // dd($product);
     }
 }

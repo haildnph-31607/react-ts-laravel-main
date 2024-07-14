@@ -21,8 +21,10 @@ class ForgotPasswordController extends Controller
 
     use SendsPasswordResetEmails;
     public function showLinkRequestForm(){
+        $title = 'Quên Mật Khẩu';
+
         $category = Category::all();
 
-        return view('auth.passwords.email',compact('category'));
+        return view('auth.passwords.email',compact('category','title'));
     }
 }

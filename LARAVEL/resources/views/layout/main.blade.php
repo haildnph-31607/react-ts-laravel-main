@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Duka Market - Clean, Minimal E-commerce HTML5 Template</title>
+    <title>Duka Market | {{$title}}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -154,10 +154,11 @@
                             </div>
                             <div class="col-xl-5 col-lg-4 d-none d-lg-block">
                                 <div class="header__search">
-                                    <form action="{{route('search-product')}}">
+                                    <form action="{{route('search-product')}}" method="POST">
                                         <div class="header__search-box">
                                             <input class="search-input" type="text" name="search-full-text"
                                                 placeholder="I'm shopping for..." id="timkiem">
+                                                @csrf
                                             <button class="button" type="submit"><ion-icon style="margin-top: 10px"
                                                     name="search-outline"></ion-icon></button>
                                         </div>

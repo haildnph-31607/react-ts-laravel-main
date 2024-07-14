@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Variant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+
 class ProductController extends Controller
 {
     /**
@@ -21,7 +22,7 @@ class ProductController extends Controller
         if (!is_dir($path)) {
             mkdir($path, 0777, true);
         }
-        File::put($path."compare.json",json_encode($product));
+        File::put($path . "compare.json", json_encode($product));
         return view('admin.product.index', compact('product'));
     }
 

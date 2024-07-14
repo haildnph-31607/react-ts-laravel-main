@@ -17,7 +17,8 @@ class CheckoutController extends Controller
      $totalQuantity = Cart::where('id_user', Auth::user()->id)->sum('quantity');
      $carts = Cart::where('id_user',Auth::user()->id)->get();
      $total = Cart::where('id_user', Auth::user()->id)->sum('total');
+     $title = 'Thanh Toán';
 
-     return view('client.checkout',compact('cart','category','totalQuantity','carts','total'));
+     return view('client.checkout',compact('cart','category','totalQuantity','carts','total','title'));
     }
 }

@@ -39,10 +39,13 @@ class LoginController extends Controller
         $this->middleware('auth')->only('logout');
     }
     public function showLoginForm(){
+
+        $title = 'Đăng Nhập';
+
         // $customMessage = "Welcome to the login page!";
         // $pageTitle = "Login";
         $category = Category::all();
 
-        return view('auth.login', compact('category'));
+        return view('auth.login', compact('category','title'));
     }
 }

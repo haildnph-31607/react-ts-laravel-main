@@ -43,10 +43,13 @@ class CartController extends Controller
             $total = Cart::where('id_user', $id)->sum('total');
             $totalQuantity = Cart::where('id_user', $id)->sum('quantity');
             $carts = Cart::where('id_user', Auth::user()->id)->get();
-            return view('client.cart', compact('category', 'cart', 'total', 'totalQuantity', 'carts'));
+            $title = ' Giỏ Hàng';
+            return view('client.cart', compact('category', 'cart', 'total', 'totalQuantity', 'carts','title'));
         } else {
+            $title = ' Giỏ Hàng';
+
             $category = Category::all();
-            return view('auth.login', compact('category'));
+            return view('auth.login', compact('category','title'));
         }
     }
     public function deleteCart()

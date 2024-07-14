@@ -49,6 +49,8 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $title = 'Tạo Tài Khoản';
+
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -72,7 +74,8 @@ class RegisterController extends Controller
     }
     public function showRegistrationForm(){
         $category = Category::all();
+        $title = 'Tạo Tài Khoản';
 
-        return view('auth.register', compact('category'));
+        return view('auth.register', compact('category','title'));
     }
 }

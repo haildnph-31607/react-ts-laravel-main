@@ -31,8 +31,10 @@ class ResetPasswordController extends Controller
     public function showResetForm(Request $request, $token = null)
     {
         $category = Category::all();
+        $title = 'Tạo Tài Khoản';
+
         return view('auth.passwords.reset')->with(
-            ['token' => $token, 'email' => $request->email ,'category'=>$category]
+            ['token' => $token, 'email' => $request->email ,'category'=>$category,'title'=>$title]
         );
     }
 }
