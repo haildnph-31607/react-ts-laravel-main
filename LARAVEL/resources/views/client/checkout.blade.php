@@ -265,6 +265,7 @@
                                     <select class="form-control" id="payment">
                                         <option value="0">COD</option>
                                         <option value="1">VNPAY PAYMENT</option>
+                                        <option value="2">MOMO PAYMENT</option>
                                     </select>
                                 </div>
                                 <div>

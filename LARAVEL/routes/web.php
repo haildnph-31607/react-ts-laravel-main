@@ -37,6 +37,8 @@ Route::get('/add-to-cart',[CartController::class,'addToCart'])->name('carts');
 Route::get('/cart/{id}',[CartController::class,'Cart'])->name('cart');
 Route::get('/delete-cart', [CartController::class, 'deleteCart'])->name('deleteCarts');
 Route::get('/update-cart', [CartController::class, 'updateCart'])->name('updateCart');
+Route::get('/update-quantity-cart', [CartController::class, 'quantityCart'])->name('quantityCart');
+Route::get('/get-cart', [CartController::class, 'getCart'])->name('getCart');
 
 // Checkout
 Route::get('/checkout/{id}',[CheckoutController::class,'Checkout'])->name('checkout');
@@ -48,8 +50,13 @@ Route::post('update-customer',[IndexController::class,'UpdateCustomer'])->name('
 Route::post('get-customer',[IndexController::class,'getCustomer'])->name('getCustomer');
 //invoice
 Route::post('add-invoice',[InvoiceController::class,'store'])->name('addInvoice');
-
-
+//product
+Route::get('/shop-product',[IndexController::class,'ProductAll'])->name('productall');
+Route::get('/search-product',[IndexController::class,'seachFullText'])->name('search');
+//thank
+Route::get('/thankyou',function(){
+return view('client.thank');
+})->name('thank');
 
 Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login']);

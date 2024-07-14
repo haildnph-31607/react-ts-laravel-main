@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\DestroyCart;
 use App\Events\PaymentEvent;
+use App\Listeners\Destroy;
 use App\Listeners\SendMailAfterOrder;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         PaymentEvent::class => [
             SendMailAfterOrder::class,
+        ],
+        DestroyCart::class => [
+            Destroy::class,
         ],
     ];
 

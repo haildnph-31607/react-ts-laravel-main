@@ -112,7 +112,7 @@ class IndexController extends Controller
     public function UpdateCustomer(Request $request)
     {
         $data = $request->all();
-        $customer =Customer::find($data['id_cus']);
+        $customer = Customer::find($data['id_cus']);
         $customer->name = $data['name'];
         $customer->address = $data['address'];
         $customer->district = $data['district'];
@@ -123,5 +123,19 @@ class IndexController extends Controller
         $customer->phone = $data['phone'];
         $customer->id_user = $data['id'];
         $customer->save();
+    }
+    public function ProductAll()
+    {
+        $category = Category::all();
+        $product = Product::where('status', 0)->get();
+
+        if (Auth::user()) {
+            $totalQuantity = Cart::where('id_user', Auth::user()->id)->sum('quantity');
+            $carts = Cart::where('id_user', Auth::user()->id)->get();
+            $total = Cart::where('id_user', Auth::user()->id)->sum('total');
+
+            return view('client.product', compact('category', 'product', 'totalQuantity', 'carts', 'total'));
+        }
+        return view('client.product', compact('category', 'product'));
     }
 }

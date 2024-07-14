@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/flaticon.css') }}">
     <style>
-        .cart-minis{
+        .cart-minis {
             display: grid;
             grid-template-columns: 1fr;
         }
@@ -154,10 +154,10 @@
                             </div>
                             <div class="col-xl-5 col-lg-4 d-none d-lg-block">
                                 <div class="header__search">
-                                    <form action="#">
+                                    <form action="{{route('search-product')}}">
                                         <div class="header__search-box">
-                                            <input class="search-input" type="text"
-                                                placeholder="I'm shopping for...">
+                                            <input class="search-input" type="text" name="search-full-text"
+                                                placeholder="I'm shopping for..." id="timkiem">
                                             <button class="button" type="submit"><ion-icon style="margin-top: 10px"
                                                     name="search-outline"></ion-icon></button>
                                         </div>
@@ -171,6 +171,11 @@
                                             </select>
                                         </div>
                                     </form>
+                                    <ul class="list-group" id="result"
+                                    style="display: none; position: absolute; background-color: #1f3d58 ; z-index: 20; height: auto; ; overflow-y: auto;  ">
+
+
+                                </ul>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-5 col-md-8 col-sm-8">
@@ -230,7 +235,7 @@
                                         @endif
                                         <span class="text">
                                             <span class="sub">Cart</span>
-                                           </span>
+                                        </span>
                                         </a>
                                         <div class="cart">
                                             <div class="cart__mini">
@@ -252,10 +257,9 @@
                                                         <div
                                                             class="cart__item d-flex justify-content-between align-items-center">
                                                             @if (Auth::user())
-                                                              <div class="cart-minis">
+                                                                <div class="cart-minis">
 
-                                                                @foreach ($carts as $item)
-
+                                                                    @foreach ($carts as $item)
                                                                         <div class="d-flex mb-3 ">
                                                                             <div class="cart__thumb">
                                                                                 <a href="product-details.html">
@@ -272,14 +276,14 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-
-                                                                @endforeach
-                                                             </div>
+                                                                    @endforeach
+                                                                </div>
                                                     <li>
                                                         <div
                                                             class="cart__sub d-flex justify-content-between align-items-center">
                                                             <h6>Subtotal</h6>
-                                                            <span class="cart__sub-total">{{number_format($total)}} VNĐ</span>
+                                                            <span class="cart__sub-total">{{ number_format($total) }}
+                                                                VNĐ</span>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -347,7 +351,7 @@
                                             </a>
 
                                         </li>
-                                        <li><a href=""> <ion-icon style="margin-top: 20px"
+                                        <li><a href="{{ route('productall') }}"> <ion-icon style="margin-top: 20px"
                                                     name="cube-outline"></ion-icon> Product</a></li>
 
                                         </li>
@@ -558,5 +562,55 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
+<script type="text/javascript">
+    $(document).ready(function() {
+        function debounce(func, wait) {
+        let timeout;
+        return function() {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, arguments), wait);
+        };
+    }
+
+    $('#timkiem').keyup(debounce(function() {
+        $('#result').html(''); // Clear previous results
+        var search = $('#timkiem').val().trim();
+        if (search !== '') {
+            var expression = new RegExp(search, 'i');
+            $.getJSON('./public_json/compare.json', function(data) {
+                let found = false;
+                $.each(data, function(key, value) {
+                    if (value.name.search(expression) !== -1) {
+                        found = true;
+                        $('#result').css('display', 'inherit');
+                        $('#result').append(
+                            '<li style="cursor:pointer; display: flex; height:auto; width:630px;" class="list-group-item link-class"><img src="uploads/product/' +
+                            value.image +
+                            '" width="100" class="" /><div style="flex-direction: column; margin-left: 2px;"><h4 width="100%">' +
+                            value.name +
+                            '</h4><span style="display: -webkit-box; max-height: 8.2rem; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; white-space: normal; -webkit-line-clamp: 5; line-height: 1.6rem;" class="text-muted">| ' +
+                            value.price + ' VNĐ</span></div></li>'
+                        );
+                    }
+                });
+                if (!found) {
+                    $('#result').css('display', 'none');
+                }
+            });
+        } else {
+            $('#result').css('display', 'none');
+        }
+    }, 300)); // 300ms debounce delay
+        $('#result').on('click', 'li', function() {
+            var click_text = $(this).text().split('|');
+            $('#timkiem').val($.trim(click_text[0]));
+            $('#result').html('');
+            $('#result').css('display', 'none');
+        });
+
+
+    });
+</script>
+
 
 </html>

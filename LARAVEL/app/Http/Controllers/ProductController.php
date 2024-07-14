@@ -8,7 +8,7 @@ use App\Models\Classify;
 use App\Models\Product;
 use App\Models\Variant;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\File;
 class ProductController extends Controller
 {
     /**
@@ -17,7 +17,11 @@ class ProductController extends Controller
     public function index()
     {
         $product = Product::with('category')->where('status', 0)->get();
-        // return response()->json($product);
+        $path = public_path() . "/public_json/";
+        if (!is_dir($path)) {
+            mkdir($path, 0777, true);
+        }
+        File::put($path."compare.json",json_encode($product));
         return view('admin.product.index', compact('product'));
     }
 

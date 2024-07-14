@@ -42,6 +42,8 @@
                                         <th class="product-thumbnail">Images</th>
                                         <th class="cart-product-name">Product</th>
                                         <th class="product-price">Unit Price</th>
+                                        <th class="product-price">Color</th>
+                                        <th class="product-price">Capacity</th>
                                         <th class="product-quantity">Quantity</th>
                                         <th class="product-subtotal">Total</th>
                                         <th class="product-remove">Remove</th>
@@ -58,6 +60,8 @@
                                             </td>
                                             <td class="product-price"><span class="amount">{{ number_format($item->price) }}
                                                     VNĐ</span></td>
+                                            <td class="product-price"><span class="amount">{{$item->color}}</span></td>
+                                            <td class="product-price"><span class="amount">{{$item->classify->classify}}</span></td>
                                             <td class="product-quantity">
                                                 <input type="number" class="form-control" data-price="{{ $item->price }}"
                                                     data-cart="{{ $item->id }}" value="{{ $item->quantity }}"
@@ -186,24 +190,24 @@
         <script>
             let quantityCart = document.querySelectorAll('#quantityCart');
             for (const iterators of quantityCart) {
-                  iterators.addEventListener('change',function(){
+                iterators.addEventListener('change', function() {
                     let quantity = iterators.value;
                     let price = iterators.dataset.price;
                     let id = iterators.dataset.cart;
-                   $.ajax({
-                    url:'{{route('updateCart')}}',
-                    method:'GET',
-                    data:{
-                        quantity,
-                        price,
-                        id,
-                    },
-                    success:function(){
-                        alert('Thay đổi thành công');
-                        window.location.reload();
-                    }
-                   })
-                  })
+                    $.ajax({
+                        url: '{{ route('updateCart') }}',
+                        method: 'GET',
+                        data: {
+                            quantity,
+                            price,
+                            id,
+                        },
+                        success: function() {
+                            alert('Thay đổi thành công');
+                            window.location.reload();
+                        }
+                    })
+                })
             }
         </script>
 

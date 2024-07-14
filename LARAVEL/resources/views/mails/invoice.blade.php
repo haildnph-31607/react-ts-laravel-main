@@ -93,10 +93,10 @@
         </table>
         <div class="total">
             <p>Tổng cộng: {{ number_format($dataTotal,0,',','.') }} VND</p>
-            @if($Invoice->grand_total - $dataTotal == 0)
-            <p>Phí vận chuyển: 0 VNĐ</p>
+            @if($Invoice->grand_total - $dataTotal === 50000)
+            <p>Phí vận chuyển: 50.000 VNĐ</p>
             @else
-            <p>Phí vận chuyển: 50.000 VND</p>
+            <p>Phí vận chuyển: 0 VND</p>
             @endif
             <p><strong>Tổng thanh toán:{{ number_format($Invoice->grand_total,0,',','.') }} VNĐ</strong></p>
         </div>

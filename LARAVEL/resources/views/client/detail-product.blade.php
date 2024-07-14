@@ -235,9 +235,12 @@
                     <div class="data-class">
                         @foreach ($detail->classify as  $item)
                         <div class="class-option">
-                         <input type="radio" id="classify-{{$item->id}}" data-quantity = "{{{$item->quantity}}}"  data-price = "{{{$item->price}}}" name="dataclassify" value="{{{$item->classify}}}">
-
-
+                         <input type="radio" id="classify-{{$item->id}}"
+                          data-quantity = "{{{$item->quantity}}}"
+                          data-price = "{{{$item->price}}}"
+                          data-classify = "{{$item->id}}"
+                          name="dataclassify"
+                          value="{{{$item->classify}}}">
 
                          <label for="classify-{{$item->id}}" class="class-button">{{$item->classify}}</label>
                      </div>
@@ -374,6 +377,8 @@
         <input type="hidden" id="dataPrice" >
         <input type="hidden" id="dataImage">
         <input type="hidden" id="dataColor">
+        <input type="hidden" id="quantityClassify">
+        <input type="hidden" id="idClassify">
         <input type="hidden" id="dataQuantity" value="1">
        @if(Auth::user())
        <input type="hidden" id="user" value="{{Auth::user()->id}}">
@@ -436,8 +441,13 @@ btns.forEach(function(click) {
                         const selectedColor = this.value;
                         let quantity =   radio.dataset.quantity;
                         let price = radio.dataset.price;
+                        let id = radio.dataset.classify;
+                        document.getElementById('idClassify').value = id;
                         document.getElementById('dataPrice').value = price;
+
+
                         max = quantity;
+                        document.getElementById('quantityClassify').value =quantity;
                         document.getElementById('stock').innerHTML = `Availability: <span> ${quantity}  in stock</span>`;
                         const formatter = new Intl.NumberFormat('vi-VN', {
                                 style: 'currency',
@@ -503,32 +513,67 @@ btns.forEach(function(click) {
       $('#addToCart').click(function(){
         // let token = 'fbgnGA2XygDoSTUWUguGVwwVqkH3Rd38gJyKToez';
 
+
             let images = $('#dataImage').val();
             let price = $('#dataPrice').val();
             let name = "{{ $detail->name }}"
             let quantitys = $('#dataQuantity').val();
             let productID = "{{ $detail->id }}";
             let user = $('#user').val();
-            console.log(user,quantitys);
+            let idClassify = $('#idClassify').val();
+            let quantityClassify = $('#quantityClassify').val();
+            let dataColor = $('#dataColor').val();
 
 
            if(images !== "" && price !== "" && name !== "" && quantitys !== "" ){
-            $.ajax({
-            url:'{{ route('carts') }}',
-            method:'GET',
-            data:{
-              price,
-              images,
-              name,
-              quantitys,
-              productID,
-              user,
-            },
-            success:function(){
-                alert('Thêm vào giỏ hàng thành công !')
-                window.location.reload()
-            }
-         })
+              $.ajax({
+                 url:'{{route('getCart')}}',
+                 method:'GET',
+                 data:{
+                    idClassify,
+                    quantityClassify,
+                    dataColor
+                 },
+                 success:function(data){
+                    if(data){
+                        let id = data.id;
+                        console.log(id);
+              $.ajax({
+                 url:'{{route('quantityCart')}}',
+                 method:'GET',
+                 data:{
+                    quantitys,
+                    id
+                 },
+                 success:function(){
+                    alert('Thêm thành công vào giỏ hàng');
+                    window.location.reload();
+                 }
+
+              })
+                    }else{
+                $.ajax({
+                        url:'{{ route('carts') }}',
+                        method:'GET',
+                        data:{
+                        dataColor,
+                        idClassify,
+                        price,
+                        images,
+                        name,
+                        quantitys,
+                        productID,
+                        user,
+                        },
+                        success:function(){
+                            alert('Thêm vào giỏ hàng thành công !')
+                            window.location.reload()
+                        }
+                    })
+                    }
+                 }
+              })
+
            }else{
             alert('Bạn chưa chọn các tuỳ chọn !');
            }
