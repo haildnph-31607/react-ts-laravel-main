@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('sku');
             $table->integer('discount');
+            $table->integer('minimum');
+            $table->integer('id_types');
             $table->timestamp('start')->nullable()->comment('Ngày bắt đầu');
             $table->timestamp('end')->nullable()->comment('Ngày kết thúc');
             $table->timestamp('created_at')->nullable();

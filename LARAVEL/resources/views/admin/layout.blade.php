@@ -60,35 +60,42 @@
 
                                     </ul>
                                 </li>
+
                                 <li>
-                                    <a href="javascript: void(0);"> <span> Category <ion-icon
-                                                name="layers-outline"></ion-icon></a>
+                                    <a href="javascript: void(0);"><span> Category </span><ion-icon
+                                        name="layers-outline"></ion-icon></a>
                                     <ul class="nav-second-level" aria-expanded="false">
-                                        <li><a href="{{ route('category.index') }}">Category List</a></li>
-                                        <li><a href="{{ route('category.create') }}">Category Add</a></li>
+                                        <li><a href="{{ route('category.index') }}">Category List</a><span></span></li>
+                                        <li><a href="{{ route('category.create') }}">Category Add</a> <span></span></li>
 
                                     </ul>
                                 </li>
 
-                                {{-- <li>
-                                    <a href="javascript: void(0);"> <span> Variation <ion-icon
-                                                name="git-network-outline"></ion-icon></a>
+
+                                <li>
+                                    <a href="javascript: void(0);"><span> Coupon </span><ion-icon name="qr-code-outline"></ion-icon></a>
                                     <ul class="nav-second-level" aria-expanded="false">
-                                        <li><a href="{{ route('variation.index') }}">Variation List</a></li>
-                                        <li><a href="{{ route('variation.create') }}">Variation Add</a></li>
+                                        <li><a href="{{ route('coupon.index') }}">Coupon List</a><span></span></li>
+                                        <li><a href="{{ route('coupon.create') }}">Coupon Add</a> <span></span></li>
 
                                     </ul>
                                 </li>
-
                                 <li>
-                                    <a href="javascript: void(0);"> <span> Color <ion-icon
-                                                name="layers-outline"></ion-icon></a>
+                                    <a href="javascript: void(0);"><span> User </span><ion-icon name="person-circle-outline"></ion-icon></a>
                                     <ul class="nav-second-level" aria-expanded="false">
-                                        <li><a href="{{ route('color.index') }}">Color List</a></li>
-                                        <li><a href="{{ route('color.create') }}">Color Add</a></li>
+                                        <li><a href="{{ route('user.index') }}">User List</a><span></span></li>
+                                        <li><a href="{{ route('user.create') }}">User Add</a> <span></span></li>
 
                                     </ul>
-                                </li> --}}
+                                </li>
+                                <li>
+                                    <a href="javascript: void(0);"><span> Role </span><ion-icon name="people-circle-outline"></ion-icon></a>
+                                    <ul class="nav-second-level" aria-expanded="false">
+                                        <li><a href="{{ route('role.index') }}">Role List</a><span></span></li>
+                                        <li><a href="{{ route('role.create') }}">Role Add</a> <span></span></li>
+
+                                    </ul>
+                                </li>
 
                                 <li>
                                     <a href="javascript: void(0);"><span> Charts </span>

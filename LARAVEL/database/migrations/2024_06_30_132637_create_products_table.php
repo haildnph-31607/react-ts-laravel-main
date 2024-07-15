@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('image', 255)->nullable();
             $table->text('description')->nullable();
             $table->string('status')->nullable();
+            $table->string('id_sales')->nullable();
             $table->unsignedBigInteger('id_category');  // Tạo cột id_category mà không có auto_increment
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

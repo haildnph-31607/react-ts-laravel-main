@@ -16,18 +16,18 @@ class DatabaseSeeder extends Seeder
         //tạo 1 bản ghi
 
         //tạo 10 bản gi random
-        $coupon =[];
-        for($i = 0 ; $i< 10 ; $i++){
-           $coupon[]= [
-                 'sku'=>fake()->name(),
-                 'discount'=>fake()->numberBetween(0,1),
-                 'price'=>fake()->randomFloat(2,1000,5000)
-           ];
-        }
-        DB:: table('coupons')->insert($coupon);
+        // $coupon =[];
+        // for($i = 0 ; $i< 10 ; $i++){
+        //    $coupon[]= [
+        //          'sku'=>fake()->name(),
+        //          'discount'=>fake()->numberBetween(0,1),
+        //          'price'=>fake()->randomFloat(2,1000,5000)
+        //    ];
+        // }
+        // DB:: table('coupons')->insert($coupon);
         $this->call([
-            CategorySeeder::class,
-            CouponSeeder::class,
+
+            PromotionTypeSeeder::class
         ]);
     }
 }
