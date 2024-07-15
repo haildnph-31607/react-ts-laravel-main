@@ -49,7 +49,7 @@ class UserController extends Controller
         ]);
         $data = $request->all();
         $user = new User();
-        $user->id_role = $data['role'];
+        $user->id_roles = $data['role'];
         $user->name = $data['name'];
         $user->email = $data['email'];
         $user->password = Hash::make($data['password']);
@@ -97,7 +97,7 @@ class UserController extends Controller
         ]);
         $data = $request->all();
         $user = User::find($id);
-        $user->id_role = $data['role'];
+        $user->id_roles = $data['role'];
         $user->name = $data['name'];
         $user->email = $data['email'];
         $user->password = Hash::make($data['password']);

@@ -17,7 +17,12 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->unsignedBigInteger('id_role');
+            $table->unsignedBigInteger('id_roles');
+
+            // Thêm khóa ngoại cho id_role
+            $table->foreign('id_roles')->references('id')->on('roles')
+                  ->onDelete('cascade');
+
             $table->rememberToken();
             $table->timestamps();
         });

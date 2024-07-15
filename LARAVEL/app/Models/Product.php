@@ -18,4 +18,7 @@ class Product extends Model
     public function classify(){
         return $this->hasMany(Classify::class,'id_product');
     }
+    public function sale(){
+        return $this->belongsTo(Sale::class,'id_sales');
+    }
 }

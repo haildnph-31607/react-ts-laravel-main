@@ -16,6 +16,7 @@
                             <th>Name</th>
                             <th>Price</th>
                             <th>Image</th>
+                            <th>Sale</th>
                             <th>Description</th>
                             <th>Category</th>
                             <th>Option</th>
@@ -29,6 +30,13 @@
                                 <td>{{ $item->price }}</td>
                                 <td>
                                     <img src="{{ asset('uploads/product/' . $item->image) }}" alt="" width="100px">
+                                </td>
+                                <td>
+                                   @if($item->id_sales > 0)
+                                   {{$item->sale->title}}
+                                   @else
+                                   Không áp dụng khuyến mãi
+                                   @endif
                                 </td>
                                 <td>{{ $item->description }}</td>
                                 <td>{{$item->category->name}}</td>

@@ -6,55 +6,82 @@
             <h4 class="header-title">UPDATE PRODUCT</h4>
 
             <form class="forms-sample" action="{{route('product.update',$data->id)}}" method="POST" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="exampleFormControlSelect1">Category</label>
-                    <select class="form-control form-control-lg" name="category" id="exampleFormControlSelect1">
-                        <option value="" selected>Chose Category</option>
-                       @foreach($category as $item)
-                       <option value="{{$item->id}}" {{($item->id === $data->id_category) ? 'selected' : ''}}>{{$item->name}}</option>
-                       @endforeach
-
-                    </select>
-                </div>
                 @csrf
-                @method('PATCH')
+              @method('PATCH')
+                <!-- Category -->
                 <div class="form-group">
-                    <label for="exampleFormControlSelect1">Status</label>
-                    <select class="form-control form-control-lg" name="status" id="exampleFormControlSelect1">
+                    <label for="category">Category</label>
+                    <select class="form-control form-control-lg @error('category') is-invalid @enderror" name="category" id="category">
+                        <option value="" selected>Choose Category</option>
+                        @foreach ($category as $item)
+                            <option value="{{ $item->id }}" {{($item->id == $data->id_category) ? 'selected' : ''}}>{{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('category')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
 
+                <!-- Sale -->
+                <div class="form-group">
+                    <label for="sale">Sale</label>
+                    <select class="form-control form-control-lg @error('sale') is-invalid @enderror" name="sale" id="sale">
+                        <option value="" selected>Choose Sale</option>
+                        @foreach ($sale as $item)
+                            <option value="{{ $item->id }}" {{($item->id == $data->id_sales) ? 'selected' : ''}}>{{ $item->title }}</option>
+                        @endforeach
+                    </select>
+                    @error('sale')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <!-- Status -->
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select class="form-control form-control-lg @error('status') is-invalid @enderror" name="status" id="status">
                         <option value="0">Hiển Thị</option>
                         <option value="1">Ẩn</option>
-
-
                     </select>
+                    @error('status')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
+
+                <!-- Name Product -->
                 <div class="form-group">
-                    <label for="exampleInputName1">Name Product</label>
-                    <input type="text" class="form-control" id="exampleInputName1" name="name" placeholder="Name Product" value="{{$data->name}}">
+                    <label for="name">Name Product</label>
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Name Product" value="{{old('name',$data->name)}}">
+                    @error('name')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
+
+                <!-- Price -->
                 <div class="form-group">
-                    <label for="exampleInputEmail3">Price</label>
-                    <input type="number" class="form-control" id="exampleInputEmail3" name="price" placeholder="Price Product" value="{{$data->price}}">
+                    <label for="price">Price</label>
+                    <input type="number" min="0" class="form-control @error('price') is-invalid @enderror" id="price" name="price" placeholder="Price Product" value="{{old('price',$data->price)}}">
+                    @error('price')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
-                <input type="hidden" name="file" value="{{$data->image}}">
+                  <input type="hidden" value="{{$data->image}}" name="file">
+                <!-- Description -->
                 <div class="form-group">
-                    <label for="exampleTextarea1">Description</label>
-                    <textarea class="form-control" id="exampleTextarea1" name="description" rows="4" placeholder="Description Product">{{$data->description}}</textarea>
+                    <label for="editor">Description</label>
+                    <textarea class="form-control" name="editor" id="editor" rows="4" placeholder="Description Product">{{$data->description}}</textarea>
+                    @error('editor')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <h4 class="header-title m-t-0">Dropzone File Upload Image</h4>
-                            <p class="text-muted font-14 m-b-10">
-                                <img src="{{asset('uploads/product/'.$data->image)}}" width="100px" alt="">
-                            </p>
-                            <button type="button" class="btn btn-custom btn-file">
-                                <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select file</span>
-                                <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
-                                <input type="file" class="btn-light" name="file" style="opacity: 0" />
-                            </button>
-                        </div>
-                    </div>
+                   <img src="{{asset('uploads/product/'.$data->image)}}" width="100px" alt="">
+                <!-- File Upload -->
+                <div class="form-group">
+                    <label for="file">Upload Image</label>
+                    <input type="file" class="form-control-file form-control  @error('file') is-invalid @enderror" id="file" name="file">
+                    @error('file')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
 
 
@@ -63,5 +90,8 @@
             </form>
 
     </div>
+    <script>
+        CKEDITOR.replace('editor');
+    </script>
 </div>
 @endsection

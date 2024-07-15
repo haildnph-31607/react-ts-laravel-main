@@ -31,23 +31,6 @@ class IndexController extends Controller
         return view('client.home', compact('category', 'product', 'title'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $detail = Product::with('variant', 'category', 'classify')->where('id', $id)->first();
@@ -67,27 +50,7 @@ class IndexController extends Controller
         return view('client.detail-product', compact('category', 'detail', 'associated', 'title'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
     public function AddCustomer(Request $request)
     {
         $data = $request->all();
@@ -142,22 +105,23 @@ class IndexController extends Controller
 
             return view('client.product', compact('category', 'product', 'totalQuantity', 'carts', 'total', 'title'));
         }
-        return view('client.product', compact('category', 'product', 'title','search'));
+        return view('client.product', compact('category', 'product', 'title'));
     }
-    public function seachFullText(Request $request){
+    public function seachFullText(Request $request)
+    {
         $data = $request->all();
         $search = $data['search-full-text'];
-        $title = 'Tìm Kiếm :'.$search;
+        $title = 'Tìm Kiếm :' . $search;
         $category = Category::all();
-        $product = Product::where('name','like',"%$search%")->get();
+        $product = Product::where('name', 'like', "%$search%")->get();
         if (Auth::user()) {
             $totalQuantity = Cart::where('id_user', Auth::user()->id)->sum('quantity');
             $carts = Cart::where('id_user', Auth::user()->id)->get();
             $total = Cart::where('id_user', Auth::user()->id)->sum('total');
 
-            return view('client.seach', compact('category', 'product', 'totalQuantity', 'carts', 'total', 'title','search'));
+            return view('client.seach', compact('category', 'product', 'totalQuantity', 'carts', 'total', 'title', 'search'));
         }
-        return view('client.seach',compact('product','data','title','category','search'));
+        return view('client.seach', compact('product', 'data', 'title', 'category', 'search'));
         // dd($product);
     }
 }

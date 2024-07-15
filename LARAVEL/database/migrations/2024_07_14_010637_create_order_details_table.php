@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('order_details', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('variant');
+            $table->string('classify');
             $table->float('price', 14,0);
             $table->text('image');
             $table->bigInteger('quantity');

@@ -9,6 +9,12 @@
                 @csrf
                 @method('PATCH')
                 <div class="form-group">
+                    <label for="exampleInputName1">Sale</label>
+                    <select name="sale" id="" class="form-control">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="exampleInputName1">SKU</label>
                     <input type="text" name="sku" class="form-control" id="exampleInputName1" placeholder="Sku..." value="{{ $detail->sku }}">
                 </div>

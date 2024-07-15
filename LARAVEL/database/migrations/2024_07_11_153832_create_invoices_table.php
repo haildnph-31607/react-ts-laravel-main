@@ -13,19 +13,25 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('customer_id')->constrained();
             $table->unsignedBigInteger('customer_id');
-            $table->string('invoice_number')->unique();//mã háo đơn
-            $table->date('invoice_date'); // ngày đặt
-            $table->decimal('total_amount', 15, 2);// tổng số lượng
-            $table->decimal('discount', 15, 2)->nullable(); // giảm giá
-            $table->decimal('grand_total', 15, 2); // tồng tiền
+            $table->string('invoice_number')->unique(); // Mã hóa đơn
+            $table->date('invoice_date'); // Ngày đặt
+            $table->decimal('total_amount', 15, 2); // Tổng số lượng
+            $table->decimal('discount', 15, 2)->nullable(); // Giảm giá
+            $table->decimal('grand_total', 15, 2); // Tổng tiền
             $table->string('status')->default('Unpaid');
-            $table->string('payment_method')->nullable();// hình thức thanh toán
+            $table->string('payment_method')->nullable(); // Hình thức thanh toán
             $table->text('notes')->nullable();
             $table->unsignedBigInteger('id_user');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
+
+            $table->foreign('customer_id')->references('id')->on('customers')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
+
+            $table->foreign('id_user')->references('id')->on('users')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
         });
     }
 

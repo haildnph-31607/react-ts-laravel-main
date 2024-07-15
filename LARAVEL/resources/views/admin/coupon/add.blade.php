@@ -8,6 +8,12 @@
             <form class="forms-sample" action="{{route('coupon.store')}}" method="POST">
                 @csrf
                 <div class="form-group">
+                    <label for="exampleInputName1">Sale</label>
+                    <select name="sale" id="" class="form-control">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="exampleInputName1">SKU</label>
                     <input type="text" name="sku" class="form-control" id="exampleInputName1" placeholder="Sku...">
                 </div>

@@ -23,9 +23,13 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->text('notes')->nullable();
             $table->unsignedBigInteger('id_user');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+
+
+            $table->foreign('id_user')->references('id')->on('users')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
         });
+
     }
 
     /**

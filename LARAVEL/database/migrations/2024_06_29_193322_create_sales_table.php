@@ -14,11 +14,15 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->integer('discount');
-            $table->integer('id_types');
-            $table->string('title',150);
+            $table->unsignedBigInteger('id_types');
+            $table->string('title', 150);
             $table->date('start');
             $table->date('end');
             $table->timestamps();
+
+            $table->foreign('id_types')->references('id')->on('promotion_types')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
         });
     }
 

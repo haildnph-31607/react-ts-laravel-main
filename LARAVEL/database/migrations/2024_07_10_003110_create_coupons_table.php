@@ -16,11 +16,15 @@ return new class extends Migration
             $table->string('sku');
             $table->integer('discount');
             $table->integer('minimum');
-            $table->integer('id_types');
+            $table->unsignedBigInteger('id_types');
             $table->timestamp('start')->nullable()->comment('Ngày bắt đầu');
             $table->timestamp('end')->nullable()->comment('Ngày kết thúc');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
+
+            $table->foreign('id_types')->references('id')->on('promotion_types')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
+
         });
     }
 

@@ -81,6 +81,14 @@
                                     </ul>
                                 </li>
                                 <li>
+                                    <a href="javascript: void(0);"><span> Sale </span><ion-icon name="qr-code-outline"></ion-icon></a>
+                                    <ul class="nav-second-level" aria-expanded="false">
+                                        <li><a href="{{ route('sale.index') }}">Sale List</a><span></span></li>
+                                        <li><a href="{{ route('sale.create') }}">Sale Add</a> <span></span></li>
+
+                                    </ul>
+                                </li>
+                                <li>
                                     <a href="javascript: void(0);"><span> User </span><ion-icon name="person-circle-outline"></ion-icon></a>
                                     <ul class="nav-second-level" aria-expanded="false">
                                         <li><a href="{{ route('user.index') }}">User List</a><span></span></li>

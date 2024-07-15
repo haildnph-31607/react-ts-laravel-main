@@ -12,16 +12,24 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id();  // Tạo cột id với auto_increment
+            $table->id();
             $table->string('name', 50);
             $table->unsignedBigInteger('price');
             $table->string('image', 255)->nullable();
             $table->text('description')->nullable();
             $table->string('status')->nullable();
-            $table->string('id_sales')->nullable();
-            $table->unsignedBigInteger('id_category');  // Tạo cột id_category mà không có auto_increment
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->unsignedBigInteger('id_sales')->nullable();
+            $table->unsignedBigInteger('id_category');
+
+            $table->foreign('id_sales')->references('id')->on('sales')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
+
+            $table->foreign('id_category')->references('id')->on('categories')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
+
+            $table->timestamps();
         });
     }
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Classify;
 use App\Models\Product;
+use App\Models\Sale;
 use App\Models\Variant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -31,8 +32,9 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $sale = Sale::all();
         $category = Category::all();
-        return view('admin.product.add', compact('category'));
+        return view('admin.product.add', compact('category', 'sale'));
     }
 
     /**
@@ -40,9 +42,19 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'category' => 'required|exists:categories,id',
+
+            'status' => 'required|in:0,1',
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'editor' => 'nullable|string',
+            'file' => 'required|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
         $data = $request->all();
         $product = new Product();
         $product->name = $data['name'];
+        $product->id_sales = $data['sale'];
         $product->price = $data['price'];
         $product->description = $data['editor'];
         $product->id_category = $data['category'];
@@ -97,9 +109,10 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
+        $sale = Sale::all();
         $data = Product::find($id);
         $category = Category::all();
-        return view('admin.product.update', compact('data', 'category'));
+        return view('admin.product.update', compact('data', 'category', 'sale'));
     }
 
     /**
@@ -107,12 +120,22 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
+        $request->validate([
+            'category' => 'required|exists:categories,id',
+            'status' => 'required|in:0,1',
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'editor' => 'nullable|string',
+            'file' => 'required|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
         $data = $request->all();
+        // dd($data);
+
         $product = Product::find($id);
         $product->name = $data['name'];
         $product->price = $data['price'];
-        $product->description = $data['description'];
+        $product->id_sales = $data['sale'];
+        $product->description = $data['editor'];
         $product->id_category = $data['category'];
         $product->status = $data['status'];
         $file = $request->file('file');
