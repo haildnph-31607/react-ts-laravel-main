@@ -42,6 +42,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->aLL());
         $request->validate([
             'category' => 'required|exists:categories,id',
 
