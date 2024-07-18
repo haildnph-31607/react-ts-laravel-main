@@ -11,7 +11,11 @@
                 <div class="form-group">
                     <label for="exampleInputName1">Sale</label>
                     <select name="sale" id="" class="form-control">
-                        <option value=""></option>
+                        <option value="" selected>Chọn Types</option>
+                       @foreach($type as $item)
+                       <option value="{{$item->id}}" {{($item->id == $detail->id_types) ? 'selected' : ''}}>{{$item->types}}</option>
+
+                       @endforeach
                     </select>
                 </div>
                 <div class="form-group">

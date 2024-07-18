@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="{{ asset('css/default.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/flaticon.css') }}">
+    {{-- <script src="https://kit.fontawesome.com/41dd1b16b5.js"></script> --}}
     <style>
         .cart-minis {
             display: grid;

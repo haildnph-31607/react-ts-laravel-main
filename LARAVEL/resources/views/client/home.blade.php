@@ -164,7 +164,7 @@
                             <div class="progress-bar bg-danger" role="progressbar" style="width: 10%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div class="progress-rate">
-                            <span>Sold:312/1225</span>
+                            <span>Brand : {{$item->category->name}}</span>
                         </div>
                     </div>
                     <div class="product__add-cart text-center">

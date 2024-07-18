@@ -236,7 +236,10 @@
             });
         </script>
         <script>
-            CKEDITOR.replace('editor');
+          CKEDITOR.replace('editor', {
+    entities: false,
+    basicEntities: false
+});
         </script>
         <script type="text/javascript">
             function changePreview(newInputFile) {

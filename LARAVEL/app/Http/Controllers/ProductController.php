@@ -127,7 +127,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'editor' => 'nullable|string',
-            'file' => 'required|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            // 'file' => 'required|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
         $data = $request->all();
         // dd($data);

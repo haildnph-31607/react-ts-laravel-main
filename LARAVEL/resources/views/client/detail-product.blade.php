@@ -1,6 +1,117 @@
 @extends('layout.main')
 @section('main')
 <style>
+    .containersrs {
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        overflow: hidden;
+        max-width: 600px;
+        margin-top: 20px;
+
+    }
+
+    .titlesen {
+        background-color: #d3d3d3;
+        color: black;
+        padding: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .contentene {
+        background-color: #fff;
+        color: #333;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 0 0 4px 4px;
+    }
+    .coupon-detail {
+        display: inline-block;
+        padding: 10px;
+        border: 1px solid lightskyblue;
+        background-color: white;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .coupon-detail input[type="radio"] {
+        display: none;
+    }
+
+    .coupon-detail label {
+        display: block;
+        position: relative;
+        padding-left: 30px;
+        cursor: pointer;
+        font-size: 16px;
+        color: black;
+    }
+
+    .coupon-detail label:before {
+        color: orangered;
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        border: 1px solid orange;
+        background-color: white;
+        border-radius: 3px;
+    }
+
+    .coupon-detail input[type="radio"]:checked + label:before {
+        background-color: red;
+    }
+
+    .coupon-detail input[type="radio"]:checked + label:after {
+        content: "\2714";
+        position: absolute;
+        top: 50%;
+        left: 5px;
+        transform: translateY(-50%);
+        font-size: 14px;
+        color: white;
+    }
+
+
+    .discount-deal {
+    background-color: #ff0000;
+    color: #ffffff;
+    padding: 20px 25px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: pulse 2s infinite;
+    clip-path: polygon(
+        10% 0%, 15% 5%, 20% 0%, 25% 5%, 30% 0%, 35% 5%, 40% 0%,
+        45% 5%, 50% 0%, 55% 5%, 60% 0%, 65% 5%, 70% 0%, 75% 5%,
+        80% 0%, 85% 5%, 90% 0%, 95% 5%, 100% 0%, 95% 15%, 100% 20%,
+        95% 25%, 100% 30%, 95% 35%, 100% 40%, 95% 45%, 100% 50%,
+        95% 55%, 100% 60%, 95% 65%, 100% 70%, 95% 75%, 100% 80%,
+        95% 85%, 100% 90%, 95% 95%, 90% 100%, 85% 95%, 80% 100%,
+        75% 95%, 70% 100%, 65% 95%, 60% 100%, 55% 95%, 50% 100%,
+        45% 95%, 40% 100%, 35% 95%, 30% 100%, 25% 95%, 20% 100%,
+        15% 95%, 10% 100%, 5% 95%, 0% 100%, 5% 85%, 0% 80%,
+        5% 75%, 0% 70%, 5% 65%, 0% 60%, 5% 55%, 0% 50%,
+        5% 45%, 0% 40%, 5% 35%, 0% 30%, 5% 25%, 0% 20%,
+        5% 15%, 0% 10%
+    );
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
     .quantity {
             display: flex;
             align-items: center;
@@ -160,8 +271,8 @@
                 <div class="breadcrumb__wrapper">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                          <li class="breadcrumb-item"><a href="{{route('index')}}">Home</a></li>
-                          <li class="breadcrumb-item active" aria-current="page"></li>
+                          <li class="breadcrumb-item"><a href="{{route('index')}}">Home</a></li> >>
+                          <li>{{$detail->name}}</li>
                         </ol>
                       </nav>
                 </div>
@@ -212,44 +323,101 @@
                             <li><a href="#"><i class="fal fa-star"></i></a></li>
                             <li><a href="#"><i class="fal fa-star"></i></a></li>
                         </ul>
-                        <span>(01 review)</span>
-                        <span><a href="#">Add your review</a></span>
+                        {{-- <span>(01 review)</span>
+                        <span><a href="#">Add your review</a></span> --}}
+
                     </div>
                     <div class="price mb-10">
-                        <span id="price">{{ number_format($detail->price, 0, ',', '.')  }} VNĐ</span>
+                        @if($sales)
+
+                         <input type="hidden" id="discounts" value="{{$sales->discount}}">
+                         <input type="hidden" id="id_types" value="{{$sales->id_types}}">
+
+                            @php
+                                if($sales->id_types == 2){
+                                    $discount = ($sales->discount / 100) * $detail->price;
+                                } else {
+                                    $discount = $sales->discount;
+                                }
+                                $finalPrice = number_format($detail->price - $discount, 0, ',', '.') . ' VNĐ';
+                            @endphp
+                            <span id="price">{{ $finalPrice }}</span><sup style="color:red;"> - @if($sales->id_types ==2) {{ $sales->discount }} % @else {{ number_format($sales->discount,0,',','.') }} VNĐ @endif </sup>
+                        @else
+                            <span id="price">{{ number_format($detail->price, 0, ',', '.') }} VNĐ</span>
+                        @endif
                     </div>
-                    <div class="features-des mb-20 mt-10">
-                        <ul>
-                           {{$detail->description}}
-                        </ul>
+
+                    @if($sales)
+                    <div class="discount-deal">
+                        {{$sales->title}}
                     </div>
+                    @endif
+
                     <div class="data-color">
-                       @foreach ($detail->variant as  $item)
-                       <div class="color-option">
-                        <input type="radio" id="color-{{$item->id}}" name="datacolors" data-image="{{ $item->image }}" value="{{{$item->variant}}}">
-                        <label for="color-{{$item->id}}" class="variant-button"><img style="margin-top: -10px; margin-left: -10px;" src="{{asset('/uploads/variation/'.$item->image)}}" width="28px" alt="">{{$item->variant}}</label>
-                    </div>
-                       @endforeach
-
-                    </div>
-                    <div class="data-class">
-                        @foreach ($detail->classify as  $item)
-                        <div class="class-option">
-                         <input type="radio" id="classify-{{$item->id}}"
-                          data-quantity = "{{{$item->quantity}}}"
-                          data-price = "{{{$item->price}}}"
-                          data-classify = "{{$item->id}}"
-                          name="dataclassify"
-                          value="{{{$item->classify}}}">
-
-                         <label for="classify-{{$item->id}}" class="class-button">{{$item->classify}}</label>
+                        @foreach ($detail->variant as  $item)
+                        <div class="color-option">
+                         <input type="radio" id="color-{{$item->id}}" name="datacolors" data-image="{{ $item->image }}" value="{{{$item->variant}}}">
+                         <label for="color-{{$item->id}}" class="variant-button"><img style="margin-top: -10px; margin-left: -10px;" src="{{asset('/uploads/variation/'.$item->image)}}" width="28px" alt="">{{$item->variant}}</label>
                      </div>
                         @endforeach
 
                      </div>
-                    <div class="product-stock mb-20">
+                     <div class="data-class">
+                         @foreach ($detail->classify as  $item)
+                         <div class="class-option">
+                          <input type="radio" id="classify-{{$item->id}}"
+                           data-quantity = "{{{$item->quantity}}}"
+                           data-price = "{{{$item->price}}}"
+                           data-classify = "{{$item->id}}"
+                           name="dataclassify"
+                           value="{{{$item->classify}}}">
+
+                          <label for="classify-{{$item->id}}" class="class-button">{{$item->classify}}</label>
+                      </div>
+                         @endforeach
+
+                      </div>
+                      <div class="product-stock mb-20">
                         <h5 id="stock"></h5>
                     </div>
+                    <div class="coupons">
+                        <div class="containersrs">
+
+                            <div class="titlesen">Các deal dành cho bạn khi mua sản phẩm </div>
+                            <div class="contentene">
+                                @if($data)
+
+                                @foreach ($data as $key => $item)
+                                <div class="coupon-detail">
+                                  <input type="radio" id="option{{$key}}" name="optionsKey" value="{{$item->sku}}">
+                                  <label for="option{{$key}}">@if($item->id_types == 2) <span style="color: red">Giảm giá : {{$item->discount}} %  </span>       @else   <span style="color: red">Giảm giá : {{number_format($item->discount,0,',','.')}} VNĐ  </span>          @endif</label>
+                              </div>
+                                @endforeach
+                          @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="features-des mb-20 mt-10">
+                        <div class="containersrs">
+
+                            <div class="titlesen">Các ưu đãi khác</div>
+                            <div class="contentene"> {!! $detail->description !!}</div>
+                        </div>
+                    </div>
+                    <div class="features-des mb-20 mt-10">
+                        <div class="containersrs">
+
+                            <div class="titlesen">Các cách bảo hành</div>
+                            <div class="contentene">
+                               - Bảo hành 24 tháng kể từ ngày mua <br>
+                               - Lỗi 1 đổi 1 trong vòng 7 ngày<br>
+                               - Được test máy trực tiếp<br>
+                               - Lỗi phát sinh do nhà phát hành đềU chịu trách nhiệm <br>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="cart-option mb-15">
                         <div class="product-quantity mr-20">
                             <div class="quantity">
@@ -323,7 +491,7 @@
                                         </a>
                                     </div>
                                     <div class="product__offer">
-                                    <span class="discount">-15%</span>
+                                    {{-- <span class="discount">-15%</span> --}}
                                     </div>
                                     <div class="product-action">
                                         <a href="#" class="icon-box icon-box-1" data-bs-toggle="modal" data-bs-target="#productModalId">
@@ -386,7 +554,10 @@
 
 
     </div>
+
+
     <script type="text/javascript">
+
        var buttons = document.querySelectorAll('.variant-button');
        var btns = document.querySelectorAll('.class-button');
 
@@ -442,14 +613,46 @@ btns.forEach(function(click) {
                         let quantity =   radio.dataset.quantity;
                         let price = radio.dataset.price;
                         let id = radio.dataset.classify;
-                        document.getElementById('idClassify').value = id;
-                        document.getElementById('dataPrice').value = price;
+                        let discounts = document.getElementById('discounts');
 
+                       if(discounts){
+                        let discounts = document.getElementById('discounts').value;
+                        let id_types = document.getElementById('id_types').value;
+                       }
 
-                        max = quantity;
-                        document.getElementById('quantityClassify').value =quantity;
-                        document.getElementById('stock').innerHTML = `Availability: <span> ${quantity}  in stock</span>`;
+                        if(discounts > 0){
+                        if(id_types == 2){
+
+                          let aount = (discounts / 100) * price;
+                          let prices = price - aount;
+                        document.getElementById('dataPrice').value = prices;
                         const formatter = new Intl.NumberFormat('vi-VN', {
+                                style: 'currency',
+                                currency: 'VND',
+                                minimumFractionDigits: 0,
+                                });
+                        const priceFormat =formatter.format(prices);
+                        let element = document.getElementById('price');
+                         element.textContent = priceFormat;
+
+                        }else{
+                           let aount = discounts;
+                          let prices = price-aount;
+                        document.getElementById('dataPrice').value = prices;
+                        const formatter = new Intl.NumberFormat('vi-VN', {
+                                style: 'currency',
+                                currency: 'VND',
+                                minimumFractionDigits: 0,
+                                });
+                        const priceFormat =formatter.format(prices);
+                        let element = document.getElementById('price');
+                         element.textContent = priceFormat;
+
+
+                        }
+                        }else{
+                            document.getElementById('dataPrice').value = price;
+                            const formatter = new Intl.NumberFormat('vi-VN', {
                                 style: 'currency',
                                 currency: 'VND',
                                 minimumFractionDigits: 0,
@@ -457,6 +660,15 @@ btns.forEach(function(click) {
                         const priceFormat =formatter.format(price);
                         let element = document.getElementById('price');
                          element.textContent = priceFormat;
+
+                        }
+                        document.getElementById('idClassify').value = id;
+
+
+
+                        max = quantity;
+                        document.getElementById('quantityClassify').value =quantity;
+                        document.getElementById('stock').innerHTML = `Availability: <span> ${quantity}  in stock</span>`;
 
 
                     }
@@ -580,6 +792,25 @@ btns.forEach(function(click) {
 
 
       })
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const radios = document.querySelectorAll('input[name="optionsKey"]');
+    radios.forEach(radio => {
+        radio.addEventListener('click', function() {
+            // Sao chép giá trị của radio được chọn vào clipboard
+            navigator.clipboard.writeText(this.value)
+                .then(() => {
+                    alert(`Copy mã thành công ! Mã của bạn là : ${this.value} hãy nhập mã khi thanh toán nhé !`)
+                    // Thêm các thông báo hoặc xử lý khác sau khi sao chép thành công
+                })
+                .catch(err => {
+                    console.error('Lỗi khi sao chép giá trị: ', err);
+                });
+        });
+    });
+});
+
     </script>
 
 </div>

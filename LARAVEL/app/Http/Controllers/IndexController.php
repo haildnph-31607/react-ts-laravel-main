@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Coupon;
 use App\Models\Customer;
 use App\Models\Product;
+use App\Models\Sale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class IndexController extends Controller
 {
@@ -34,20 +37,23 @@ class IndexController extends Controller
     public function show(string $id)
     {
         $detail = Product::with('variant', 'category', 'classify')->where('id', $id)->first();
+        $data = Coupon::where('start', '<=', Carbon::now())->where('end', '>=', Carbon::now())->where('minimum' ,'<=' ,$detail->price)->get();
+        $sales = Sale::find($detail->id_sales);
         $category = Category::all();
         $title = 'Chi Tiết Sản Phẩm';
 
-        // return response()->json($detail);
+        // return response()->json($data);
+
         $associated  = Product::where('id_category', $detail->id_category)->whereNot('id', $detail->id)->get();
         if (Auth::user()) {
             $totalQuantity = Cart::where('id_user', Auth::user()->id)->sum('quantity');
             $carts = Cart::where('id_user', Auth::user()->id)->get();
             $total = Cart::where('id_user', Auth::user()->id)->sum('total');
 
-            return view('client.detail-product', compact('category', 'detail', 'associated', 'totalQuantity', 'carts', 'total', 'title'));
+            return view('client.detail-product', compact('category', 'detail', 'associated', 'totalQuantity', 'carts', 'total', 'title','sales','data'));
         }
 
-        return view('client.detail-product', compact('category', 'detail', 'associated', 'title'));
+        return view('client.detail-product', compact('category', 'detail', 'associated', 'title','sales','data'));
     }
 
 

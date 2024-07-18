@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Coupon;
+use App\Models\PromotionType;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -29,7 +30,8 @@ class CouponController extends Controller
     }
     public function create()
     {
-        return view('admin.coupon.add');
+        $type = PromotionType::all();
+        return view('admin.coupon.add',compact('type'));
     }
 
     public function store(Request $request)
@@ -39,6 +41,7 @@ class CouponController extends Controller
         $coupon = new Coupon();
         $coupon->sku = $data['sku'];
         $coupon->discount = $data['discout'];
+        $coupon->id_types = $data['sale'];
         $coupon->minimum = $data['minimum'];
         $coupon->start = $data['start'];
         $coupon->end = $data['end'];
@@ -48,7 +51,9 @@ class CouponController extends Controller
     public function edit($id)
     {
         $detail = Coupon::find($id);
-        return view('admin.coupon.update',compact('detail'));
+        $type = PromotionType::all();
+
+        return view('admin.coupon.update',compact('detail','type'));
     }
     public function update(Request $request, $id)
     {
@@ -57,6 +62,8 @@ class CouponController extends Controller
         $coupon = Coupon::find($id);
         $coupon->sku = $data['sku'];
         $coupon->discount = $data['discout'];
+        $coupon->id_types = $data['sale'];
+
         $coupon->minimum = $data['minimum'];
         $coupon->start = $data['start'];
         $coupon->end = $data['end'];
