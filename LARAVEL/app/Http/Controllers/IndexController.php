@@ -72,7 +72,6 @@ class IndexController extends Controller
         $customer->id_user = $data['id'];
         $customer->save();
 
-        // return $request->all();
     }
     public function getCustomer(Request $request)
     {

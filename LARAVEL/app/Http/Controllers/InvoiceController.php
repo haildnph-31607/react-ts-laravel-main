@@ -30,14 +30,12 @@ class InvoiceController extends Controller
         $data = $request->all();
 
         if ($data['paymentMethod'] == 1) {
-            $orderId = time(); // Ví dụ mã đơn hàng
-            $amount = $data['grand']; // Số tiền cần thanh toán
+            $orderId = time();
+            $amount = 10000;
+            $paymentUrl = $this->vnpayService->buildVnpUrl($orderId, $amount);
 
-            // Xây dựng URL thanh toán VNPay
-            $vnp_Url = $this->vnpayService->buildVnpUrl($orderId, $amount);
+            return redirect($paymentUrl);
 
-            // Redirect người dùng đến URL thanh toán VNPay
-            return redirect()->to($vnp_Url);
         } else if ($data['paymentMethod'] == 2) {
             $orderId = time() . '';
             $amount = '10000';

@@ -613,17 +613,16 @@ btns.forEach(function(click) {
                         let quantity =   radio.dataset.quantity;
                         let price = radio.dataset.price;
                         let id = radio.dataset.classify;
+
                         let discounts = document.getElementById('discounts');
+                        let id_types = document.getElementById('id_types');
 
-                       if(discounts){
-                        let discounts = document.getElementById('discounts').value;
-                        let id_types = document.getElementById('id_types').value;
-                       }
 
-                        if(discounts > 0){
-                        if(id_types == 2){
+                        if(discounts){
+                            let discount = discounts.value;
+                        if(id_types.value == 2){
 
-                          let aount = (discounts / 100) * price;
+                          let aount = (discount / 100) * price;
                           let prices = price - aount;
                         document.getElementById('dataPrice').value = prices;
                         const formatter = new Intl.NumberFormat('vi-VN', {
@@ -636,7 +635,7 @@ btns.forEach(function(click) {
                          element.textContent = priceFormat;
 
                         }else{
-                           let aount = discounts;
+                           let aount = discount;
                           let prices = price-aount;
                         document.getElementById('dataPrice').value = prices;
                         const formatter = new Intl.NumberFormat('vi-VN', {
@@ -749,7 +748,7 @@ btns.forEach(function(click) {
                  success:function(data){
                     if(data){
                         let id = data.id;
-                        console.log(id);
+                        // console.log(id);
               $.ajax({
                  url:'{{route('quantityCart')}}',
                  method:'GET',
@@ -801,7 +800,7 @@ btns.forEach(function(click) {
             // Sao chép giá trị của radio được chọn vào clipboard
             navigator.clipboard.writeText(this.value)
                 .then(() => {
-                    alert(`Copy mã thành công ! Mã của bạn là : ${this.value} hãy nhập mã khi thanh toán nhé !`)
+                    // alert(`Copy mã thành công ! Mã của bạn là : ${this.value} hãy nhập mã khi thanh toán nhé !`)
                     // Thêm các thông báo hoặc xử lý khác sau khi sao chép thành công
                 })
                 .catch(err => {

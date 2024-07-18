@@ -23,7 +23,7 @@ class VNPayService
     public function buildVnpUrl($orderId, $amount)
     {
         $vnp_TxnRef = $orderId;
-        $vnp_Amount = $amount * 100; // Số tiền thanh toán
+        $vnp_Amount = $amount * 100; // Số tiền thanh toán (nhân với 100)
 
         $inputData = array(
             "vnp_Version" => "2.1.0",

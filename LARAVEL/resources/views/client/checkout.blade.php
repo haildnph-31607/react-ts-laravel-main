@@ -434,7 +434,7 @@
                 let phone = $('#phone').val();
                 let id = {{ Auth::user()->id }}
                 $.ajax({
-                    url: '{{ route('AddCustomer') }}',
+                    url: '{{ route('Customers') }}',
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

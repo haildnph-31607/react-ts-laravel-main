@@ -52,7 +52,8 @@ Route::get('/checkout/{id}',[CheckoutController::class,'Checkout'])->name('check
 //coupon
 Route::get('check-coupon',[CouponController::class,'CheckCoupon'])->name('CheckCoupon');
 //customer
-Route::post('add-customer',[IndexController::class,'AddCustomer'])->name('AddCustomer');
+// Route::post('add-customer',[IndexController::class,'AddCustomer'])->name('AddCustomer');
+Route::post('customer',[IndexController::class,'AddCustomer'])->name('Customers');
 Route::post('update-customer',[IndexController::class,'UpdateCustomer'])->name('UpdateCustomer');
 Route::post('get-customer',[IndexController::class,'getCustomer'])->name('getCustomer');
 //invoice
