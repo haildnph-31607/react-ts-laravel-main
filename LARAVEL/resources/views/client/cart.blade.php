@@ -60,15 +60,16 @@
                                             </td>
                                             <td class="product-price"><span class="amount">{{ number_format($item->price) }}
                                                     VNĐ</span></td>
-                                            <td class="product-price"><span class="amount">{{$item->color}}</span></td>
-                                            <td class="product-price"><span class="amount">{{$item->classify->classify}}</span></td>
+                                            <td class="product-price"><span class="amount">{{ $item->color }}</span></td>
+                                            <td class="product-price"><span
+                                                    class="amount">{{ $item->classify->classify }}</span></td>
                                             <td class="product-quantity">
                                                 <input type="number" class="form-control" data-price="{{ $item->price }}"
                                                     data-cart="{{ $item->id }}" value="{{ $item->quantity }}"
                                                     id="quantityCart" min="1">
                                             </td>
-                                            <td class="product-subtotal"><span
-                                                    class="amount">{{ number_format($item->total) }} VNĐ</span></td>
+                                            <td class="product-subtotal"><span class="amount"
+                                                    id="totalupdate">{{ number_format($item->total) }} VNĐ</span></td>
                                             <td class="product-remove">
                                                 <button class="btn" onclick="return confirm('Bạn muốn xoá ?')"
                                                     id="deleteCart" data-id="{{ $item->id }}"> <ion-icon
@@ -99,8 +100,8 @@
                                 <div class="cart-page-total">
                                     <h2>Cart totals</h2>
                                     <ul class="mb-20">
-                                        <li>Subtotal <span>{{ number_format($total) }} VNĐ</span></li>
-                                        <li>Total <span>{{ number_format($total) }} VNĐ</span></li>
+                                        <li>Subtotal <span id="subtotal">{{ number_format($total) }} VNĐ</span></li>
+                                        {{-- <li>Total <span i>{{ number_format($total) }} VNĐ</span></li> --}}
                                     </ul>
                                     @if ($total === 0)
                                         <button class="tp-btn-h1 btn-secondary"
@@ -189,26 +190,49 @@
         </script>
         <script>
             let quantityCart = document.querySelectorAll('#quantityCart');
-            for (const iterators of quantityCart) {
-                iterators.addEventListener('change', function() {
-                    let quantity = iterators.value;
-                    let price = iterators.dataset.price;
-                    let id = iterators.dataset.cart;
-                    $.ajax({
-                        url: '{{ route('updateCart') }}',
-                        method: 'GET',
-                        data: {
-                            quantity,
-                            price,
-                            id,
-                        },
-                        success: function() {
-                            alert('Thay đổi thành công');
-                            window.location.reload();
-                        }
-                    })
-                })
+            let totalupdate = document.querySelectorAll('#totalupdate');
+            let subtotal = document.querySelector('#subtotal')
+
+            let tongs = 0;
+
+            function formatCurrency(number) {
+                return number.toLocaleString('vi-VN');
             }
+
+            function updateTotalCart() {
+                tongs = 0;
+                for (let i = 0; i < quantityCart.length; i++) {
+                    let price = Number(quantityCart[i].dataset.price);
+                    let quantity = Number(quantityCart[i].value);
+                    let total = price * quantity;
+                    let id = quantityCart[i].dataset.cart;
+                    tongs += total;
+                    const formattedNumber = formatCurrency(total);
+                    totalupdate[i].innerHTML = `${formattedNumber} VNĐ`;
+                   $.ajax({
+                       url:'{{route("updateCart")}}',
+                       method:'GET',
+                       data:{
+                        id,
+                        total,
+                        quantity
+                       },
+                       success:function(){
+                        console.log('Thành công');
+                       }
+                   })
+
+                }
+
+                subtotal.innerHTML = formatCurrency(tongs) + " VNĐ";
+            }
+
+            for (let i = 0; i < quantityCart.length; i++) {
+                quantityCart[i].addEventListener('change', updateTotalCart);
+            }
+
+
+            updateTotalCart();
         </script>
 
     </main>

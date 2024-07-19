@@ -327,11 +327,12 @@
                                     <nav id="mobile-menu" style="display: block;">
                                         <ul>
 
-                                            @foreach ($category as $items)
-                                                <li>
-                                                    <a href="">{{ $items->name }} </a>
-                                                </li>
-                                            @endforeach
+                                           <li>
+                                            <ion-icon name="file-tray-stacked-outline"></ion-icon> My order
+                                           </li>
+                                           <li>
+                                            <ion-icon name="person-circle-outline"></ion-icon> My Profile
+                                           </li>
                                         </ul>
                                     </nav>
                                 </div>

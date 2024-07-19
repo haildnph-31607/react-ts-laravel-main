@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Input Creation</title>
+</head>
+<body>
+    <div id="classify"></div>
+
+    <script>
+        const color = ['red', 'blue', 'pink','orange'];
+        const capacity = ['64G', '128G', '254G', '540G'];
+
+        // Initialize an empty string for HTML content
+        let html = '';
+
+        // Loop through capacity and color arrays
+        for (let i = 0; i < color.length; i++) {
+            for (let j = 0; j < capacity.length; j++) {
+                // Append input elements to the HTML string
+                html += `<input value='${capacity[j]}' placeholder='Color' /> 
+                         <input value='${color[i]}' placeholder='Capacity' /> 
+                         <input placeholder='Additional Input 1' /> 
+                         <input placeholder='Additional Input 2' /> 
+                         <br>`;
+            }
+        }
+
+        
+        document.getElementById('classify').innerHTML = html;
+    </script>
+</body>
+</html>

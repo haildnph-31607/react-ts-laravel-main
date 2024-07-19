@@ -748,12 +748,15 @@ btns.forEach(function(click) {
                  success:function(data){
                     if(data){
                         let id = data.id;
-                        // console.log(id);
+                        let quantitysy = Number(data.quantity) + Number(quantitys);
+                        let total =quantitysy *  price;
+                        //  console.log(quantitysy);
               $.ajax({
                  url:'{{route('quantityCart')}}',
                  method:'GET',
                  data:{
-                    quantitys,
+                    quantitysy,
+                    total,
                     id
                  },
                  success:function(){

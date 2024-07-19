@@ -20,6 +20,7 @@ class ForgotPasswordController extends Controller
     */
 
     use SendsPasswordResetEmails;
+
     public function showLinkRequestForm(){
         $title = 'Quên Mật Khẩu';
 

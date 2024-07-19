@@ -69,9 +69,9 @@ class CartController extends Controller
     public function updateCart()
     {
         $id = $_GET['id'];
-        $price = $_GET['price'];
+        $total = $_GET['total'];
         $quantity = $_GET['quantity'];
-        $total = $quantity * $price;
+
         $cart = Cart::find($id);
         $cart->quantity = $quantity;
         $cart->total = $total;
@@ -91,12 +91,14 @@ class CartController extends Controller
     {
 
         $id = $_GET['id'];
-        $quantity = $_GET['quantitys'];
+        $quantity = $_GET['quantitysy'];
+        $total = $_GET['total'];
 
         $cart = Cart::find($id);
 
         if ($cart) {
-            $cart->quantity += $quantity;
+            $cart->quantity = $quantity;
+            $cart->total = $total;
             $cart->save();
         }
     }
