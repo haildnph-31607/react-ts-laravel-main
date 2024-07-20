@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Classify;
 use App\Models\Product;
 use App\Models\Sale;
+use App\Models\Thumbnail;
 use App\Models\Variant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -42,7 +43,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->aLL());
+
         $request->validate([
             'category' => 'required|exists:categories,id',
 
@@ -52,7 +53,10 @@ class ProductController extends Controller
             'editor' => 'nullable|string',
             'file' => 'required|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
         $data = $request->all();
+
+
         $product = new Product();
         $product->name = $data['name'];
         $product->id_sales = $data['sale'];
@@ -70,29 +74,48 @@ class ProductController extends Controller
             $product->image = $new_image;
         }
         $product->save();
+        $datas = $data['Variant_Classify'];
 
-        foreach ($data['product_variant'] as $key => $value) {
-            $variant = new Variant();
-            $variant->variant = $value['variant'];
-            $paths = 'uploads/variation';
-            $image = $value['image'];
-            $name_files =  $image->getClientOriginalName();
-            $name_img = current(explode('.', $name_files));
-            $just_image = $name_img . '_' . rand(1, 1000) . '.' . $image->getClientOriginalExtension();
-            $image->move($paths, $just_image);
-            // dd($just_image);
-            $variant->image = $just_image;
-            $variant->id_product = $product->id;
-            $variant->save();
+        for ($i = 0; $i < count($datas); $i++) {
+            $item = $datas[$i];
+
+            $variation = new Variant();
+            $variation->id_product = $product->id;
+            $variation->variant = $item['classify'];
+            $variation->classify = $item['variant'];
+            $variation->quantity = $item['quantity'];
+            $variation->price = $item['price'];
+
+            if (isset($item['image'])) {
+                $paths = 'uploads/variation/';
+
+                $fileVR = $item['image'];
+                $name_files = $fileVR->getClientOriginalName();
+                $name_images = current(explode('.', $name_files));
+                $new_images = $name_images . '_' . rand(1, 1000) . '.' . $fileVR->getClientOriginalExtension();
+
+                $fileVR->move($paths, $new_images);
+                $variation->image = $new_images;
+            } else {
+
+                $variation->image = 'default_image.jpg';
+            }
+
+            $variation->save();
         }
-
-        foreach ($data['classify_variant'] as $key => $value) {
-            $classify = new Classify();
-            $classify->id_product = $product->id;
-            $classify->classify = $value['classify'];
-            $classify->price = $value['price'];
-            $classify->quantity = $value['quantity'];
-            $classify->save();
+        // uploads thumbnail
+        $pathThum = 'uploads/thumbnail/';
+        foreach ($data['thumbnail'] as $thum) {
+            $thumbnails = new Thumbnail();
+            $thumbnails->id_product = $product->id;
+            if ($thum) {
+                $name_thum = $thum->getClientOriginalName();
+                $name_image_thum = current(explode('.', $name_thum));
+                $new_thum = $name_image_thum . '_' . rand(1, 1000) . '.' . $thum->getClientOriginalExtension();
+                $thum->move($pathThum, $new_thum);
+                $thumbnails->image = $new_thum;
+            }
+            $thumbnails->save();
         }
         return redirect()->route('product.index');
     }
@@ -127,10 +150,10 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'editor' => 'nullable|string',
-            // 'file' => 'required|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+
         ]);
         $data = $request->all();
-        // dd($data);
+
 
         $product = Product::find($id);
         $product->name = $data['name'];

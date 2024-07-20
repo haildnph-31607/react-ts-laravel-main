@@ -18,12 +18,12 @@ class CartController extends Controller
         $id_product = $_GET['productID'];
         $id_user = $_GET['user'];
         $dataColor = $_GET['dataColor'];
-        $idClassify = $_GET['idClassify'];
-        //   $totalPrice = Cart::sum('price');
+        $classify = $_GET['dataClassify'];
+
         $totalPrice = $quantity * $price;
         $Cart = new Cart();
-        $Cart->id_classify = $idClassify;
-        $Cart->color = $dataColor;
+        $Cart->classify = $classify;
+        $Cart->variant = $dataColor;
         $Cart->name = $name;
         $Cart->price = $price;
         $Cart->image = $image;
@@ -79,10 +79,11 @@ class CartController extends Controller
     }
     public function getCart()
     {
+
         $dataColor = $_GET['dataColor'];
-        $quantityClassify = $_GET['quantityClassify'];
-        $idClassify = $_GET['idClassify'];
-        $data = Cart::where('id_classify', $idClassify)->where('color', $dataColor)->first();
+        $productID = $_GET['productID'];
+        $classify = $_GET['dataClassify'];
+        $data = Cart::where('id_product', $productID)->where('variant', $dataColor)->where('classify', $classify)->first();
         if ($data) {
             return $data;
         }

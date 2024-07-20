@@ -16,12 +16,12 @@ return new class extends Migration
             $table->string('name');
             $table->float('price', 14,0);
             $table->text('image');
-            $table->string('color');
+            $table->string('variant');
+            $table->string('classify');
             $table->bigInteger('quantity');
             $table->float('total', 18,0);
             $table->unsignedBigInteger('id_product');
             $table->unsignedBigInteger('id_user');
-            $table->unsignedBigInteger('id_classify');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->foreign('id_product')->references('id')->on('products')->onDelete('cascade');

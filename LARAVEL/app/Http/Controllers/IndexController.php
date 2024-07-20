@@ -36,13 +36,13 @@ class IndexController extends Controller
 
     public function show(string $id)
     {
-        $detail = Product::with('variant', 'category', 'classify')->where('id', $id)->first();
+        $detail = Product::with('variant', 'category','thumbnail')->where('id', $id)->first();
         $data = Coupon::where('start', '<=', Carbon::now())->where('end', '>=', Carbon::now())->where('minimum' ,'<=' ,$detail->price)->get();
         $sales = Sale::find($detail->id_sales);
         $category = Category::all();
         $title = 'Chi Tiết Sản Phẩm';
 
-        // return response()->json($data);
+        // return response()->json($sales);
 
         $associated  = Product::where('id_category', $detail->id_category)->whereNot('id', $detail->id)->get();
         if (Auth::user()) {

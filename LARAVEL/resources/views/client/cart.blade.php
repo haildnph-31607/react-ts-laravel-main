@@ -42,7 +42,7 @@
                                         <th class="product-thumbnail">Images</th>
                                         <th class="cart-product-name">Product</th>
                                         <th class="product-price">Unit Price</th>
-                                        <th class="product-price">Color</th>
+                                        <th class="product-price">Variant</th>
                                         <th class="product-price">Capacity</th>
                                         <th class="product-quantity">Quantity</th>
                                         <th class="product-subtotal">Total</th>
@@ -60,9 +60,9 @@
                                             </td>
                                             <td class="product-price"><span class="amount">{{ number_format($item->price) }}
                                                     VNĐ</span></td>
-                                            <td class="product-price"><span class="amount">{{ $item->color }}</span></td>
+                                            <td class="product-price"><span class="amount">{{ $item->variant }}</span></td>
                                             <td class="product-price"><span
-                                                    class="amount">{{ $item->classify->classify }}</span></td>
+                                                    class="amount">{{ $item->classify }}</span></td>
                                             <td class="product-quantity">
                                                 <input type="number" class="form-control" data-price="{{ $item->price }}"
                                                     data-cart="{{ $item->id }}" value="{{ $item->quantity }}"

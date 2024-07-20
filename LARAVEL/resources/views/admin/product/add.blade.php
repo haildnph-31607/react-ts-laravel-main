@@ -1,6 +1,33 @@
 @extends('admin.layout')
 @section('main')
     <style>
+         .ipClassify{
+            width: 240px;
+            height: 40px;
+            margin-top: 5px;
+        }
+        .item {
+            background-color: lightgray;
+            color: black;
+            border-radius: 3px;
+            padding: 2px 8px;
+            margin: 2px;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .item .delete {
+            cursor: pointer;
+            margin-left: 5px;
+            font-weight: bold;
+        }
+
+        #color-input,
+        #classify-input {
+            width: 200px;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
         .InputFile {
 
             width: 500px;
@@ -151,59 +178,134 @@
 
                 <!-- File Upload -->
                 <div class="form-group">
-                    <label for="file">Upload Image</label>
+                    <label for="file" class="input-group-text">Upload Image</label>
                     <input type="file" class="form-control-file form-control  @error('file') is-invalid @enderror" id="file" name="file">
                     @error('file')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
+          <div class="form-group">
+           <label for="thumbnail" class="input-group-text">Thumbnail</label>
+           <input type="file" id="thumbnail" name="thumbnail[]" multiple class="form-control"/>
+          </div>
+                <div class="mt-4">
+                    <label for="color-input mb-3">Enter Variation</label> <br>
+                    <input type="text" id="color-input" class="w-100 form-control" placeholder="Enter Variation" />
+                    <div id="color-container"></div>
 
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card bg-info">
-                            <h4 class="header-title m-t-0">Add Classify</h4>
-                            <div class="row mb-3" id="originalRowClassify">
-                                <input type="text" placeholder="Classify.." name="classify_variant[0][classify]"
-                                    class="classify">
-                                <input type="text" class="classifys" placeholder="Price..."
-                                    name="classify_variant[0][price]">
-                                <input type="text" placeholder="Quantity..." class="classify"
-                                    name="classify_variant[0][quantity]">
-
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card bg-secondary appendVariant">
-                            <h4 class="header-title m-t-0 text-white">Add Variant</h4>
-                            <div class="row mb-3" id="cloneVariant">
-                                <div class="upload-container">
-                                    <input type="file" name="product_variant[0][image]" accept="image/*"
-                                        class="InputFile" style="z-index: 10">
-                                    <label for="">
-                                        <img src="" style="z-index: 5" alt="" class="attachmentPreview"
-                                            width="100px" style="border-radius:5px; ">
-                                    </label>
-                                </div>
-                                <input type="text" placeholder="Variant..." name="product_variant[0][variant]"
-                                    class="variant">
-                            </div>
-                        </div>
-                    </div>
+                <div class="mt-4">
+                    <label for="classify-input">Enter Classify</label><br>
+                    <input type="text" id="classify-input" class="w-100 form-control"  placeholder="Enter classify" />
+                    <div id="classify-container"></div>
                 </div>
 
+                <div id="classify"></div>
+
+              <div class="mt-4">
                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                <div class="btn btn-outline-warning" id="classify">Thêm Phân Loại</div>
-                <div class="btn btn-outline-danger" id="variant">Thêm Biến Thể</div>
+                <div class="btn btn-outline-danger" id="startClassify">Tạo Biến Thể</div>
                 <a href="{{ route('product.index') }}" class="btn btn-light">Back List Products</a>
+              </div>
 
             </form>
 
         </div>
-
         <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                document.querySelector('form').addEventListener('keypress', function(event) {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                    }
+                });
+            });
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                document.querySelectorAll('input').forEach(function(input) {
+                    input.addEventListener('keypress', function(event) {
+                        if (event.key === 'Enter') {
+                            event.preventDefault();
+                        }
+                    });
+                });
+            });
+        </script>
+        <script>
+            const variantArray = [];
+            const classifyArray = [];
+
+
+            const colorInput = document.getElementById('color-input');
+            const classifyInput = document.getElementById('classify-input');
+            const colorContainer = document.getElementById('color-container');
+            const classifyContainer = document.getElementById('classify-container');
+
+            function createItem(container, array, value) {
+                const item = document.createElement('div');
+                item.className = 'item';
+                item.textContent = value;
+                const deleteBtn = document.createElement('span');
+                deleteBtn.className = 'delete';
+                deleteBtn.textContent = 'x';
+                deleteBtn.addEventListener('click', function() {
+                    item.remove();
+                    const index = array.indexOf(value);
+                    if (index > -1) {
+                        array.splice(index, 1);
+                    }
+                });
+                item.appendChild(deleteBtn);
+                container.appendChild(item);
+            }
+
+            colorInput.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    const value = colorInput.value.trim();
+                    if (value && !variantArray.includes(value)) {
+                        variantArray.push(value); // Thêm màu vào mảng
+                        createItem(colorContainer, variantArray, value); // Tạo và hiển thị item màu
+                        colorInput.value = ''; // Xóa giá trị input
+                    }
+                }
+            });
+
+            classifyInput.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    const value = classifyInput.value.trim();
+                    if (value && !classifyArray.includes(value)) {
+                        classifyArray.push(value); // Thêm phân loại vào mảng
+                        createItem(classifyContainer, classifyArray, value); // Tạo và hiển thị item phân loại
+                        classifyInput.value = ''; // Xóa giá trị input
+                    }
+                }
+            });
+            document.getElementById('startClassify').addEventListener('click', () => {
+                let html = '';
+                let index =0;
+
+                // Loop through capacity and color arrays
+                for (let i = 0; i < variantArray.length; i++) {
+                    for (let j = 0; j < classifyArray.length; j++) {
+                        // Append input elements to the HTML string
+                        html += `<input value='${classifyArray[j]}' placeholder='variant'  class="ipClassify" name="Variant_Classify[${index}][variant]" />
+                     <input value='${variantArray[i]}' placeholder='classify'  class="ipClassify"  name="Variant_Classify[${index}][classify]"/>
+                     <input type="file" name="Variant_Classify[${index}][image]" />
+                     <input type="number" placeholder='Quantity' class="ipClassify" name="Variant_Classify[${index}][quantity]" />
+                     <input type="number" placeholder='Price' class="ipClassify" name="Variant_Classify[${index}][price]" />
+                     <br>`;
+                     index ++;
+                    }
+                }
+
+
+                document.getElementById('classify').innerHTML = html;
+            })
+        </script>
+
+        {{-- <script>
             document.addEventListener('DOMContentLoaded', function() {
                 var classifyButton = document.getElementById('classify');
                 var originalRow = document.getElementById('originalRowClassify');
@@ -234,14 +336,14 @@
                     originalRow.parentNode.appendChild(clonedRow);
                 });
             });
-        </script>
+        </script> --}}
         <script>
           CKEDITOR.replace('editor', {
     entities: false,
     basicEntities: false
 });
         </script>
-        <script type="text/javascript">
+        {{-- <script type="text/javascript">
             function changePreview(newInputFile) {
                 const parentElement = newInputFile.parentElement;
                 const attachPreview = parentElement.querySelector('.attachmentPreview')
@@ -290,6 +392,7 @@
                 });
             }
             checkInput()
-        </script>
+        </script> --}}
     </div>
+
 @endsection
