@@ -21,6 +21,17 @@
     <link href="{{ asset('dashboard/css/style.css') }}" rel="stylesheet" type="text/css" />
     <script src="{{ asset('dashboard/js/modernizr.min.js') }}"></script>
     <script src="https:////cdn.ckeditor.com/4.8.0/full-all/ckeditor.js"></script>
+    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script> --}}
+
+    <style>
+        li{
+            position: relative;
+        }
+        .icons{
+           position: absolute;
+           right: 15px;
+        }
+    </style>
 
 </head>
 
@@ -50,19 +61,17 @@
                                 </li>
                                 <li class="menu-title">Framework</li>
                                 <li>
-                                    <a href="javascript: void(0);"><span> Products </span><ion-icon
+<a href="javascript: void(0);"><span> Products </span><ion-icon class="icons"
                                             name="aperture-outline"></ion-icon></a>
                                     <ul class="nav-second-level" aria-expanded="false">
-                                        <li><a href="{{ route('product.index') }}">Product List</a><span> <ion-icon
-                                                    name="receipt-outline"></ion-icon></span></li>
-                                        <li><a href="{{ route('product.create') }}">Product Add</a> <span><ion-icon
-                                                    name="add-circle-outline"></ion-icon></span></li>
+                                        <li><a href="{{ route('product.index') }}">Product List</a></li>
+                                        <li><a href="{{ route('product.create') }}">Product Add</a> </li>
 
                                     </ul>
                                 </li>
 
                                 <li>
-                                    <a href="javascript: void(0);"><span> Category </span><ion-icon
+                                    <a href="javascript: void(0);"><span> Category </span><ion-icon class="icons"
                                         name="layers-outline"></ion-icon></a>
                                     <ul class="nav-second-level" aria-expanded="false">
                                         <li><a href="{{ route('category.index') }}">Category List</a><span></span></li>
@@ -73,7 +82,7 @@
 
 
                                 <li>
-                                    <a href="javascript: void(0);"><span> Coupon </span><ion-icon name="qr-code-outline"></ion-icon></a>
+                                    <a href="javascript: void(0);"><span> Coupon </span><ion-icon class="icons" name="qr-code-outline"></ion-icon></a>
                                     <ul class="nav-second-level" aria-expanded="false">
                                         <li><a href="{{ route('coupon.index') }}">Coupon List</a><span></span></li>
                                         <li><a href="{{ route('coupon.create') }}">Coupon Add</a> <span></span></li>
@@ -81,7 +90,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="javascript: void(0);"><span> Sale </span><ion-icon name="qr-code-outline"></ion-icon></a>
+                                    <a href="javascript: void(0);"><span> Sale </span><ion-icon class="icons" name="qr-code-outline"></ion-icon></a>
                                     <ul class="nav-second-level" aria-expanded="false">
                                         <li><a href="{{ route('sale.index') }}">Sale List</a><span></span></li>
                                         <li><a href="{{ route('sale.create') }}">Sale Add</a> <span></span></li>
@@ -89,7 +98,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="javascript: void(0);"><span> User </span><ion-icon name="person-circle-outline"></ion-icon></a>
+                                    <a href="javascript: void(0);"><span> User </span><ion-icon class="icons" name="person-circle-outline"></ion-icon></a>
                                     <ul class="nav-second-level" aria-expanded="false">
                                         <li><a href="{{ route('user.index') }}">User List</a><span></span></li>
                                         <li><a href="{{ route('user.create') }}">User Add</a> <span></span></li>
@@ -97,10 +106,24 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="javascript: void(0);"><span> Role </span><ion-icon name="people-circle-outline"></ion-icon></a>
+<a href="javascript: void(0);"><span> Role </span><ion-icon class="icons" name="people-circle-outline"></ion-icon></a>
                                     <ul class="nav-second-level" aria-expanded="false">
                                         <li><a href="{{ route('role.index') }}">Role List</a><span></span></li>
                                         <li><a href="{{ route('role.create') }}">Role Add</a> <span></span></li>
+
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="javascript: void(0);"><span> Variant </span><ion-icon class="icons" name="shapes-outline"></ion-icon></a>
+                                    <ul class="nav-second-level" aria-expanded="false">
+                                        <li><a href="{{ route('variant.index') }}">Variant List</a><span></span></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="javascript: void(0);"><span> Banner </span><ion-icon class="icons" name="images-outline"></ion-icon></a>
+                                    <ul class="nav-second-level" aria-expanded="false">
+                                        <li><a href="{{ route('banner.index') }}">Banner List</a><span></span></li>
+                                        <li><a href="{{ route('banner.create') }}">Banner Add</a> <span></span></li>
 
                                     </ul>
                                 </li>
@@ -128,7 +151,7 @@
                                 <li>
                                     <a href="javascript: void(0);"> Icons </span>
                                         <span class="menu-arrow"></span></a>
-                                    <ul class="nav-second-level" aria-expanded="false">
+<ul class="nav-second-level" aria-expanded="false">
                                         <li><a href="icons-materialdesign.html">Material Design</a></li>
                                         <li><a href="icons-dripicons.html">Dripicons</a></li>
                                         <li><a href="">Font awesome</a></li>
@@ -176,7 +199,7 @@
                                 <li>
                                     <a href="javascript: void(0);">General Pages </span>
                                         <span class="menu-arrow"></span></a>
-                                    <ul class="nav-second-level" aria-expanded="false">
+<ul class="nav-second-level" aria-expanded="false">
                                         <li><a href="page-recoverpw.html">Recover Password</a></li>
                                         <li><a href="page-lock-screen.html">Lock Screen</a></li>
 
@@ -240,7 +263,7 @@
                                     <li class="dropdown notification-list px-3 hide-phone d-none d-sm-block">
                                         <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown"
                                             href="#" role="button" aria-haspopup="false"
-                                            aria-expanded="false">English
+aria-expanded="false">English
                                             <img src="{{ asset('logo/image.png') }}" class="ml-2" height="16"
                                                 alt="">
 
@@ -292,7 +315,7 @@
                                     <li class="dropdown notification-list">
                                         <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown"
                                             href="#" role="button" aria-haspopup="false"
-                                            aria-expanded="false">
+aria-expanded="false">
 
                                             <span class="badge badge-danger badge-pill noti-icon-badge">4</span>
                                         </a>
@@ -340,9 +363,7 @@
                                                     <p class="notify-details">New order received<small
                                                             class="text-muted">2 hours ago</small></p>
                                                 </a>
-
-
-                                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+<a href="javascript:void(0);" class="dropdown-item notify-item">
                                                     <div class="notify-icon bg-purple">
 
                                                     </div>
@@ -391,7 +412,7 @@
                                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
                                                     <div class="notify-icon"><img src="{{ asset('logo/image.png') }}"
                                                             class="img-fluid rounded-circle" alt="" /> </div>
-                                                    <p class="notify-details">Jasna Jakimova</p>
+<p class="notify-details">Jasna Jakimova</p>
                                                     <p class="text-muted font-13 mb-0 user-msg">Hey, how are you? I
                                                         havent seen you long time </p>
                                                 </a>
@@ -430,7 +451,7 @@
                                                     <p class="notify-details">MIlinto JAkonson</p>
                                                     <p class="text-muted font-13 mb-0 user-msg">Yeah everything is fine
                                                     </p>
-                                                </a>
+</a>
                                             </div>
 
 
@@ -490,7 +511,7 @@
                                     <li class="float-left toggle-icon">
                                         <button class="button-menu-mobile open-left">
                                             <ion-icon name="menu-outline"></ion-icon>
-                                        </button>
+</button>
                                     </li>
                                     <li class="nav-item hidden-sm-down search-box float-left"> <a
                                             class="nav-link hidden-sm-down text-muted  "

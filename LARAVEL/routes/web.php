@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VariantController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +40,8 @@ Route::prefix('admin')->group(function () {
     Route::resource('role', RoleController::class);
     Route::resource('user', UserController::class);
     Route::resource('sale', SaleController::class);
+    Route::resource('variant', VariantController::class);
+    Route::resource('banner', BannerController::class);
 });
 //CART
 Route::get('/add-to-cart',[CartController::class,'addToCart'])->name('carts');
