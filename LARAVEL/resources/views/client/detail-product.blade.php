@@ -101,7 +101,7 @@
                     95% 55%, 100% 60%, 95% 65%, 100% 70%, 95% 75%, 100% 80%,
                     95% 85%, 100% 90%, 95% 95%, 90% 100%, 85% 95%, 80% 100%,
                     75% 95%, 70% 100%, 65% 95%, 60% 100%, 55% 95%, 50% 100%,
-                    45% 95%, 40% 100%, 35% 95%, 30% 100%, 25% 95%, 20% 100%,
+45% 95%, 40% 100%, 35% 95%, 30% 100%, 25% 95%, 20% 100%,
                     15% 95%, 10% 100%, 5% 95%, 0% 100%, 5% 85%, 0% 80%,
                     5% 75%, 0% 70%, 5% 65%, 0% 60%, 5% 55%, 0% 50%,
                     5% 45%, 0% 40%, 5% 35%, 0% 30%, 5% 25%, 0% 20%,
@@ -216,12 +216,12 @@
             right: 4px;
             /* Cách lề phải */
             transform: translate(50%, -50%);
-            /* Đặt tick vào giữa và thẳng đứng lên */
+/* Đặt tick vào giữa và thẳng đứng lên */
         }
 
         /*
-                                classify
-                                */
+                                    classify
+                                    */
         .data-class {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -319,7 +319,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-6">
-                    <div class="product__details-nav d-sm-flex align-items-start">
+<div class="product__details-nav d-sm-flex align-items-start">
                         <ul class="nav nav-tabs flex-sm-column justify-content-between" id="productThumbTab" role="tablist">
                             @foreach ($detail->thumbnail as $item)
                                 <li class="nav-item" role="presentation">
@@ -340,7 +340,8 @@
                                     <div class="tab-pane fade show {{ 'keys' . $key }}" id="thumb{{ $item->id }}"
                                         role="tabpanel" aria-labelledby="thumb{{ $item->id }}-tab">
                                         <div class="product__details-nav-thumb w-img">
-                                            <img src="{{ asset('uploads/thumbnail/' . $item->image) }}" alt="">
+                                            <img src="{{ asset('uploads/thumbnail/' . $item->image) }}" alt=""
+                                                id="hoverImage">
                                         </div>
                                     </div>
                                 @endforeach
@@ -366,7 +367,7 @@
                         <div class="price mb-10">
                             @if ($sales)
                                 <input type="hidden" id="discounts" value="{{ $sales->discount }}">
-                                <input type="hidden" id="id_types" value="{{ $sales->id_types }}">
+<input type="hidden" id="id_types" value="{{ $sales->id_types }}">
 
                                 @php
                                     if ($sales->id_types == 2) {
@@ -416,7 +417,7 @@
                                                             {{ number_format($item->discount, 0, ',', '.') }} VNĐ </span>
                                                     @endif
                                                 </label>
-                                            </div>
+</div>
                                         @endforeach
                                     @endif
                                 </div>
@@ -477,7 +478,7 @@
                         </div>
                         <div class="product-tag-area mt-15">
                             <div class="product_info">
-                                <span class="sku_wrapper">
+<span class="sku_wrapper">
                                     <span class="title">SKU:</span>
                                     <span class="sku">DK1002</span>
                                 </span>
@@ -524,7 +525,7 @@
                                                                 name="eye-outline"></ion-icon>
 
                                                         </a>
-                                                        <a href="#" class="icon-box icon-box-1">
+<a href="#" class="icon-box icon-box-1">
                                                             <ion-icon style="font-size: 18px; margin-top:10px"
                                                                 name="heart-outline"></ion-icon>
                                                         </a>
@@ -559,7 +560,7 @@
                                                 </div>
                                                 <div class="product__add-cart text-center">
                                                     <button type="button"
-                                                        class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100">
+class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100">
                                                         <a href="{{ route('detail-product', $item->id) }}">View To
                                                             Product</a>
                                                     </button>
@@ -630,7 +631,7 @@
 
                 const classifyElement = `
             <div class="class-option">
-                <input type="radio" id="classify-${classifyId}" data-classify="${classifyId}" name="dataclassify" value="${classifyId}">
+<input type="radio" id="classify-${classifyId}" data-classify="${classifyId}" name="dataclassify" value="${classifyId}">
                 <label for="classify-${classifyId}" class="class-button">${classify.classify}</label>
             </div>
         `;
@@ -651,8 +652,8 @@
                         const isDisabled = variant.quantity == 0 ? 'disabled' : '';
                         const disabledClass = variant.quantity == 0 ? 'disabled-option' : '';
                         const variantElement = `
-                        <div class="color-option ${disabledClass}">
-                            <input type="radio" id="variant-${variantId}" name="datacolors" data-classify="${variant.classify}" data-image="${variant.image}" data data-quantity="${variant.quantity}" data-price="${variant.price}" value="${variantId}" ${isDisabled}>
+                        <div class="color-option ${disabledClass}" id="onMouse"  >
+                            <input  type="radio" id="variant-${variantId}" name="datacolors" data-classify="${variant.classify}" data-image="${variant.image}"  data-quantity="${variant.quantity}" data-price="${variant.price}" value="${variantId}" ${isDisabled}>
                             <label for="variant-${variantId}" class="variant-button">
                                 <img style="margin-top: -10px; margin-left: -10px;" src="/uploads/variation/${variant.image}" width="28px" alt=""> ${variantId}
                             </label>
@@ -675,9 +676,10 @@
 
                             document.querySelector('#dataPrice').value = event.target.dataset.price;
                             document.querySelector('#dataColor').value = event.target.value;
-                            document.querySelector('#dataImage').value = event.target.dataset.image;
+document.querySelector('#dataImage').value = event.target.dataset.image;
                             document.querySelector('#stocks').innerHTML =
                                 `Sản phẩm trong kho còn : ${event.target.dataset.quantity} sản phẩm !`
+
 
                             //
                             if (discounts) {
@@ -726,7 +728,7 @@
                                 const priceFormat = formatter.format(event.target.dataset.price);
                                 let element = document.getElementById('price');
                                 element.textContent = priceFormat;
-                                document.querySelector('#dataPrice').value = event.target.dataset.price;
+document.querySelector('#dataPrice').value = event.target.dataset.price;
 
 
                             }
@@ -736,6 +738,16 @@
                             );
                         }
                     });
+                    const onMouse = document.querySelectorAll('#onMouse');
+                    //    console.log(onMouse);
+                    for (let i = 0; i < onMouse.length; i++) {
+                        let RadioHover = onMouse[i].querySelector('input');
+                        onMouse[i].addEventListener('mouseover', () => {
+                            document.querySelector('#hoverImage').src = `/uploads/variation/${RadioHover.dataset.image}`;
+
+                        })
+
+                    }
 
                 });
             });
@@ -789,9 +801,7 @@
         <script type="module">
             $('#addToCart').click(function() {
                 // let token = 'fbgnGA2XygDoSTUWUguGVwwVqkH3Rd38gJyKToez';
-
-
-                let images = $('#dataImage').val();
+let images = $('#dataImage').val();
                 let price = $('#dataPrice').val();
                 let name = "{{ $detail->name }}"
                 let quantitys = $('#dataQuantity').val();
@@ -855,7 +865,7 @@
 
                 } else {
                     alert('Bạn chưa chọn các tuỳ chọn !');
-                }
+}
 
 
             })
