@@ -2,7 +2,7 @@
 @section('main')
     <main>
         <!-- page-banner-area-start -->
-        <div class="page-banner-area page-banner-height-2" data-background="assets/img/banner/page-banner-4.jpg">
+        <div class="page-banner-area page-banner-height-2" data-background="">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
@@ -61,12 +61,12 @@
                                             <td class="product-price"><span class="amount">{{ number_format($item->price) }}
                                                     VNĐ</span></td>
                                             <td class="product-price"><span class="amount">{{ $item->variant }}</span></td>
-                                            <td class="product-price"><span
-                                                    class="amount">{{ $item->classify }}</span></td>
+                                            <td class="product-price"><span class="amount">{{ $item->classify }}</span></td>
                                             <td class="product-quantity">
-                                                <input type="number" class="form-control" data-price="{{ $item->price }}"
+                                                <input type="number" class="form-control"  data-price="{{ $item->price }}"
                                                     data-cart="{{ $item->id }}" value="{{ $item->quantity }}"
-                                                    id="quantityCart" min="1">
+                                                    data-id="{{ $item->id_product }}" data-variant="{{ $item->variant }}"
+                                                    data-classify="{{ $item->classify }}" id="quantityCart" min="1">
                                             </td>
                                             <td class="product-subtotal"><span class="amount"
                                                     id="totalupdate">{{ number_format($item->total) }} VNĐ</span></td>
@@ -81,27 +81,14 @@
                                 </tbody>
                             </table>
                         </div>
-                        {{-- <div class="row">
-                          <div class="col-12">
-                                <div class="coupon-all">
-                                   <div class="coupon">
-                                      <input id="coupon_code" class="input-text" name="coupon_code" value="" placeholder="Coupon code" type="text">
-                                      <button class="tp-btn-h1" name="apply_coupon" type="submit">Apply
-                                            coupon</button>
-                                   </div>
-                                   <div class="coupon2">
-                                      <button class="tp-btn-h1" name="update_cart" type="submit">Update cart</button>
-                                   </div>
-                                </div>
-                          </div>
-                       </div> --}}
+
                         <div class="row justify-content-end">
                             <div class="col-md-5">
                                 <div class="cart-page-total">
                                     <h2>Cart totals</h2>
                                     <ul class="mb-20">
                                         <li>Subtotal <span id="subtotal">{{ number_format($total) }} VNĐ</span></li>
-                                        {{-- <li>Total <span i>{{ number_format($total) }} VNĐ</span></li> --}}
+
                                     </ul>
                                     @if ($total === 0)
                                         <button class="tp-btn-h1 btn-secondary"
@@ -188,7 +175,7 @@
                 })
             }
         </script>
-        <script>
+        <script type="module">
             let quantityCart = document.querySelectorAll('#quantityCart');
             let totalupdate = document.querySelectorAll('#totalupdate');
             let subtotal = document.querySelector('#subtotal')
@@ -202,6 +189,10 @@
             function updateTotalCart() {
                 tongs = 0;
                 for (let i = 0; i < quantityCart.length; i++) {
+                    let variant = quantityCart[i].dataset.variant;
+                    let classify = quantityCart[i].dataset.classify;
+                    let id_product = quantityCart[i].dataset.id;
+
                     let price = Number(quantityCart[i].dataset.price);
                     let quantity = Number(quantityCart[i].value);
                     let total = price * quantity;
@@ -209,18 +200,38 @@
                     tongs += total;
                     const formattedNumber = formatCurrency(total);
                     totalupdate[i].innerHTML = `${formattedNumber} VNĐ`;
-                   $.ajax({
-                       url:'{{route("updateCart")}}',
-                       method:'GET',
-                       data:{
-                        id,
-                        total,
-                        quantity
-                       },
-                       success:function(){
-                        console.log('Thành công');
-                       }
-                   })
+                    $.ajax({
+                        url: '{{ route('checkCartDetail') }}',
+                        method: 'GET',
+                        data: {
+                            id_product,
+                            classify,
+                            variant
+                        },
+                        success: function(data) {
+                            if (data) {
+                                let quantitys = data.quantity;
+                                if (quantity > quantitys) {
+                                    alert('Số lượng hàng hoá không đủ');
+                                } else {
+                                    $.ajax({
+                                        url: '{{ route('updateCart') }}',
+                                        method: 'GET',
+                                        data: {
+                                            id,
+                                            total,
+                                            quantity
+                                        },
+                                        success: function() {
+
+                                        }
+                                    })
+                                }
+
+                            }
+                        }
+                    })
+
 
                 }
 

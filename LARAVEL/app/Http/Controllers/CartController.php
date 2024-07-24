@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Variant;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class CartController extends Controller
 {
@@ -38,11 +40,12 @@ class CartController extends Controller
     public function Cart($id)
     {
         if (Auth::user()) {
+            $idHash = Crypt::decrypt($id);
             $category = Category::all();
-            $cart = Cart::where('id_user', $id)->get();
-            $total = Cart::where('id_user', $id)->sum('total');
-            $totalQuantity = Cart::where('id_user', $id)->sum('quantity');
-            $carts = Cart::where('id_user', Auth::user()->id)->get();
+            $cart = Cart::where('id_user', $idHash)->get();
+            $total = Cart::where('id_user', $idHash)->sum('total');
+            $totalQuantity = Cart::where('id_user', $idHash)->sum('quantity');
+            $carts = Cart::where('id_user', $idHash)->get();
             $title = ' Giỏ Hàng';
             return view('client.cart', compact('category', 'cart', 'total', 'totalQuantity', 'carts','title'));
         } else {
@@ -102,5 +105,23 @@ class CartController extends Controller
             $cart->total = $total;
             $cart->save();
         }
+    }
+    public function checkCart(){
+       $id = $_GET['checkID'];
+       $variant = $_GET['checkVariant'];
+       $classify = $_GET['checkClassify'];
+       $data = Variant::where('id_product',$id)->where('variant',$variant)->where('classify',$classify)->first();
+       if($data){
+        return $data;
+       }
+    }
+    public function checkCartDetail(){
+        $id = $_GET['id_product'];
+        $classify = $_GET['classify'];
+        $variant = $_GET['variant'];
+        $data = Variant::where('id_product',$id)->where('variant',$variant)->where('classify',$classify)->first();
+        if($data){
+            return $data;
+           }
     }
 }

@@ -225,8 +225,13 @@
                                         </a>
                                     </div>
                                     <div class="block-cart action">
+                                        @php
+                                        use Illuminate\Support\Facades\Crypt;
+
+                                        $encryptedId = Auth::check() ? Crypt::encrypt(Auth::user()->id) : null;
+                                    @endphp
                                         @if (Auth::user())
-                                            <a class="icon-link" href="{{ route('cart', Auth::user()->id) }}">
+                                            <a class="icon-link" href="{{ route('cart', $encryptedId) }}">
                                             @else
                                                 <a class="icon-link" href=""
                                                     onclick="return confirm('Vui lòng đăng nhập để vào giỏ hàng !')">

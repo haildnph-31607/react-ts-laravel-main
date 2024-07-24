@@ -438,6 +438,7 @@
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
                     },
 
                     data: {
@@ -546,7 +547,7 @@
                                             alert(
                                                 'Cập nhật thông tin thành công !'
                                             )
-                                            window.location.reload()
+                                            // window.location.reload()
                                         }
                                     })
 

@@ -17,7 +17,7 @@
         }
 
         .titlesen {
-            background-color: #d3d3d3;
+            background-color: #f5f3f3;
             color: black;
             padding: 10px;
             font-size: 16px;
@@ -101,7 +101,7 @@
                     95% 55%, 100% 60%, 95% 65%, 100% 70%, 95% 75%, 100% 80%,
                     95% 85%, 100% 90%, 95% 95%, 90% 100%, 85% 95%, 80% 100%,
                     75% 95%, 70% 100%, 65% 95%, 60% 100%, 55% 95%, 50% 100%,
-45% 95%, 40% 100%, 35% 95%, 30% 100%, 25% 95%, 20% 100%,
+                    45% 95%, 40% 100%, 35% 95%, 30% 100%, 25% 95%, 20% 100%,
                     15% 95%, 10% 100%, 5% 95%, 0% 100%, 5% 85%, 0% 80%,
                     5% 75%, 0% 70%, 5% 65%, 0% 60%, 5% 55%, 0% 50%,
                     5% 45%, 0% 40%, 5% 35%, 0% 30%, 5% 25%, 0% 20%,
@@ -207,21 +207,22 @@
 
         .variant-button.selected::after {
             content: "✔";
-            /* Ký hiệu tick */
             color: white;
             font-size: 12px;
             position: absolute;
             top: 10%;
-            /* Đưa tick vào giữa */
+
             right: 4px;
-            /* Cách lề phải */
+
             transform: translate(50%, -50%);
-/* Đặt tick vào giữa và thẳng đứng lên */
+
         }
 
-        /*
-                                    classify
-                                    */
+
+
+
+
+
         .data-class {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -312,14 +313,12 @@
             </div>
         </div>
     </section>
-    {{-- <div id="cart-icon">
-    <img src="cart-icon.png" alt="Cart">
-</div> --}}
+
     <div class="product-details">
         <div class="container">
             <div class="row">
                 <div class="col-xl-6">
-<div class="product__details-nav d-sm-flex align-items-start">
+                    <div class="product__details-nav d-sm-flex align-items-start">
                         <ul class="nav nav-tabs flex-sm-column justify-content-between" id="productThumbTab" role="tablist">
                             @foreach ($detail->thumbnail as $item)
                                 <li class="nav-item" role="presentation">
@@ -348,6 +347,33 @@
                             </div>
                         </div>
                     </div>
+                    <div class="features-des mb-20 mt-10">
+                        <div class="containersrs">
+
+                            <div class="titlesen">Mô tả sản phẩm</div>
+                            <div class="contentene">
+                            @if ($description)
+                            {!! $description->content!!}
+                            @else
+                              <h1 class="text-center">Không có mô tả về sản phẩm !</h1>
+                            @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="features-des mb-20 mt-10">
+                        <div class="containersrs">
+
+                            <div class="titlesen">Video về sản phẩm</div>
+                            <div class="contentene">
+
+                             @if ($prvd)
+                             {!! $prvd->content !!}
+                            @else
+                              <h1 class="text-center">Không có video về sản phẩm !</h1>
+                            @endif
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-xl-6">
                     <div class="product__details-content">
@@ -367,7 +393,7 @@
                         <div class="price mb-10">
                             @if ($sales)
                                 <input type="hidden" id="discounts" value="{{ $sales->discount }}">
-<input type="hidden" id="id_types" value="{{ $sales->id_types }}">
+                                <input type="hidden" id="id_types" value="{{ $sales->id_types }}">
 
                                 @php
                                     if ($sales->id_types == 2) {
@@ -417,7 +443,7 @@
                                                             {{ number_format($item->discount, 0, ',', '.') }} VNĐ </span>
                                                     @endif
                                                 </label>
-</div>
+                                            </div>
                                         @endforeach
                                     @endif
                                 </div>
@@ -478,7 +504,7 @@
                         </div>
                         <div class="product-tag-area mt-15">
                             <div class="product_info">
-<span class="sku_wrapper">
+                                <span class="sku_wrapper">
                                     <span class="title">SKU:</span>
                                     <span class="sku">DK1002</span>
                                 </span>
@@ -525,7 +551,7 @@
                                                                 name="eye-outline"></ion-icon>
 
                                                         </a>
-<a href="#" class="icon-box icon-box-1">
+                                                        <a href="#" class="icon-box icon-box-1">
                                                             <ion-icon style="font-size: 18px; margin-top:10px"
                                                                 name="heart-outline"></ion-icon>
                                                         </a>
@@ -560,7 +586,7 @@
                                                 </div>
                                                 <div class="product__add-cart text-center">
                                                     <button type="button"
-class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100">
+                                                        class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100">
                                                         <a href="{{ route('detail-product', $item->id) }}">View To
                                                             Product</a>
                                                     </button>
@@ -594,7 +620,7 @@ class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify
 
 
         </div>
-        <script>
+<script>
             const data = @json($detail->variant);
             var max = 0;
 
@@ -631,8 +657,14 @@ class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify
 
                 const classifyElement = `
             <div class="class-option">
-<input type="radio" id="classify-${classifyId}" data-classify="${classifyId}" name="dataclassify" value="${classifyId}">
-                <label for="classify-${classifyId}" class="class-button">${classify.classify}</label>
+                <input type="radio"
+                 id="classify-${classifyId}"
+                  data-classify="${classifyId}"
+                  name="dataclassify"
+                  value="${classifyId}">
+                <label
+                for="classify-${classifyId}"
+                 class="class-button">${classify.classify}</label>
             </div>
         `;
                 productContainer.insertAdjacentHTML('beforeend', classifyElement);
@@ -654,7 +686,7 @@ class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify
                         const variantElement = `
                         <div class="color-option ${disabledClass}" id="onMouse"  >
                             <input  type="radio" id="variant-${variantId}" name="datacolors" data-classify="${variant.classify}" data-image="${variant.image}"  data-quantity="${variant.quantity}" data-price="${variant.price}" value="${variantId}" ${isDisabled}>
-                            <label for="variant-${variantId}" class="variant-button">
+                            <label for="variant-${variantId}" class="variant-button" id="variant-button">
                                 <img style="margin-top: -10px; margin-left: -10px;" src="/uploads/variation/${variant.image}" width="28px" alt=""> ${variantId}
                             </label>
                         </div>
@@ -676,7 +708,7 @@ class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify
 
                             document.querySelector('#dataPrice').value = event.target.dataset.price;
                             document.querySelector('#dataColor').value = event.target.value;
-document.querySelector('#dataImage').value = event.target.dataset.image;
+                            document.querySelector('#dataImage').value = event.target.dataset.image;
                             document.querySelector('#stocks').innerHTML =
                                 `Sản phẩm trong kho còn : ${event.target.dataset.quantity} sản phẩm !`
 
@@ -728,22 +760,21 @@ document.querySelector('#dataImage').value = event.target.dataset.image;
                                 const priceFormat = formatter.format(event.target.dataset.price);
                                 let element = document.getElementById('price');
                                 element.textContent = priceFormat;
-document.querySelector('#dataPrice').value = event.target.dataset.price;
+                                document.querySelector('#dataPrice').value = event.target.dataset.price;
 
 
                             }
 
-                            console.log(
-                                `Selected variant: ID ${event.target.value}, Quantity: ${event.target.dataset.quantity}, Price: ${event.target.dataset.price}`
-                            );
+
                         }
                     });
                     const onMouse = document.querySelectorAll('#onMouse');
-                    //    console.log(onMouse);
+
                     for (let i = 0; i < onMouse.length; i++) {
                         let RadioHover = onMouse[i].querySelector('input');
                         onMouse[i].addEventListener('mouseover', () => {
-                            document.querySelector('#hoverImage').src = `/uploads/variation/${RadioHover.dataset.image}`;
+                            document.querySelector('#hoverImage').src =
+                                `/uploads/variation/${RadioHover.dataset.image}`;
 
                         })
 
@@ -752,7 +783,6 @@ document.querySelector('#dataPrice').value = event.target.dataset.price;
                 });
             });
 
-            //tăng giảm số lượng
 
             const minusBtn = document.querySelector('.quantity div:first-child');
             const plusBtn = document.querySelector('.quantity div:last-child');
@@ -789,8 +819,8 @@ document.querySelector('#dataPrice').value = event.target.dataset.price;
 
                 }
             });
-        </script>
-        <script type="text/javascript">
+</script>
+<script type="text/javascript">
             function login() {
                 if (confirm('Bạn chua đăng nhập , bạn muốn đến trang đăng nhập chứ ?')) {
                     return window.location.href = '{{ route('login') }}';
@@ -800,8 +830,8 @@ document.querySelector('#dataPrice').value = event.target.dataset.price;
         </script>
         <script type="module">
             $('#addToCart').click(function() {
-                // let token = 'fbgnGA2XygDoSTUWUguGVwwVqkH3Rd38gJyKToez';
-let images = $('#dataImage').val();
+
+                let images = $('#dataImage').val();
                 let price = $('#dataPrice').val();
                 let name = "{{ $detail->name }}"
                 let quantitys = $('#dataQuantity').val();
@@ -822,24 +852,54 @@ let images = $('#dataImage').val();
                         },
                         success: function(data) {
                             if (data) {
+
                                 let id = data.id;
                                 let quantitysy = Number(data.quantity) + Number(quantitys);
                                 let total = quantitysy * price;
-                                //  console.log(quantitysy);
-                                $.ajax({
-                                    url: '{{ route('quantityCart') }}',
-                                    method: 'GET',
-                                    data: {
-                                        quantitysy,
-                                        total,
-                                        id
-                                    },
-                                    success: function() {
-                                        alert('Thêm thành công vào giỏ hàng');
-                                        window.location.reload();
-                                    }
+                                let checkID = data.id_product;
+                                let checkVariant = data.variant;
+                                let checkQuantity = data.quantity;
 
-                                })
+                                let checkClassify = data.classify;
+
+                                 $.ajax({
+                                    url:'{{route("checkCart")}}',
+                                    method:'GET',
+                                    data:{
+                                        checkID,
+                                        checkVariant,
+                                        checkClassify
+
+                                    },
+                                    success:function(data){
+                                          if(data){
+                                            let quantityVariant = data.quantity;
+                                            let check = Number(quantitys) + Number(checkQuantity);
+                                            console.log(check);
+                                            if(check > quantityVariant){
+                                                alert(`Sốp không đủ sản phẩm vì giỏ hàng bạn đã có ${checkQuantity} sản phẩm , không thể thêm ${quantitys} sản phẩm nữa !`);
+                                            }else{
+
+                                            $.ajax({
+                                                url: '{{ route('quantityCart') }}',
+                                                method: 'GET',
+                                                data: {
+                                                    quantitysy,
+                                                    total,
+                                                    id
+                                                },
+                                                success: function() {
+                                                    alert('Thêm thành công vào giỏ hàng');
+                                                    window.location.reload();
+                                                }
+
+                                            })
+                                            }
+                                          }
+                                    }
+                                 })
+
+
                             } else {
                                 $.ajax({
                                     url: '{{ route('carts') }}',
@@ -865,7 +925,7 @@ let images = $('#dataImage').val();
 
                 } else {
                     alert('Bạn chưa chọn các tuỳ chọn !');
-}
+                }
 
 
             })
@@ -875,11 +935,10 @@ let images = $('#dataImage').val();
                 const radios = document.querySelectorAll('input[name="optionsKey"]');
                 radios.forEach(radio => {
                     radio.addEventListener('click', function() {
-                        // Sao chép giá trị của radio được chọn vào clipboard
+
                         navigator.clipboard.writeText(this.value)
                             .then(() => {
-                                // alert(`Copy mã thành công ! Mã của bạn là : ${this.value} hãy nhập mã khi thanh toán nhé !`)
-                                // Thêm các thông báo hoặc xử lý khác sau khi sao chép thành công
+
                             })
                             .catch(err => {
                                 console.error('Lỗi khi sao chép giá trị: ', err);
@@ -889,6 +948,6 @@ let images = $('#dataImage').val();
             });
         </script>
 
-    </div>
+</div>
 
 @endsection

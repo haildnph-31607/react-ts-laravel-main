@@ -1,11 +1,12 @@
 @extends('admin.layout')
 @section('main')
     <style>
-         .ipClassify{
+        .ipClassify {
             width: 240px;
             height: 40px;
             margin-top: 5px;
         }
+
         .item {
             background-color: lightgray;
             color: black;
@@ -28,6 +29,7 @@
             padding: 5px;
             margin-bottom: 10px;
         }
+
         .InputFile {
 
             width: 500px;
@@ -112,7 +114,8 @@
                 <!-- Category -->
                 <div class="form-group">
                     <label for="category">Category</label>
-                    <select class="form-control form-control-lg @error('category') is-invalid @enderror" name="category" id="category">
+                    <select class="form-control form-control-lg @error('category') is-invalid @enderror" name="category"
+                        id="category">
                         <option value="" selected>Choose Category</option>
                         @foreach ($category as $item)
                             <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -126,7 +129,8 @@
                 <!-- Sale -->
                 <div class="form-group">
                     <label for="sale">Sale</label>
-                    <select class="form-control form-control-lg @error('sale') is-invalid @enderror" name="sale" id="sale">
+                    <select class="form-control form-control-lg @error('sale') is-invalid @enderror" name="sale"
+                        id="sale">
                         <option value="" selected>Choose Sale</option>
                         @foreach ($sale as $item)
                             <option value="{{ $item->id }}">{{ $item->title }}</option>
@@ -140,7 +144,8 @@
                 <!-- Status -->
                 <div class="form-group">
                     <label for="status">Status</label>
-                    <select class="form-control form-control-lg @error('status') is-invalid @enderror" name="status" id="status">
+                    <select class="form-control form-control-lg @error('status') is-invalid @enderror" name="status"
+                        id="status">
                         <option value="0">Hiển Thị</option>
                         <option value="1">Ẩn</option>
                     </select>
@@ -152,7 +157,8 @@
                 <!-- Name Product -->
                 <div class="form-group">
                     <label for="name">Name Product</label>
-                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Name Product">
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                        name="name" placeholder="Name Product">
                     @error('name')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -161,33 +167,49 @@
                 <!-- Price -->
                 <div class="form-group">
                     <label for="price">Price</label>
-                    <input type="number" min="0" class="form-control @error('price') is-invalid @enderror" id="price" name="price" placeholder="Price Product">
+                    <input type="number" min="0" class="form-control @error('price') is-invalid @enderror"
+                        id="price" name="price" placeholder="Price Product">
                     @error('price')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
 
-                <!-- Description -->
+
                 <div class="form-group">
-                    <label for="editor">Description</label>
+                    <label for="editor">Other Promotions</label>
                     <textarea class="form-control" name="editor" id="editor" rows="4" placeholder="Description Product"></textarea>
                     @error('editor')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
+                <div class="form-group">
+                    <label for="editor">Description</label>
+                    <textarea class="form-control" name="editors" id="editors" rows="4" placeholder="Description Product"></textarea>
+                    @error('editor')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
 
-                <!-- File Upload -->
+                <div class="form-group">
+                    <label for="name">Ember Iframe Video PA</label>
+                    <input type="text" class="form-control "
+                        name="video" placeholder="Video PA SPHAM">
+
+                </div>
+
+
                 <div class="form-group">
                     <label for="file" class="input-group-text">Upload Image</label>
-                    <input type="file" class="form-control-file form-control  @error('file') is-invalid @enderror" id="file" name="file">
+                    <input type="file" class="form-control-file form-control  @error('file') is-invalid @enderror"
+                        id="file" name="file">
                     @error('file')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
-          <div class="form-group">
-           <label for="thumbnail" class="input-group-text">Thumbnail</label>
-           <input type="file" id="thumbnail" name="thumbnail[]" multiple class="form-control"/>
-          </div>
+                <div class="form-group">
+                    <label for="thumbnail" class="input-group-text">Thumbnail</label>
+                    <input type="file" id="thumbnail" name="thumbnail[]" multiple class="form-control" />
+                </div>
                 <div class="mt-4">
                     <label for="color-input mb-3">Enter Variation</label> <br>
                     <input type="text" id="color-input" class="w-100 form-control" placeholder="Enter Variation" />
@@ -196,17 +218,17 @@
                 </div>
                 <div class="mt-4">
                     <label for="classify-input">Enter Classify</label><br>
-                    <input type="text" id="classify-input" class="w-100 form-control"  placeholder="Enter classify" />
+                    <input type="text" id="classify-input" class="w-100 form-control" placeholder="Enter classify" />
                     <div id="classify-container"></div>
                 </div>
 
                 <div id="classify"></div>
 
-              <div class="mt-4">
-                <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                <div class="btn btn-outline-danger" id="startClassify">Tạo Biến Thể</div>
-                <a href="{{ route('product.index') }}" class="btn btn-light">Back List Products</a>
-              </div>
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    <div class="btn btn-outline-danger" id="startClassify">Tạo Biến Thể</div>
+                    <a href="{{ route('product.index') }}" class="btn btn-light">Back List Products</a>
+                </div>
 
             </form>
 
@@ -284,7 +306,7 @@
             });
             document.getElementById('startClassify').addEventListener('click', () => {
                 let html = '';
-                let index =0;
+                let index = 0;
 
                 // Loop through capacity and color arrays
                 for (let i = 0; i < variantArray.length; i++) {
@@ -296,7 +318,7 @@
                      <input type="number" placeholder='Quantity' class="ipClassify" name="Variant_Classify[${index}][quantity]" />
                      <input type="number" placeholder='Price' class="ipClassify" name="Variant_Classify[${index}][price]" />
                      <br>`;
-                     index ++;
+                        index++;
                     }
                 }
 
@@ -338,10 +360,22 @@
             });
         </script> --}}
         <script>
-          CKEDITOR.replace('editor', {
-    entities: false,
-    basicEntities: false
-});
+            CKEDITOR.replace('editor', {
+                entities: false,
+                basicEntities: false,
+                extraPlugins: 'image2,uploadimage',
+                filebrowserUploadUrl: '/uploads/description/',
+                filebrowserUploadMethod: 'form'
+            });
+        </script>
+        <script>
+            CKEDITOR.replace('editors', {
+                entities: false,
+                basicEntities: false,
+                extraPlugins: 'image2,uploadimage',
+                filebrowserUploadUrl: '/uploads/description/',
+                filebrowserUploadMethod: 'form'
+            });
         </script>
         {{-- <script type="text/javascript">
             function changePreview(newInputFile) {
@@ -394,5 +428,4 @@
             checkInput()
         </script> --}}
     </div>
-
 @endsection

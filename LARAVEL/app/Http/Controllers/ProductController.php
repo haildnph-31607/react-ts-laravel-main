@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Classify;
+use App\Models\Parameter;
 use App\Models\Product;
+use App\Models\Prvideo;
 use App\Models\Sale;
 use App\Models\Thumbnail;
 use App\Models\Variant;
@@ -117,6 +119,18 @@ class ProductController extends Controller
             }
             $thumbnails->save();
         }
+        if ($data['editors']) {
+            $parameter = new Parameter();
+            $parameter->id_product = $product->id;
+            $parameter->content = $data['editors'];
+            $parameter->save();
+        }
+        if ($data['video']) {
+            $parameter = new Prvideo();
+            $parameter->id_product = $product->id;
+            $parameter->content = $data['video'];
+            $parameter->save();
+        }
         return redirect()->route('product.index');
     }
 
@@ -135,8 +149,10 @@ class ProductController extends Controller
     {
         $sale = Sale::all();
         $data = Product::find($id);
+        $description = Parameter::where('id_product', $data->id)->first();
+        $prvd = Prvideo::where('id_product', $data->id)->first();
         $category = Category::all();
-        return view('admin.product.update', compact('data', 'category', 'sale'));
+        return view('admin.product.update', compact('data', 'category', 'sale', 'description', 'prvd'));
     }
 
     /**
@@ -144,17 +160,16 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'category' => 'required|exists:categories,id',
-            'status' => 'required|in:0,1',
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'editor' => 'nullable|string',
+        // $request->validate([
+        //     'category' => 'required|exists:categories,id',
+        //     'status' => 'required|in:0,1',
+        //     'name' => 'required|string|max:255',
+        //     'price' => 'required|numeric|min:0',
+        //     'editor' => 'nullable|string',
 
-        ]);
+        // ]);
         $data = $request->all();
-
-
+        // dd($data);
         $product = Product::find($id);
         $product->name = $data['name'];
         $product->price = $data['price'];
@@ -180,6 +195,33 @@ class ProductController extends Controller
 
         $product->image = $new_image;
         $product->save();
+        if ($data['editors']) {
+            if ($data['idDescription'] != '') {
+                $parameter = Parameter::find($data['idDescription']);
+                $parameter->id_product = $id;
+                $parameter->content = $data['editors'];
+                $parameter->save();
+            } else {
+                $parameter = new Parameter();
+                $parameter->id_product = $id;
+                $parameter->content = $data['editors'];
+                $parameter->save();
+            }
+        }
+
+        if ($data['video']) {
+            if ($data['idPrvd'] != '') {
+                $parameter = Prvideo::find($data['idPrvd']);
+                $parameter->id_product = $id;
+                $parameter->content = $data['video'];
+                $parameter->save();
+            } else {
+                $parameter = new Prvideo();
+                $parameter->id_product = $id;
+                $parameter->content = $data['video'];
+                $parameter->save();
+            }
+        }
         return redirect()->route('product.index');
     }
 

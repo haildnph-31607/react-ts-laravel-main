@@ -68,14 +68,27 @@
                   <input type="hidden" value="{{$data->image}}" name="file">
                 <!-- Description -->
                 <div class="form-group">
-                    <label for="editor">Description</label>
+                    <label for="editor">Other Promotions</label>
                     <textarea class="form-control" name="editor" id="editor" rows="4" placeholder="Description Product">{{$data->description}}</textarea>
                     @error('editor')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
+                <div class="form-group">
+                    <label for="editor">Description</label>
+                    <textarea class="form-control" name="editors" id="editors" rows="4" placeholder="Description Product">{{(isset($description) ? $description->content : '')}}</textarea>
+
+                </div>
+                <input type="hidden" name="idDescription" value="{{(isset($description) ? $description->id : '')}}">
+                <div class="form-group">
+                    <label for="name">Ember Iframe Video PA</label>
+                    <input type="text" class="form-control "
+                        name="video" placeholder="Video PA SPHAM" value="{{(isset($prvd) ? $prvd->content : '')}}">
+
+                </div>
+                <input type="hidden" name="idPrvd" value="{{(isset($prvd) ? $prvd->id : '')}}">
                    <img src="{{asset('uploads/product/'.$data->image)}}" width="100px" alt="">
-                <!-- File Upload -->
+
                 <div class="form-group">
                     <label for="file">Upload Image</label>
                     <input type="file" class="form-control-file form-control  @error('file') is-invalid @enderror" id="file" name="file">
@@ -91,10 +104,22 @@
 
     </div>
     <script>
-       CKEDITOR.replace('editor', {
-    entities: false,
-    basicEntities: false
-});
+    CKEDITOR.replace('editor', {
+        entities: false,
+        basicEntities: false,
+        extraPlugins: 'image2,uploadimage',
+        filebrowserUploadUrl: '/uploads/description/',
+        filebrowserUploadMethod: 'form'
+    });
     </script>
+        <script>
+            CKEDITOR.replace('editors', {
+                entities: false,
+                basicEntities: false,
+                extraPlugins: 'image2,uploadimage',
+                filebrowserUploadUrl: '/uploads/description/',
+                filebrowserUploadMethod: 'form'
+            });
+        </script>
 </div>
 @endsection

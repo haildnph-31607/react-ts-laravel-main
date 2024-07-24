@@ -50,6 +50,8 @@ Route::get('/delete-cart', [CartController::class, 'deleteCart'])->name('deleteC
 Route::get('/update-cart', [CartController::class, 'updateCart'])->name('updateCart');
 Route::get('/update-quantity-cart', [CartController::class, 'quantityCart'])->name('quantityCart');
 Route::get('/get-cart', [CartController::class, 'getCart'])->name('getCart');
+Route::get('/check-cart', [CartController::class, 'checkCart'])->name('checkCart');
+Route::get('/check-cart-2', [CartController::class, 'checkCartDetail'])->name('checkCartDetail');
 
 // Checkout
 Route::get('/checkout/{id}',[CheckoutController::class,'Checkout'])->name('checkout');
