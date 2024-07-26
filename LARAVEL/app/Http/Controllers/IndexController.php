@@ -14,6 +14,7 @@ use App\Models\Sale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 
 class IndexController extends Controller
 {
@@ -22,6 +23,11 @@ class IndexController extends Controller
      */
     public function index()
     {
+    //     Session::flush();
+    //     // Session::forget('idOrder');
+    //    $value= Session::get('Order');
+    //     dd($value);
+    //    dd(Session::get('OrderRand'));
         $category = Category::all();
         $product = Product::where('status', 0)->get();
         $title = 'Trang Chủ';

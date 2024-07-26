@@ -32,14 +32,14 @@
                                     <img src="{{ asset('uploads/product/' . $item->image) }}" alt="" width="100px">
                                 </td>
                                 <td>
-                                   @if($item->id_sales > 0)
-                                   {{$item->sale->title}}
-                                   @else
-                                   Không áp dụng khuyến mãi
-                                   @endif
+                                    @if ($item->id_sales > 0)
+                                        {{ $item->sale->title }}
+                                    @else
+                                        Không áp dụng khuyến mãi
+                                    @endif
                                 </td>
                                 <td>{{ $item->description }}</td>
-                                <td>{{$item->category->name}}</td>
+                                <td>{{ $item->category->name }}</td>
                                 <td><a href="javascript:void(0);"
                                         onclick="event.preventDefault();
                      if(confirm('Are you sure?')) { document.getElementById('delete-form-{{ $item->id }}').submit(); }"

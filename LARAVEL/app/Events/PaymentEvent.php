@@ -17,6 +17,7 @@ class PaymentEvent
        public $dataCustomer;
        public $dataCart;
        public $dataTotal;
+    //    public $id;
     /**
      * Create a new event instance.
      */
@@ -26,6 +27,7 @@ class PaymentEvent
          $this->dataCustomer = $dataCustomer;
          $this->dataCart = $dataCart;
          $this->dataTotal = $dataTotal;
+        //  $this->id = $id;
         //  dd($this->invoices);
     }
 

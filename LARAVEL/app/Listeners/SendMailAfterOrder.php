@@ -3,8 +3,11 @@
 namespace App\Listeners;
 
 use App\Events\PaymentEvent;
+use App\Models\OrderDetail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
 class SendMailAfterOrder implements ShouldQueue
@@ -29,7 +32,6 @@ class SendMailAfterOrder implements ShouldQueue
         $email = $dataCustomer->email;
         $dataTotal = $event->dataTotal;
 
-        // dd();
         $subject = "Hóa đơn của bạn !";
         $content = [
             'Invoice' => $dataInvoice,

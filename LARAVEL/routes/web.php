@@ -9,11 +9,13 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\MoMoController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VariantController;
+use App\Http\Controllers\VNPayController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -64,6 +66,8 @@ Route::post('update-customer',[IndexController::class,'UpdateCustomer'])->name('
 Route::post('get-customer',[IndexController::class,'getCustomer'])->name('getCustomer');
 //invoice
 Route::post('add-invoice',[InvoiceController::class,'store'])->name('addInvoice');
+Route::match(['get', 'post'], 'checkout-fatal/{id}', [MoMoController::class, 'handleReturn']);
+Route::match(['get', 'post'], 'checkout-fatal-vnpay/{id}', [VNPayController::class, 'handleReturn']);
 //product
 Route::get('/shop-product',[IndexController::class,'ProductAll'])->name('productall');
 Route::post('/search-product',[IndexController::class,'seachFullText'])->name('search-product');
@@ -93,3 +97,7 @@ Route::post('email/resend', [App\Http\Controllers\Auth\VerificationController::c
 
 
 Route::get('/home', [App\Http\Controllers\IndexController::class, 'index'])->name('home');
+//Momo
+// Route::post('momo/payment', [MoMoController::class, 'createPayment'])->name('momo.payment.create');
+// Route::get('momo/return', [MoMoController::class, 'return'])->name('momo.return');
+// Route::post('momo/notify', [MoMoController::class, 'notify'])->name('momo.notify');

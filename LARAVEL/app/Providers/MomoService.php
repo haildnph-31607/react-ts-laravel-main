@@ -18,7 +18,7 @@ class MomoService
         $this->secretKey = env('MOMO_SECRET_KEY');
     }
 
-    public function createPayment($orderId, $amount, $orderInfo, $redirectUrl, $ipnUrl)
+    public function createPayment( $amount)
     {
         $requestId = time() . "";
         $requestType = "captureMoMoWallet";
@@ -28,10 +28,10 @@ class MomoService
                    "&accessKey=" . $this->accessKey .
                    "&requestId=" . $requestId .
                    "&amount=" . $amount .
-                   "&orderId=" . $orderId .
-                   "&orderInfo=" . $orderInfo .
-                   "&returnUrl=" . $redirectUrl .
-                   "&notifyUrl=" . $ipnUrl .
+                   "&orderId=" . 'MH124' .
+                   "&orderInfo=" . 'Thanh toan' .
+                   "&returnUrl=" . 'http://127.0.0.1:8000/' .
+                   "&notifyUrl=" . 'http://127.0.0.1:8000/' .
                    "&extraData=" . $extraData;
 
         $signature = hash_hmac("sha256", $rawHash, $this->secretKey);
@@ -41,10 +41,10 @@ class MomoService
             'accessKey' => $this->accessKey,
             'requestId' => $requestId,
             'amount' => $amount,
-            'orderId' => $orderId,
-            'orderInfo' => $orderInfo,
-            'returnUrl' => $redirectUrl,
-            'notifyUrl' => $ipnUrl,
+            'orderId' => 'MH124',
+            'orderInfo' => 'Thanh toan',
+            'returnUrl' => 'http://127.0.0.1:8000/',
+            'notifyUrl' => 'http://127.0.0.1:8000/',
             'extraData' => $extraData,
             'requestType' => $requestType,
             'signature' => $signature
