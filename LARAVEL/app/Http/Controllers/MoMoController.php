@@ -77,7 +77,7 @@ class MoMoController extends Controller
         );
 
         $result = $this->execPostRequest($endpoint, json_encode($data));
-        $jsonResult = json_decode($result, true);  // decode json
+        $jsonResult = json_decode($result, true);
         return redirect($jsonResult['payUrl']);
     }
     public function handleReturn(Request $request)
