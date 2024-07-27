@@ -604,7 +604,8 @@
       onAuthorize: function(data, actions) {
         return actions.payment.execute().then(function() {
 
-          window.alert('Thank you for your purchase!');
+        //   window.alert('Thank you for your purchase!');
+        document.getElementById('handleSubmitForm').submit();
         });
       }
     }, '#paypal-button');

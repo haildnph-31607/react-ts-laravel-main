@@ -156,7 +156,7 @@
 
                         </div>
                     </div>
-                    {{--  --}}
+
                     <div class="col-lg-6">
                         <form action="{{ route('addInvoice') }}" method="POST">
                              @csrf
@@ -262,10 +262,11 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="">Payment Method</label>
-                                    <select class="form-control" id="payment">
-                                        <option value="0">COD</option>
+                                    <select class="form-control" id="payment" onchange="MethodPayment(this)">
+                                        <option value="0">Choose Payment Method</option>
                                         <option value="1">VNPAY PAYMENT</option>
                                         <option value="2">MOMO PAYMENT</option>
+                                        <option value="0">Paypal PAYMENT</option>
                                     </select>
                                     <div id="paypal-button" class="mt-4"></div>
                                 </div>
@@ -344,9 +345,33 @@
                     </div>
                 </div>
             </div>
+            <form action="{{ route('addInvoice') }}" method="POST" id="handleSubmitForm">
+                <input type="hidden" id="customer_ids" name="customer_id">
+                 @csrf
+                <input type="hidden" id="grands" name="grand">
+                <input type="hidden" id="id_user" name="id_user" value="{{ Auth::user()->id }}">
+                <input type="hidden" id="paymentMethod" value="0" name="paymentMethod">
+                <input type="hidden" id="booknotes" name="notes">
+                <input type="hidden" id="discounts" value="0" name="discounts">
+                <input type="hidden" id="total_amount" name="total_amount" value="{{ $totalQuantity }}">
 
+            </form>
         </section>
+        <script>
+          function MethodPayment(x){
+             if(x.value == 0){
+               document.getElementById('paypal-button').style.display = 'block';
+             }else{
+                document.getElementById('paypal-button').style.display = 'none';
 
+             }
+          }
+        </script>
+        <script>
+            document.getElementById('noteBook').addEventListener('input',function(){
+              document.getElementById('booknotes').value = document.getElementById('noteBook').value;
+            })
+        </script>
         <script type="module">
             $('#payment').change(function() {
                 let payment = $(this).find(':selected').val();
@@ -356,8 +381,12 @@
         <script type="module">
             if ({{ $total }} < 20000000) {
                 $('#grand').val({{ $total + 50000 }})
+                $('#grands').val({{ $total + 50000 }});
+
             } else {
                 $('#grand').val({{ $total }})
+                $('#grands').val({{ $total }});
+
             }
             $('#btnCoupon').click(function() {
                 let value = $('#coupon').val();
@@ -381,10 +410,13 @@
                                     realPrice += 50000
                                     let pfs = realPrice += 50000;
                                     $('#grand').val(pfs);
+                                    $('#grands').val(pfs);
                                 } else {
                                     realPrice += 0
                                     let pfs = realPrice += 0;
                                     $('#grand').val(pfs);
+                                    $('#grands').val(pfs);
+
                                 }
                                 const formattedNumber = realPrice.toLocaleString('vi-VN');
                                 const formattedNumbers = realPricee.toLocaleString('vi-VN');
@@ -479,6 +511,7 @@
                     success: function(data) {
                         if (data) {
                             $('#customer_id').val(data.id);
+                            $('#customer_ids').val(data.id);
                             $('#name').prop('disabled', true);
                             $('#address').prop('disabled', true);
                             $('#district').prop('disabled', true);
