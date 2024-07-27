@@ -545,7 +545,7 @@
 
         </div>
     </footer>
-
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
     <script src="{{ asset('js/vendor/jquery.js') }}"></script>
     <script src="{{ asset('js/vendor/waypoints.js') }}"></script>
     <script src="{{ asset('js/bootstrap-bundle.js') }}"></script>
@@ -570,6 +570,46 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
+<script>
+    paypal.Button.render({
+
+      env: 'sandbox',
+      client: {
+        sandbox: 'AbEBnkVtE3hVV5iVWEbYSksAnwZ4fECZvbX9J9zNXE0qdjAwp06as4n2AXiGJjtnk1SlTrCWd7ay0FZW',
+        production: 'demo_production_client_id'
+      },
+
+      locale: 'en_US',
+      style: {
+        size: 'small',
+        color: 'gold',
+        shape: 'pill',
+      },
+
+
+      commit: true,
+
+
+      payment: function(data, actions) {
+        return actions.payment.create({
+          transactions: [{
+            amount: {
+              total: '0.01',
+              currency: 'USD'
+            }
+          }]
+        });
+      },
+
+      onAuthorize: function(data, actions) {
+        return actions.payment.execute().then(function() {
+
+          window.alert('Thank you for your purchase!');
+        });
+      }
+    }, '#paypal-button');
+
+  </script>
 <script type="text/javascript">
     $(document).ready(function() {
         function debounce(func, wait) {

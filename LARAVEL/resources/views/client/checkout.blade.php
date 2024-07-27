@@ -267,6 +267,7 @@
                                         <option value="1">VNPAY PAYMENT</option>
                                         <option value="2">MOMO PAYMENT</option>
                                     </select>
+                                    <div id="paypal-button" class="mt-4"></div>
                                 </div>
                                 <div>
 
