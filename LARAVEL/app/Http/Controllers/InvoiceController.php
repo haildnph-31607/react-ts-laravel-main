@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\VNPayController;
 use App\Http\Controllers\MomoController;
+use App\Models\Variant;
 use App\Providers\MomoService;
 
 class InvoiceController extends Controller
@@ -51,6 +52,14 @@ class InvoiceController extends Controller
         if ($data['paymentMethod'] == 0) {
             $cart = Cart::where('id_user', $data['id_user'])->get();
             foreach ($cart as $item) {
+                $variant = Variant::where('id_product', $item->id_product)->where('variant', $item->variant)->where('classify', $item->classify)->first();
+                if ($variant) {
+                    $quantity = $variant->quantity - $item->quantity;
+                    $variant->quantity = $quantity;
+                    $variant->save();
+                }
+            }
+            foreach ($cart as $item) {
                 $Order = new OrderDetail();
                 $Order->name = $item['name'];
                 $Order->variant = $item['variant'];
@@ -72,14 +81,14 @@ class InvoiceController extends Controller
 
         $data = $request->all();
         // dd($data);
-        if (isset($data['paymentMethod']) && $data['paymentMethod'] == 1) {
+        if ($data['paymentMethod'] == 1) {
             $vnp_TxnRef = rand(1, 10000);
             $this->handleStore($data, $vnp_TxnRef);
 
             $language = 'vn';
             $vnp_IpAddr = $request->ip();
             $amount = $data['grand'];
-            $paymentUrl = $this->vnpayService->VNpay_Payment($amount, $language, $vnp_IpAddr, $vnp_TxnRef,);
+            return $this->vnpayService->VNpay_Payment($amount, $language, $vnp_IpAddr, $vnp_TxnRef,);
         } else if ($data['paymentMethod'] == 2) {
             $randDomOrder = rand(1, 10000);
             $amounts = $data['grand'];
@@ -108,5 +117,23 @@ class InvoiceController extends Controller
             DestroyCart::dispatch($id);
             return redirect()->route('thank');
         }
+    }
+    public function index()
+    {
+        $order = Invoice::all();
+        return view('admin.order.index', compact('order'));
+    }
+    public function show($id)
+    {
+        $detail = OrderDetail::where('id_invoices', $id)->get();
+        return view('admin.order.detail', compact('detail'));
+    }
+    public function update(Request $request){
+             $data = $request->all();
+             $status = $data['status'];
+             $id = $data['id'];
+             $invoice = Invoice::find($id);
+             $invoice->status = $status;
+             $invoice->save();
     }
 }

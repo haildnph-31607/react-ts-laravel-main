@@ -166,6 +166,11 @@
                         <div class="progress-rate">
                             <span>Brand : {{$item->category->name}}</span>
                         </div>
+                        <div class="payment">
+                            <img src="{{asset('logo/momo.png')}}" alt="" width="68px">
+                            <img src="{{asset('logo/paypal.jpg')}}" alt="" width="68px">
+                            <img src="{{asset('logo/vnpay.jpg')}}" alt="" width="68px">
+                        </div>
                     </div>
                     <div class="product__add-cart text-center">
                         <button type="button" class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100">
@@ -194,25 +199,25 @@
                 <div class="col-xl-6 col-lg-6 col-md-12">
                     <div class="banner__item p-relative w-img mb-30">
                         <div class="banner__img">
-                            <a href="{{route('detail-product',1)}}"><img src="{{asset('area/banner-4.jpg')}}" alt=""></a>
+                            <a href="{{route('detail-product',1)}}"><img src="{{asset('banner/bannerVnpay.png')}}" height="100px"  alt=""></a>
                         </div>
-                        <div class="banner__content">
+                        {{-- <div class="banner__content">
                             <span>Bestseller Products</span>
                             <h6><a href="{{route('detail-product',1)}}">PC & Docking Station</a></h6>
                             <p>Discount 20% Off, Top Quality Products</p>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
-                <div class="col-xl-6 col-lg-6 col-md-12">
+                <div class="col-xl-6 col-lg-6 col-md-12" >
                     <div class="banner__item p-relative mb-30 w-img">
                         <div class="banner__img">
-                            <a href="{{route('detail-product',1)}}"><img src="{{asset('area/banner-5.jpg')}}" alt=""></a>
+                            <a  href="{{route('detail-product',1)}}"><img src="{{asset('banner/paypal.jpg')}}" alt="" height="100px" ></a>
                         </div>
-                        <div class="banner__content">
+                        {{-- <div class="banner__content">
                             <span>Featured Products</span>
                             <h6><a href="{{route('detail-product',1)}}">Accessories iPhone</a></h6>
                             <p>Free Shipping All Order Over $99</p>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -279,12 +284,18 @@
                                         <div class="price">
                                             <span> {{ number_format($item->price, 0, ',', '.')  }} VNĐ</span>
                                         </div>
+                                        <div class="payment">
+                                            <img src="{{asset('logo/momo.png')}}" alt="" width="68px">
+                                            <img src="{{asset('logo/paypal.jpg')}}" alt="" width="68px">
+                                            <img src="{{asset('logo/vnpay.jpg')}}" alt="" width="68px">
+                                        </div>
                                     </div>
                                     <div class="product__add-cart text-center">
                                         <button type="button" class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100">
                                       <a href="{{route('detail-product',$item->id)}}">View To Product</a>
                                         </button>
                                     </div>
+
                                 </div>
                                    @endforeach
 

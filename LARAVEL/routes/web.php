@@ -44,6 +44,7 @@ Route::middleware('checkRoles')->prefix('admin')->group(function () {
     Route::resource('sale', SaleController::class);
     Route::resource('variant', VariantController::class);
     Route::resource('banner', BannerController::class);
+    Route::resource('order', InvoiceController::class);
 });
 //CART
 Route::get('/add-to-cart',[CartController::class,'addToCart'])->name('carts');
@@ -98,6 +99,4 @@ Route::post('email/resend', [App\Http\Controllers\Auth\VerificationController::c
 
 Route::get('/home', [App\Http\Controllers\IndexController::class, 'index'])->name('home');
 //Momo
-// Route::post('momo/payment', [MoMoController::class, 'createPayment'])->name('momo.payment.create');
-// Route::get('momo/return', [MoMoController::class, 'return'])->name('momo.return');
-// Route::post('momo/notify', [MoMoController::class, 'notify'])->name('momo.notify');
+Route::post('/update-status-order',[InvoiceController::class,'update'])->name('statusOrder');

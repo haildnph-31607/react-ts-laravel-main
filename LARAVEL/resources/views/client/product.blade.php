@@ -31,52 +31,9 @@
                             <form action="#">
                                 <div class="single-widget-category">
                                     <input type="checkbox" id="cat-item-1" name="cat-item">
-                                    <label for="cat-item-1">Clothing &amp; Apparel <span>(12)</span></label>
+                                    <label for="cat-item-1">Iphone <span>(12)</span></label>
                                 </div>
-                                <div class="single-widget-category">
-                                    <input type="checkbox" id="cat-item-2" name="cat-item">
-                                    <label for="cat-item-2">Consumer Electrics <span>(60)</span></label>
-                                </div>
-                                <div class="single-widget-category">
-                                    <input type="checkbox" id="cat-item-3" name="cat-item">
-                                    <label for="cat-item-3">Computers &amp; Technologies <span>(41)</span></label>
-                                </div>
-                                <div class="single-widget-category">
-                                    <input type="checkbox" id="cat-item-4" name="cat-item">
-                                    <label for="cat-item-4">Phones &amp; Accessories <span>(28)</span></label>
-                                </div>
-                                <div class="single-widget-category">
-                                    <input type="checkbox" id="cat-item-5" name="cat-item">
-                                    <label for="cat-item-5">Babies &amp; Moms <span>(21)</span></label>
-                                </div>
-                                <div class="single-widget-category">
-                                    <input type="checkbox" id="cat-item-7" name="cat-item">
-                                    <label for="cat-item-7">Books &amp; Office <span>(62)</span></label>
-                                </div>
-                                <div class="single-widget-category">
-                                    <input type="checkbox" id="cat-item-8" name="cat-item">
-                                    <label for="cat-item-8">Sport &amp; Outdoo <span>(22)</span></label>
-                                </div>
-                                <div class="single-widget-category">
-                                    <input type="checkbox" id="cat-item-9" name="cat-item">
-                                    <label for="cat-item-9">Chairs &amp; Stools <span>(20)</span></label>
-                                </div>
-                                <div class="single-widget-category">
-                                    <input type="checkbox" id="cat-item-10" name="cat-item">
-                                    <label for="cat-item-10">Furniture &amp; Acessories <span>(06)</span></label>
-                                </div>
-                                <div class="single-widget-category">
-                                    <input type="checkbox" id="cat-item-11" name="cat-item">
-                                    <label for="cat-item-11">Kitchen &amp; Tableware <span>(30)</span></label>
-                                </div>
-                                <div class="single-widget-category">
-                                    <input type="checkbox" id="cat-item-12" name="cat-item">
-                                    <label for="cat-item-12">Lighting <span>(30)</span></label>
-                                </div>
-                                <div class="single-widget-category">
-                                    <input type="checkbox" id="cat-item-13" name="cat-item">
-                                    <label for="cat-item-13">Armchairs &amp; Chaises <span>(30)</span></label>
-                                </div>
+
                             </form>
                         </div>
                     </div>
@@ -123,130 +80,24 @@
                             </ul>
                       </div>
                     </div>
-                    <div class="product-widget mb-30">
-                        <h5 class="pt-title">Choose Rating</h5>
-                        <div class="widget-category-list mt-20">
-                            <form action="#">
-                                <div class="single-widget-rating">
-                                    <input type="checkbox" id="star-item-1" name="star-item">
-                                    <label for="star-item-1">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <span>(54)</span>
-                                    </label>
-                                </div>
-                                <div class="single-widget-rating">
-                                    <input type="checkbox" id="star-item-2" name="star-item">
-                                    <label for="star-item-2">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fal fa-star"></i>
-                                        <span>(37)</span>
-                                    </label>
-                                </div>
-                                <div class="single-widget-rating">
-                                    <input type="checkbox" id="star-item-3" name="star-item">
-                                    <label for="star-item-3">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fal fa-star"></i>
-                                        <i class="fal fa-star"></i>
-                                        <span>(7)</span>
-                                    </label>
-                                </div>
-                                <div class="single-widget-rating">
-                                    <input type="checkbox" id="star-item-4" name="star-item">
-                                    <label for="star-item-4">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fal fa-star"></i>
-                                        <i class="fal fa-star"></i>
-                                        <i class="fal fa-star"></i>
-                                        <span>(5)</span>
-                                    </label>
-                                </div>
-                                <div class="single-widget-rating">
-                                    <input type="checkbox" id="star-item-5" name="star-item">
-                                    <label for="star-item-5">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fal fa-star"></i>
-                                        <i class="fal fa-star"></i>
-                                        <i class="fal fa-star"></i>
-                                        <i class="fal fa-star"></i>
-                                        <span>(3)</span>
-                                    </label>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+
                     <div class="product-widget mb-30">
                         <h5 class="pt-title">Choose Size</h5>
                         <div class="widget-category-list mt-20">
                             <form action="#">
                                 <div class="single-widget-category">
                                     <input type="checkbox" id="choose-item-1" name="choose-item">
-                                    <label for="choose-item-1">S <span>(12)</span></label>
+                                    <label for="choose-item-1">64G <span>(12)</span></label>
                                 </div>
                                 <div class="single-widget-category">
                                     <input type="checkbox" id="choose-item-2" name="choose-item">
-                                    <label for="choose-item-2">L <span>(60)</span></label>
+                                    <label for="choose-item-2">128G <span>(60)</span></label>
                                 </div>
-                                <div class="single-widget-category">
-                                    <input type="checkbox" id="choose-item-3" name="choose-item">
-                                    <label for="choose-item-3">M <span>(41)</span></label>
-                                </div>
-                                <div class="single-widget-category">
-                                    <input type="checkbox" id="choose-item-4" name="choose-item">
-                                    <label for="choose-item-4">XXL <span>(28)</span></label>
-                                </div>
-                                <div class="single-widget-category">
-                                    <input type="checkbox" id="choose-item-5" name="choose-item">
-                                    <label for="choose-item-5">2XL <span>(21)</span></label>
-                                </div>
-                                <div class="single-widget-category">
-                                    <input type="checkbox" id="choose-item-7" name="choose-item">
-                                    <label for="choose-item-7">3XL <span>(62)</span></label>
-                                </div>
+
                             </form>
                         </div>
                     </div>
-                    <div class="product-widget mb-30">
-                        <h5 class="pt-title">Choose Brand</h5>
-                        <div class="widget-category-list mt-20">
-                            <form action="#">
-                                <div class="single-widget-category">
-                                    <input type="checkbox" id="brand-item-1" name="brand-item">
-                                    <label for="brand-item-1">CarRentals <span>(12)</span></label>
-                                </div>
-                                <div class="single-widget-category">
-                                    <input type="checkbox" id="brand-item-2" name="brand-item">
-                                    <label for="brand-item-2">CarVoodoo <span>(60)</span></label>
-                                </div>
-                                <div class="single-widget-category">
-                                    <input type="checkbox" id="brand-item-3" name="brand-item">
-                                    <label for="brand-item-3">Creative <span>(41)</span></label>
-                                </div>
-                                <div class="single-widget-category">
-                                    <input type="checkbox" id="brand-item-4" name="brand-item">
-                                    <label for="brand-item-4">Impact <span>(28)</span></label>
-                                </div>
-                                <div class="single-widget-category">
-                                    <input type="checkbox" id="brand-item-5" name="brand-item">
-                                    <label for="brand-item-5">IQVia <span>(21)</span></label>
-                                </div>
-                                <div class="single-widget-category">
-                                    <input type="checkbox" id="brand-item-7" name="brand-item">
-                                    <label for="brand-item-7">LeadsGreen <span>(62)</span></label>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+
                     <div class="product-widget mb-30">
                         <h5 class="pt-title">Special Offers</h5>
                         <div class="product__sm mt-20">

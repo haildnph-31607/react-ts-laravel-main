@@ -9,13 +9,14 @@ use App\Models\Cart;
 use App\Models\Customer;
 use App\Models\Invoice;
 use App\Models\OrderDetail;
+use App\Models\Variant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class VNPayController extends Controller
 {
-    public function VNpay_Payment($amount, $language, $vnp_IpAddr,$vnp_TxnRef)
+    public function VNpay_Payment($amount, $language, $vnp_IpAddr, $vnp_TxnRef)
     {
         $vnp_TmnCode = "5RWJ4H0U"; //Mã định danh merchant kết nối (Terminal Id)
         $vnp_HashSecret = "USPLQVHYKRYZBLWMZQEKXHXNLVNNSQZB"; //Secret key
@@ -90,7 +91,14 @@ class VNPayController extends Controller
                 $dataTotal = $data['vnp_Amount'];
                 $id = $dataInvoice->id_user;
                 $dataCart = $dataCarts->all();
-
+                foreach ($dataCart as $item) {
+                    $variant = Variant::where('id_product', $item->id_product)->where('variant', $item->variant)->where('classify', $item->classify)->first();
+                    if ($variant) {
+                        $quantity = $variant->quantity - $item->quantity;
+                        $variant->quantity = $quantity;
+                        $variant->save();
+                    }
+                }
                 foreach ($dataCart as $item) {
                     $order_detail = new OrderDetail();
                     $order_detail->name = $item->name;

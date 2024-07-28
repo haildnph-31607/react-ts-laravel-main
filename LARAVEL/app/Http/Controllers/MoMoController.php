@@ -9,6 +9,7 @@ use App\Models\Cart;
 use App\Models\Customer;
 use App\Models\Invoice;
 use App\Models\OrderDetail;
+use App\Models\Variant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -99,6 +100,14 @@ class MoMoController extends Controller
             //
             $id = $dataInvoice->id_user;
             $dataCart = $dataCarts->all();
+            foreach ($dataCart as $item) {
+                $variant = Variant::where('id_product', $item->id_product)->where('variant', $item->variant)->where('classify', $item->classify)->first();
+                if ($variant) {
+                    $quantity = $variant->quantity - $item->quantity;
+                    $variant->quantity = $quantity;
+                    $variant->save();
+                }
+            }
             for ($i = 0; $i < count($dataCart); $i++) {
 
                 $order_detail = new OrderDetail();
