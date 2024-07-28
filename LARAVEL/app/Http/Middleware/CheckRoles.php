@@ -16,13 +16,37 @@ class CheckRoles
      */
     public function handle(Request $request, Closure $next): Response
     {
-       if(!Auth::check()){
-          return redirect()->route('login');
-       }
-       if(Auth::user()->role->name != 'ADMIN'){
-        return redirect()->route('index');
+        $AuthriazationStaff = [
+            'admin',
+            'product.index',
+            'product.create',
+            'product.store',
+            'product.edit',
+            'product.update',
+            'product.destroy',
+            'category.index',
+            'category.create',
+            'category.store',
+            'category.edit',
+            'category.update',
+            'category.destroy',
+            'order.index',
+        ];
+        $user = Auth::user();
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+        if ($user->id_roles == 1) {
+            return $next($request);
+        }
+        if ($user->id_roles == 2) {
+            if (in_array($request->route()->getName(), $AuthriazationStaff)) {
+                return $next($request);
+            }else{
+                abort(403,'Bạn Không Đủ Thầm Quyền | Liên Hệ ADMIN NGOCHAI Để Được Cấp Quyền ');
+            }
+        }
+        abort(403,'Bạn Không Đủ Thầm Quyền | Liên Hệ ADMIN NGOCHAI Để Được Cấp Quyền ');
 
-       }
-       return $next($request);
     }
 }
