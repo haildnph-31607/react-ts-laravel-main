@@ -15,17 +15,27 @@
                 <tr>
                     <th>#</th>
                     <th>Name</th>
-
+                    <th>Slug</th>
+                    <th>Image</th>
+                    <th>Parent Category</th>
                     <th>Option</th>
                 </tr>
                 </thead>
-
-
                 <tbody>
               @foreach ($category as $key => $item)
               <tr>
                 <td>{{$key + 1}}</td>
                 <td>{{$item->name}}</td>
+                <td>{{$item->slug}}</td>
+                <td>
+                    <img src="{{asset('uploads/category/'.$item->image)}}" alt="" width="100px">
+                </td>
+                <td>@if($item->parent_id == null)
+                    Không có danh mục cha
+                    @else
+                 {{$item->parent->name}}
+                    @endif
+                </td>
                 <td><a href="javascript:void(0);"
                      onclick="event.preventDefault();
                      if(confirm('Are you sure?')) { document.getElementById('delete-form-{{ $item->id }}').submit(); }" class="btn btn-danger"><ion-icon name="trash-outline"></ion-icon></a>

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->unsignedBigInteger('id_roles');
 
-            // Thêm khóa ngoại cho id_role
+
             $table->foreign('id_roles')->references('id')->on('roles')
                   ->onDelete('cascade');
 

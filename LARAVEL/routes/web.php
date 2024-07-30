@@ -34,7 +34,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::get('/detail-product/{id}', [IndexController::class, 'show'])->name('detail-product');
 
-Route::middleware('checkRoles')->prefix('admin')->group(function () {
+ Route::middleware('checkRoles')->prefix('admin')->group(function () { //
     Route::get('/', [AdminController::class, 'index'])->name('admin');
     Route::resource('product', ProductController::class);
     Route::resource('category', CategoryController::class);
