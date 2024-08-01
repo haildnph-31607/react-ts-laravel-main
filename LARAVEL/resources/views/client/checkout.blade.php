@@ -357,6 +357,48 @@
 
             </form>
         </section>
+        <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+        <script>
+            paypal.Button.render({
+
+              env: 'sandbox',
+              client: {
+                sandbox: 'AbEBnkVtE3hVV5iVWEbYSksAnwZ4fECZvbX9J9zNXE0qdjAwp06as4n2AXiGJjtnk1SlTrCWd7ay0FZW',
+                production: 'demo_production_client_id'
+              },
+
+              locale: 'en_US',
+              style: {
+                size: 'small',
+                color: 'gold',
+                shape: 'pill',
+              },
+
+
+              commit: true,
+
+
+              payment: function(data, actions) {
+                return actions.payment.create({
+                  transactions: [{
+                    amount: {
+                      total: '0.01',
+                      currency: 'USD'
+                    }
+                  }]
+                });
+              },
+
+              onAuthorize: function(data, actions) {
+                return actions.payment.execute().then(function() {
+
+                //   window.alert('Thank you for your purchase!');
+                document.getElementById('handleSubmitForm').submit();
+                });
+              }
+            }, '#paypal-button');
+
+        </script>
         <script>
           function MethodPayment(x){
              if(x.value == 0){

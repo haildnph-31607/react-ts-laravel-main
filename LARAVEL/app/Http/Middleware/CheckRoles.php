@@ -31,6 +31,7 @@ class CheckRoles
             'category.update',
             'category.destroy',
             'order.index',
+
         ];
         $user = Auth::user();
         if (!Auth::check()) {

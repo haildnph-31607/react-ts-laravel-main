@@ -11,7 +11,7 @@
 
                 <div class="form-group">
                     <label for="exampleInputName1">Name Category</label>
-                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="exampleInputName1" placeholder="Name" value="{{ $data->name , old('name') }}">
+                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="exampleInputName1" placeholder="Name" value="{{old( $data->name  ,'name') }}">
                     @error('name')
                         <div class="invalid-feedback">
                             {{$message}}
