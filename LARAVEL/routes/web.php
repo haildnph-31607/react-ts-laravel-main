@@ -47,14 +47,11 @@ Route::middleware('checkRoles')->prefix('admin')->group(function () { //
     Route::resource('order', InvoiceController::class);
 });
 //CART
-<<<<<<< HEAD
 Route::get('/print-order/',[InvoiceController::class,'print'])->name('print');
 Route::get('/add-to-cart',[CartController::class,'addToCart'])->name('carts');
 Route::get('/cart/{id}',[CartController::class,'Cart'])->name('cart');
-=======
 Route::get('/add-to-cart', [CartController::class, 'addToCart'])->name('carts');
 Route::get('/cart/{id}', [CartController::class, 'Cart'])->name('cart');
->>>>>>> 28ac44b2c662ec8b881244622f87cf115552499b
 Route::get('/delete-cart', [CartController::class, 'deleteCart'])->name('deleteCarts');
 Route::get('/update-cart', [CartController::class, 'updateCart'])->name('updateCart');
 Route::get('/update-quantity-cart', [CartController::class, 'quantityCart'])->name('quantityCart');

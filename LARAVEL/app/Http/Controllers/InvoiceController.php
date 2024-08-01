@@ -75,6 +75,13 @@ class InvoiceController extends Controller
 
         return $invoices->id;
     }
+    public function print(){
+        $id = $_GET['orderId'];
+     $data = Invoice::findOrFail($id);
+     if($data){
+        return $data;
+     }
+    }
 
     public function store(Request $request)
     {
@@ -82,8 +89,8 @@ class InvoiceController extends Controller
         $data = $request->all();
         // dd($data);
         if ($data['paymentMethod'] == 1) {
-            $vnp_TxnRef = rand(1, 10000);
-            $this->handleStore($data, $vnp_TxnRef);
+            $vnp_TxnRef = rand(1,10000000);
+            $this->handleStore($data,$vnp_TxnRef);
 
             $language = 'vn';
             $vnp_IpAddr = $request->ip();

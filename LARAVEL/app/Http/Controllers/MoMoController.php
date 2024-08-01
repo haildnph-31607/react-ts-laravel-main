@@ -79,6 +79,7 @@ class MoMoController extends Controller
 
         $result = $this->execPostRequest($endpoint, json_encode($data));
         $jsonResult = json_decode($result, true);
+        dd($jsonResult);
         return redirect($jsonResult['payUrl']);
     }
     public function handleReturn(Request $request)
@@ -86,7 +87,7 @@ class MoMoController extends Controller
         $data = $request->all();
         $value = $data['orderId'];
         if ($data['resultCode'] == "0") {
-            // dd($value);
+
             $dataInvoice = Invoice::where('invoice_number', $value)->first();
             //  dd($dataInvoice);
             $dataInvoice->status = 1;

@@ -23,6 +23,7 @@
                             <th>Payment Method</th>
                             <th>Order Detail</th>
                             <th>Note</th>
+                            <th>Option</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,6 +61,9 @@
                                 <td><a href="{{ route('order.show', $item->id) }}" class="btn btn-primary">Order Detail</a>
                                 </td>
                                 <td>{{ $item->notes }}</td>
+                                <td>
+                                    <button data-id="{{$item->id}}" class="btn btn-secondary" id="prints">In Hoá Đơn</button>
+                                </td>
 
 
                             </tr>
@@ -71,7 +75,7 @@
         </div>
         <script type="module">
             let nodeChangeStatus = document.querySelectorAll('#ChangeStatus');
-            //    console.log(node);
+
             for (let i = 0; i < nodeChangeStatus.length; i++) {
                 nodeChangeStatus[i].addEventListener('change', function() {
                     let id = nodeChangeStatus[i].dataset.id;
@@ -96,5 +100,56 @@
 
             }
         </script>
+
+        <script>
+
+
+
+            let nodes = document.querySelectorAll('#prints');
+            for (const btn of nodes) {
+              btn.addEventListener('click',()=>{
+                let orderId = btn.dataset.id;
+                printInvoice(orderId);
+              })
+            }
+
+            function printInvoice(orderId) {
+
+                $.ajax({
+                    url: `{{route('print')}}`,
+                    method: 'GET',
+                    data:{
+                        orderId
+                    },
+                    success: function(response) {
+
+                        console.log('In hóa đơn cho đơn hàng:', orderId);
+
+                        actualPrintInvoice(response);
+                    },
+                    error: function(error) {
+                        console.error('Lỗi khi in hóa đơn:', error);
+                    }
+                });
+            }
+
+            function actualPrintInvoice(invoiceData) {
+
+                var printWindow = window.open('', '', 'height=400,width=800');
+                printWindow.document.write(`<html><head><title>Hóa Đơn #${invoiceData.invoice_number}</title>`);
+                printWindow.document.write('</head><body >');
+                printWindow.document.write('<h1>Hóa Đơn</h1>');
+                printWindow.document.write('<p>Mã Đơn Hàng: MHD ' + invoiceData.invoice_number  + '</p>');
+                printWindow.document.write('<p>Tên Khách Hàng: ' + 'Lê Đức Ngọc Hải' + '</p>');
+                printWindow.document.write('<p>Ngày Đặt Hàng: ' + invoiceData.invoice_date + '</p>');
+                printWindow.document.write('<p>Tổng Số Lượng: ' + invoiceData.grand_total + ' Hàng Hoá</p>');
+                printWindow.document.write('<p>Phương Thức Thanh Toán : ' + invoiceData.payment_method + '</p>');
+                printWindow.document.write('<p>Tổng Tiền : ' + invoiceData.total_amount + '</p>');
+                printWindow.document.write('</body></html>');
+                printWindow.document.close();
+                printWindow.print();
+            }
+        </script>
+
     </div>
 @endsection
