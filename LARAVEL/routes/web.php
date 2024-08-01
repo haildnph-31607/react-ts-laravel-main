@@ -47,6 +47,7 @@ Route::get('/detail-product/{id}', [IndexController::class, 'show'])->name('deta
     Route::resource('order', InvoiceController::class);
 });
 //CART
+Route::get('/print-order/',[InvoiceController::class,'print'])->name('print');
 Route::get('/add-to-cart',[CartController::class,'addToCart'])->name('carts');
 Route::get('/cart/{id}',[CartController::class,'Cart'])->name('cart');
 Route::get('/delete-cart', [CartController::class, 'deleteCart'])->name('deleteCarts');
