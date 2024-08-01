@@ -29,6 +29,11 @@ class ProductController extends Controller
         File::put($path . "compare.json", json_encode($product));
         return view('admin.product.index', compact('product'));
     }
+    public function getData()
+    {
+        $product = Product::with('category')->where('status', 0)->get();
+        return $product;
+    }
 
     /**
      * Show the form for creating a new resource.

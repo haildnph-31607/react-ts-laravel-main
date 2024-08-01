@@ -34,7 +34,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::get('/detail-product/{id}', [IndexController::class, 'show'])->name('detail-product');
 
- Route::middleware('checkRoles')->prefix('admin')->group(function () { //
+Route::middleware('checkRoles')->prefix('admin')->group(function () { //
     Route::get('/', [AdminController::class, 'index'])->name('admin');
     Route::resource('product', ProductController::class);
     Route::resource('category', CategoryController::class);
@@ -47,8 +47,8 @@ Route::get('/detail-product/{id}', [IndexController::class, 'show'])->name('deta
     Route::resource('order', InvoiceController::class);
 });
 //CART
-Route::get('/add-to-cart',[CartController::class,'addToCart'])->name('carts');
-Route::get('/cart/{id}',[CartController::class,'Cart'])->name('cart');
+Route::get('/add-to-cart', [CartController::class, 'addToCart'])->name('carts');
+Route::get('/cart/{id}', [CartController::class, 'Cart'])->name('cart');
 Route::get('/delete-cart', [CartController::class, 'deleteCart'])->name('deleteCarts');
 Route::get('/update-cart', [CartController::class, 'updateCart'])->name('updateCart');
 Route::get('/update-quantity-cart', [CartController::class, 'quantityCart'])->name('quantityCart');
@@ -57,24 +57,24 @@ Route::get('/check-cart', [CartController::class, 'checkCart'])->name('checkCart
 Route::get('/check-cart-2', [CartController::class, 'checkCartDetail'])->name('checkCartDetail');
 
 // Checkout
-Route::get('/checkout/{id}',[CheckoutController::class,'Checkout'])->name('checkout');
+Route::get('/checkout/{id}', [CheckoutController::class, 'Checkout'])->name('checkout');
 //coupon
-Route::get('check-coupon',[CouponController::class,'CheckCoupon'])->name('CheckCoupon');
+Route::get('check-coupon', [CouponController::class, 'CheckCoupon'])->name('CheckCoupon');
 //customer
 // Route::post('add-customer',[IndexController::class,'AddCustomer'])->name('AddCustomer');
-Route::post('customer',[IndexController::class,'AddCustomer'])->name('Customers');
-Route::post('update-customer',[IndexController::class,'UpdateCustomer'])->name('UpdateCustomer');
-Route::post('get-customer',[IndexController::class,'getCustomer'])->name('getCustomer');
+Route::post('customer', [IndexController::class, 'AddCustomer'])->name('Customers');
+Route::post('update-customer', [IndexController::class, 'UpdateCustomer'])->name('UpdateCustomer');
+Route::post('get-customer', [IndexController::class, 'getCustomer'])->name('getCustomer');
 //invoice
-Route::post('add-invoice',[InvoiceController::class,'store'])->name('addInvoice');
+Route::post('add-invoice', [InvoiceController::class, 'store'])->name('addInvoice');
 Route::match(['get', 'post'], 'checkout-fatal/{id}', [MoMoController::class, 'handleReturn']);
 Route::match(['get', 'post'], 'checkout-fatal-vnpay/{id}', [VNPayController::class, 'handleReturn']);
 //product
-Route::get('/shop-product',[IndexController::class,'ProductAll'])->name('productall');
-Route::post('/search-product',[IndexController::class,'seachFullText'])->name('search-product');
+Route::get('/shop-product', [IndexController::class, 'ProductAll'])->name('productall');
+Route::post('/search-product', [IndexController::class, 'seachFullText'])->name('search-product');
 //thank
-Route::get('/thankyou',function(){
-return view('client.thank');
+Route::get('/thankyou', function () {
+    return view('client.thank');
 })->name('thank');
 
 Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
@@ -99,4 +99,4 @@ Route::post('email/resend', [App\Http\Controllers\Auth\VerificationController::c
 
 Route::get('/home', [App\Http\Controllers\IndexController::class, 'index'])->name('home');
 //Momo
-Route::post('/update-status-order',[InvoiceController::class,'update'])->name('statusOrder');
+Route::post('/update-status-order', [InvoiceController::class, 'update'])->name('statusOrder');
