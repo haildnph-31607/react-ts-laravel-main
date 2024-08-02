@@ -6,7 +6,7 @@
             <div class="col-xl-12">
                 <div class="section__head d-flex justify-content-between mb-30">
                     <div class="section__title section__title-2">
-                        <h5 class="st-titile">{{$search}}</h5>
+                        <h5 class="st-titile">Tìm Kiếm Sản Phẩm</h5>
                     </div>
                     <div class="button-wrap button-wrap-2">
 
@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="row">
-            @foreach($product as $item)
+            @foreach($results as $item)
 
             <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-2">
                 <div class="product__item product__item-2 b-radius-2 mb-20">

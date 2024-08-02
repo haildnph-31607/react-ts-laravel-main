@@ -21,7 +21,12 @@
     <link href="{{ asset('dashboard/css/style.css') }}" rel="stylesheet" type="text/css" />
     <script src="{{ asset('dashboard/js/modernizr.min.js') }}"></script>
     <script src="https:////cdn.ckeditor.com/4.8.0/full-all/ckeditor.js"></script>
-    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script> --}}
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
     <style>
         li {
@@ -139,116 +144,6 @@
                                         <li><a href="{{ route('banner.index') }}">Banner List</a><span></span></li>
                                         <li><a href="{{ route('banner.create') }}">Banner Add</a> <span></span></li>
 
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    <a href="javascript: void(0);"><span> Charts </span>
-                                        <span class="menu-arrow"></span></a>
-                                    <ul class="nav-second-level" aria-expanded="false">
-                                        <li><a href="chart-flot.html">Flot Chart</a></li>
-                                        <li><a href="chart-morris.html">Morris Chart</a></li>
-
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    <a href="javascript: void(0);"><span
-                                            class="badge badge-warning  pull-right">10</span> <span> Forms </span></a>
-                                    <ul class="nav-second-level" aria-expanded="false">
-                                        <li><a href="form-elements.html">Form Elements</a></li>
-                                        <li><a href="form-advanced.html">Form Advanced</a></li>
-
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    <a href="javascript: void(0);"> Icons </span>
-                                        <span class="menu-arrow"></span></a>
-                                    <ul class="nav-second-level" aria-expanded="false">
-                                        <li><a href="icons-materialdesign.html">Material Design</a></li>
-                                        <li><a href="icons-dripicons.html">Dripicons</a></li>
-                                        <li><a href="">Font awesome</a></li>
-                                        <li><a href="icons-feather.html">Feather Icons</a></li>
-                                        <li><a href="icons-simpleline.html">Simple Line Icons</a></li>
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    <a href="javascript: void(0);"><span
-                                            class="badge badge-danger pull-right mr-4">5</span> <span> Tables </span>
-                                        <span class="menu-arrow"></span></a>
-                                    <ul class="nav-second-level" aria-expanded="false">
-                                        <li><a href="tables-basic.html">Basic Tables</a></li>
-
-                                    </ul>
-                                </li>
-
-
-                                <li class="menu-title">Pages</li>
-                                <li>
-                                    <a href="javascript: void(0);"> <span> Apps
-                                        </span> <span class="menu-arrow"></span></a>
-                                    <ul class="nav-second-level" aria-expanded="false">
-                                        <li><a href="apps-calendar.html">Calendar</a></li>
-
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="javascript: void(0);">User Pages </span>
-                                        <span class="menu-arrow"></span></a>
-                                    <ul class="nav-second-level" aria-expanded="false">
-                                        <li><a href="page-starter.html">Starter Page</a></li>
-
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="javascript: void(0);">Error Pages </span>
-                                        <span class="menu-arrow"></span></a>
-                                    <ul class="nav-second-level" aria-expanded="false">
-                                        <li><a href="page-404.html">Error 404</a></li>
-                                        <li><a href="page-500.html">Error 500</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="javascript: void(0);">General Pages </span>
-                                        <span class="menu-arrow"></span></a>
-                                    <ul class="nav-second-level" aria-expanded="false">
-                                        <li><a href="page-recoverpw.html">Recover Password</a></li>
-                                        <li><a href="page-lock-screen.html">Lock Screen</a></li>
-
-
-                                        <li><a href="page-confirm-mail.html">Confirm Mail</a></li>
-                                        <li><a href="extras-pricing.html">Pricing</a></li>
-                                        <li><a href="extras-gallery.html">Gallery</a></li>
-
-                                    </ul>
-                                </li>
-
-                                <li class="menu-title">More</li>
-
-                                <li>
-                                    <a href="javascript: void(0);"> Maps </span> <span class="menu-arrow"></span></a>
-                                    <ul class="nav-second-level" aria-expanded="false">
-                                        <li><a href="maps-google.html">Google Maps</a></li>
-
-                                    </ul>
-                                </li>
-
-
-
-                                <li>
-                                    <a href="javascript: void(0);"> Multi Level </span>
-                                        <span class="menu-arrow"></span></a>
-                                    <ul class="nav-second-level nav" aria-expanded="false">
-                                        <li><a href="javascript: void(0);">Level 1.1</a></li>
-                                        <li><a href="javascript: void(0);" aria-expanded="false">Level 1.2 <span
-                                                    class="menu-arrow"></span></a>
-                                            <ul class="nav-third-level nav" aria-expanded="false">
-                                                <li><a href="javascript: void(0);">Level 2.1</a></li>
-                                                <li><a href="javascript: void(0);">Level 2.2</a></li>
-                                            </ul>
-                                        </li>
                                     </ul>
                                 </li>
 
@@ -550,6 +445,7 @@
             </div>
         </div>
     </div>
+
     <script src="{{ asset('dashboard/js/jquery.min.js') }}"></script>
     <script src="{{ asset('dashboard/js/popper.min.js') }}"></script>
     <script src="{{ asset('dashboard/js/bootstrap.min.js') }}"></script>

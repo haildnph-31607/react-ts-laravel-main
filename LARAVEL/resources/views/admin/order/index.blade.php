@@ -135,7 +135,7 @@
 
             function actualPrintInvoice(invoiceData) {
 
-                var printWindow = window.open('', '', 'height=400,width=800');
+                var printWindow = window.open('', '', 'height=400,width=380');
                 printWindow.document.write(`<html><head><title>Hóa Đơn #${invoiceData.invoice_number}</title>`);
                 printWindow.document.write('</head><body >');
                 printWindow.document.write('<h1>Hóa Đơn</h1>');

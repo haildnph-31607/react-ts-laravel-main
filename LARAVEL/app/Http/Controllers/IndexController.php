@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Coupon;
@@ -28,6 +29,8 @@ class IndexController extends Controller
     //    $value= Session::get('Order');
     //     dd($value);
     //    dd(Session::get('OrderRand'));
+    $banner = Banner::all();
+
         $category = Category::all();
         $product = Product::where('status', 0)->get();
         $title = 'Trang Chủ';
@@ -37,9 +40,9 @@ class IndexController extends Controller
             $carts = Cart::where('id_user', Auth::user()->id)->get();
             $total = Cart::where('id_user', Auth::user()->id)->sum('total');
 
-            return view('client.home', compact('category', 'product', 'totalQuantity', 'carts', 'total', 'title'));
+            return view('client.home', compact('category', 'product', 'totalQuantity', 'carts', 'total', 'title','banner'));
         }
-        return view('client.home', compact('category', 'product', 'title'));
+        return view('client.home', compact('category', 'product', 'title','banner'));
     }
 
     public function show(string $id)
@@ -126,18 +129,36 @@ class IndexController extends Controller
     public function seachFullText(Request $request)
     {
         $data = $request->all();
-        $search = $data['search-full-text'];
-        $title = 'Tìm Kiếm :' . $search;
+
+        if($data['search-full-text'] != null){
+            $search = $data['search-full-text'];
+            $products = Product::all();
+            $results = [];
+
+            foreach ($products as $product) {
+                if (stripos($product->name, $search) !== false) {
+                    $results[] = $product;
+                }
+            }
+            // return $results;
+        }
+        if($data['category'] != null){
+            $results = Product::where('id_category',$data['category'])->get();
+            // return $results;
+        }
+        $title = 'Tìm Kiếm';
         $category = Category::all();
-        $product = Product::where('name', 'like', "%$search%")->get();
+
+
+
         if (Auth::user()) {
             $totalQuantity = Cart::where('id_user', Auth::user()->id)->sum('quantity');
             $carts = Cart::where('id_user', Auth::user()->id)->get();
             $total = Cart::where('id_user', Auth::user()->id)->sum('total');
 
-            return view('client.seach', compact('category', 'product', 'totalQuantity', 'carts', 'total', 'title', 'search'));
+            return view('client.seach', compact('category', 'totalQuantity', 'carts', 'total', 'title', 'results'));
         }
-        return view('client.seach', compact('product', 'data', 'title', 'category', 'search'));
+        return view('client.seach', compact( 'data', 'title', 'category', 'results'));
         // dd($product);
     }
 }

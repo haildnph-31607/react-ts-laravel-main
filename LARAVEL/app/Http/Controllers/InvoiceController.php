@@ -42,6 +42,7 @@ class InvoiceController extends Controller
         $invoices->total_amount = $data['total_amount'];
         $invoices->discount = $data['discounts'];
         $invoices->grand_total = $data['grand'];
+        $invoices->status = 1;
         if ($data['paymentMethod'] == 0) {
             $invoices->payment_method = 'Thanh toán qua Paypal';
         }
